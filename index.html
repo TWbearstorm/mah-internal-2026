@@ -4,2232 +4,1048 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multimedia Analytics Hub | Thoughtworks</title>
-    
-    <!-- Thoughtworks Brand Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <script>
-        // Thoughtworks Brand Color Palette (from official brand guidelines)
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'tw-wave': '#003D4F',
-                        'tw-flamingo': '#F2617A',
-                        'tw-mist': '#EDF1F3',
-                        'tw-onyx': '#000000',
-                        'tw-talc': '#FFFFFF',
-                        'tw-turmeric': '#CC850A',
-                        'tw-jade': '#6B9E78',
-                        'tw-sapphire': '#47A1AD',
-                        'tw-amethyst': '#634F7D'
-                    },
-                    fontFamily: {
-                        'bitter': ['Bitter', 'serif'],
-                        'inter': ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <style>
-        /* Thoughtworks Typography System */
-        body { 
-            font-family: 'Inter', sans-serif; 
-            font-weight: 400;
-            background-color: #EDF1F3;
+        :root {
+            --tw-wave: #003D4F;
+            --tw-flamingo: #F2617A;
+            --tw-mist: #EDF1F3;
+            --tw-talc: #FFFFFF;
+            --tw-onyx: #000000;
+            --tw-turmeric: #CC850A;
+            --tw-jade: #6B9E78;
+            --tw-sapphire: #47A1AD;
+            --tw-amethyst: #634F7D;
+            --font-headline: 'Bitter', Georgia, serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
-        
-        /* Bitter Bold for Headlines Only */
-        h1, h2, h3, .stat-value { 
-            font-family: 'Bitter', serif; 
-            font-weight: 700; 
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--tw-wave);
+            background: var(--tw-mist);
+            line-height: 1.6;
+            font-size: 14px;
         }
-        
-        /* Inter for body and UI */
-        .body-text { font-weight: 400; }
-        .subheading { font-weight: 600; }
-        
-        /* Tab Styles */
+
+        h1, h2, h3 {
+            font-family: var(--font-headline);
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--tw-wave);
+            border-radius: 12px 12px 0 0;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--tw-flamingo);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-icon svg { color: var(--tw-talc); }
+
+        .header h1 {
+            color: var(--tw-talc);
+            font-size: 20px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .last-updated {
+            color: rgba(255,255,255,0.6);
+            font-size: 12px;
+        }
+
+        .refresh-btn {
+            background: none;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: rgba(255,255,255,0.7);
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .refresh-btn:hover {
+            border-color: rgba(255,255,255,0.6);
+            color: var(--tw-talc);
+        }
+
+        .refresh-btn.loading svg {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Tabs */
+        .tabs {
+            background: var(--tw-talc);
+            border-bottom: 1px solid var(--tw-mist);
+            display: flex;
+            padding: 0;
+        }
+
         .tab-btn {
             padding: 12px 20px;
-            border-bottom: 3px solid transparent;
-            color: #003D4F;
-            opacity: 0.7;
-            transition: all 0.2s ease;
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: var(--tw-wave);
+            opacity: 0.5;
+            font-family: var(--font-body);
+            font-size: 14px;
             font-weight: 500;
+            border-bottom: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
         }
-        .tab-btn:hover {
-            opacity: 1;
-            border-bottom-color: #EDF1F3;
-        }
+
+        .tab-btn:hover { opacity: 0.8; }
+
         .tab-btn.active {
-            border-bottom-color: #F2617A;
             opacity: 1;
-            font-weight: 600;
+            border-bottom-color: var(--tw-flamingo);
         }
-        
-        /* Tab Content */
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
-        }
-        
-        /* Card Styles */
-        .stat-card {
-            background: #FFFFFF;
-            border-radius: 8px;
+
+        .tab-btn svg { width: 16px; height: 16px; }
+
+        /* Main content */
+        .main {
+            background: var(--tw-mist);
+            border-radius: 0 0 12px 12px;
             padding: 24px;
-            transition: box-shadow 0.2s ease, transform 0.2s ease;
         }
-        .stat-card:hover {
-            box-shadow: 0 4px 12px rgba(0, 61, 79, 0.1);
-            transform: translateY(-2px);
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Cards */
+        .card {
+            background: var(--tw-talc);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0, 61, 79, 0.08);
+            border: 1px solid rgba(0, 61, 79, 0.06);
+            margin-bottom: 16px;
         }
-        
-        /* Video Card */
-        .video-card {
-            background: #FFFFFF;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: box-shadow 0.2s ease;
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
         }
-        .video-card:hover {
-            box-shadow: 0 4px 12px rgba(0, 61, 79, 0.1);
+
+        .card-header h2 {
+            font-size: 16px;
+            color: var(--tw-wave);
         }
-        
-        /* Metric Badge */
-        .metric-badge {
+
+        .card-header svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Stat grid */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .stat-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .stat-item label {
+            font-size: 12px;
+            color: var(--tw-wave);
+            opacity: 0.6;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-family: var(--font-headline);
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--tw-wave);
+            line-height: 1.2;
+        }
+
+        .stat-badge {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 500;
+            gap: 3px;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 100px;
+            margin-top: 4px;
         }
-        .metric-badge.positive {
-            background: rgba(107, 158, 120, 0.15);
-            color: #6B9E78;
+
+        .stat-badge svg { width: 12px; height: 12px; }
+
+        .stat-badge.positive {
+            background: rgba(107, 158, 120, 0.12);
+            color: var(--tw-jade);
         }
-        .metric-badge.negative {
-            background: rgba(242, 97, 122, 0.15);
-            color: #F2617A;
+
+        .stat-badge.negative {
+            background: rgba(242, 97, 122, 0.12);
+            color: var(--tw-flamingo);
         }
-        
-        /* Line clamp for descriptions */
-        .line-clamp-2 {
+
+        .stat-badge.neutral {
+            background: rgba(0, 61, 79, 0.08);
+            color: var(--tw-wave);
+            opacity: 0.6;
+        }
+
+        /* Chart container */
+        .chart-container {
+            height: 280px;
+            position: relative;
+        }
+
+        /* Video grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 16px;
+        }
+
+        .video-card {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            background: var(--tw-mist);
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+
+        .video-card:hover { transform: translateY(-2px); }
+
+        .video-thumb {
+            width: 120px;
+            min-width: 120px;
+            height: 68px;
+            border-radius: 6px;
+            object-fit: cover;
+            background: rgba(0,61,79,0.1);
+        }
+
+        .video-info { flex: 1; min-width: 0; }
+
+        .video-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--tw-wave);
+            line-height: 1.3;
+            margin-bottom: 6px;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
-        
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
+
+        .video-meta {
+            font-size: 11px;
+            color: var(--tw-wave);
+            opacity: 0.5;
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Data table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 10px 12px;
+            font-weight: 600;
+            color: var(--tw-wave);
+            border-bottom: 2px solid var(--tw-mist);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.6;
+        }
+
+        .data-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--tw-mist);
+            color: var(--tw-wave);
+        }
+
+        .data-table tr:last-child td { border-bottom: none; }
+
+        .data-table tr:hover td { background: rgba(237, 241, 243, 0.5); }
+
+        /* Status indicators */
+        .status-dot {
             width: 8px;
             height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
         }
-        ::-webkit-scrollbar-track {
-            background: #EDF1F3;
+
+        .status-dot.live { background: var(--tw-jade); }
+        .status-dot.manual { background: var(--tw-turmeric); }
+        .status-dot.offline { background: var(--tw-flamingo); }
+
+        /* Section title */
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--tw-wave);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #003D4F;
-            border-radius: 4px;
+
+        /* Placeholder state */
+        .placeholder {
+            text-align: center;
+            padding: 48px 24px;
+            color: var(--tw-wave);
+            opacity: 0.4;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #47A1AD;
+
+        .placeholder svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 12px;
         }
-        
+
+        .placeholder p {
+            font-size: 14px;
+        }
+
+        /* Two column layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .two-col { grid-template-columns: 1fr; }
+        }
+
         /* Loading skeleton */
         .skeleton {
-            background: linear-gradient(90deg, #EDF1F3 25%, #FFFFFF 50%, #EDF1F3 75%);
+            background: linear-gradient(90deg, var(--tw-mist) 25%, rgba(255,255,255,0.5) 50%, var(--tw-mist) 75%);
             background-size: 200% 100%;
             animation: shimmer 1.5s infinite;
+            border-radius: 4px;
+            height: 28px;
+            width: 100px;
         }
+
         @keyframes shimmer {
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
         }
+
+        /* Data source badges */
+        .source-badge {
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .source-badge.api {
+            background: rgba(71, 161, 173, 0.12);
+            color: var(--tw-sapphire);
+        }
+
+        .source-badge.csv {
+            background: rgba(204, 133, 10, 0.12);
+            color: var(--tw-turmeric);
+        }
     </style>
 </head>
-<body class="min-h-screen">
-    <!-- Main Container -->
-    <div class="max-w-6xl mx-auto p-6">
-        
+<body>
+    <div class="container">
         <!-- Header -->
-        <header class="bg-tw-wave rounded-t-lg px-6 py-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <!-- Thoughtworks Logo Mark -->
-                    <div class="w-10 h-10 bg-tw-flamingo rounded flex items-center justify-center">
-                        <i data-lucide="bar-chart-3" class="w-6 h-6 text-tw-talc"></i>
-                    </div>
-                    <h1 class="text-xl text-tw-talc">Multimedia Analytics Hub</h1>
+        <header class="header">
+            <div class="header-left">
+                <div class="header-icon">
+                    <i data-lucide="bar-chart-3"></i>
                 </div>
-                <div class="flex items-center gap-4">
-                    <!-- Date Range Selector -->
-                    <div class="relative">
-                        <select id="dateRange" class="appearance-none bg-tw-wave border border-tw-talc/30 text-tw-talc text-sm rounded-lg px-4 py-2 pr-8 focus:outline-none focus:border-tw-flamingo">
-                            <option value="7">Last 7 days</option>
-                            <option value="30" selected>Last 30 days</option>
-                            <option value="90">Last 90 days</option>
-                            <option value="365">Last 12 months</option>
-                        </select>
-                        <i data-lucide="chevron-down" class="w-4 h-4 text-tw-talc absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none"></i>
-                    </div>
-                    <!-- Refresh Button -->
-                    <button id="refreshBtn" class="p-2 text-tw-talc/70 hover:text-tw-talc transition-colors" title="Refresh data">
-                        <i data-lucide="refresh-cw" class="w-5 h-5"></i>
-                    </button>
-                </div>
+                <h1>Multimedia Analytics Hub</h1>
+            </div>
+            <div class="header-right">
+                <span class="last-updated" id="lastUpdated">Loading...</span>
+                <button class="refresh-btn" id="refreshBtn" onclick="loadData()">
+                    <i data-lucide="refresh-cw" style="width:14px;height:14px;"></i>
+                    Refresh
+                </button>
             </div>
         </header>
-        
-        <!-- Navigation Tabs -->
-        <nav class="bg-tw-talc border-b border-tw-mist">
-            <div class="flex">
-                <button class="tab-btn active" data-tab="overview">
-                    <span class="flex items-center gap-2">
-                        <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
-                        Overview
-                    </span>
-                </button>
-                <button class="tab-btn" data-tab="youtube">
-                    <span class="flex items-center gap-2">
-                        <i data-lucide="youtube" class="w-4 h-4"></i>
-                        YouTube
-                    </span>
-                </button>
-                <button class="tab-btn" data-tab="podcasts">
-                    <span class="flex items-center gap-2">
-                        <i data-lucide="mic" class="w-4 h-4"></i>
-                        Podcasts
-                    </span>
-                </button>
-                <button class="tab-btn" data-tab="linkedin">
-                    <span class="flex items-center gap-2">
-                        <i data-lucide="linkedin" class="w-4 h-4"></i>
-                        LinkedIn
-                    </span>
-                </button>
-            </div>
+
+        <!-- Tabs -->
+        <nav class="tabs">
+            <button class="tab-btn active" data-tab="overview" onclick="switchTab('overview')">
+                <i data-lucide="layout-dashboard"></i> Overview
+            </button>
+            <button class="tab-btn" data-tab="youtube" onclick="switchTab('youtube')">
+                <i data-lucide="youtube"></i> YouTube
+            </button>
+            <button class="tab-btn" data-tab="linkedin" onclick="switchTab('linkedin')">
+                <i data-lucide="linkedin"></i> LinkedIn
+            </button>
+            <button class="tab-btn" data-tab="podcasts" onclick="switchTab('podcasts')">
+                <i data-lucide="mic"></i> Podcasts
+            </button>
         </nav>
-        
-        <!-- Main Content Area -->
-        <main class="bg-tw-mist rounded-b-lg p-6">
-            
-            <!-- Overview Tab -->
+
+        <!-- Main Content -->
+        <main class="main">
+
+            <!-- ==================== OVERVIEW TAB ==================== -->
             <section id="tab-overview" class="tab-content active">
-                <!-- YouTube Summary Card -->
-                <div class="stat-card mb-6">
-                    <div class="flex items-center gap-2 mb-4">
-                        <i data-lucide="youtube" class="w-5 h-5 text-tw-flamingo"></i>
-                        <h2 class="text-lg text-tw-wave">YouTube Summary</h2>
+                <!-- YouTube Summary -->
+                <div class="card">
+                    <div class="card-header">
+                        <i data-lucide="youtube" style="color:var(--tw-flamingo)"></i>
+                        <h2>YouTube Summary</h2>
+                        <span class="source-badge api" id="yt-source-badge">API</span>
                     </div>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                        <div>
-                            <p class="text-sm text-tw-wave/60 mb-1">Total Views</p>
-                            <p class="stat-value text-2xl text-tw-wave" id="yt-total-views">--</p>
-                            <span class="metric-badge positive" id="yt-views-change">
-                                <i data-lucide="trending-up" class="w-3 h-3"></i>
-                                <span>--</span>
-                            </span>
+                    <div class="stat-grid">
+                        <div class="stat-item">
+                            <label>Total Views (28d)</label>
+                            <div class="stat-value" id="ov-yt-views">--</div>
+                            <span class="stat-badge neutral" id="ov-yt-views-badge">--</span>
                         </div>
-                        <div>
-                            <p class="text-sm text-tw-wave/60 mb-1">Subscribers</p>
-                            <p class="stat-value text-2xl text-tw-wave" id="yt-subscribers">--</p>
-                            <span class="metric-badge positive" id="yt-subs-change">
-                                <i data-lucide="trending-up" class="w-3 h-3"></i>
-                                <span>--</span>
-                            </span>
+                        <div class="stat-item">
+                            <label>Subscribers</label>
+                            <div class="stat-value" id="ov-yt-subs">--</div>
+                            <span class="stat-badge neutral" id="ov-yt-subs-badge">--</span>
                         </div>
-                        <div>
-                            <p class="text-sm text-tw-wave/60 mb-1">Watch Time (hrs)</p>
-                            <p class="stat-value text-2xl text-tw-wave" id="yt-watch-time">--</p>
-                            <span class="metric-badge positive" id="yt-watch-change">
-                                <i data-lucide="trending-up" class="w-3 h-3"></i>
-                                <span>--</span>
-                            </span>
+                        <div class="stat-item">
+                            <label>Watch Time (hrs)</label>
+                            <div class="stat-value" id="ov-yt-watch">--</div>
+                            <span class="stat-badge neutral" id="ov-yt-watch-badge">--</span>
                         </div>
-                        <div>
-                            <p class="text-sm text-tw-wave/60 mb-1">Engagement Rate</p>
-                            <p class="stat-value text-2xl text-tw-wave" id="yt-engagement">--</p>
-                            <span class="metric-badge positive" id="yt-engage-change">
-                                <i data-lucide="trending-up" class="w-3 h-3"></i>
-                                <span>--</span>
-                            </span>
+                        <div class="stat-item">
+                            <label>Engagement Rate</label>
+                            <div class="stat-value" id="ov-yt-engage">--</div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Podcast Summary Card -->
-                <div class="stat-card mb-6">
-                    <div class="flex items-center gap-2 mb-4">
-                        <i data-lucide="mic" class="w-5 h-5 text-tw-amethyst"></i>
-                        <h2 class="text-lg text-tw-wave">Podcast Summary</h2>
+
+                <!-- LinkedIn Summary -->
+                <div class="card">
+                    <div class="card-header">
+                        <i data-lucide="linkedin" style="color:var(--tw-sapphire)"></i>
+                        <h2>LinkedIn Summary</h2>
                     </div>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                        <div>
-                            <p class="text-sm text-tw-wave/60 mb-1">Total Downloads</p>
-                            <p class="stat-value text-2xl text-tw-wave" id="overview-pod-downloads">--</p>
-                            <span class="metric-badge positive" id="overview-pod-downloads-change">
-                                <i data-lucide="trending-up" class="w-3 h-3"></i>
-                                <span>--</span>
-                            </span>
-                        </div>
-                        <div>
-                            <p class="text-sm text-tw-wave/60 mb-1">Episodes</p>
-                            <p class="stat-value text-2xl text-tw-wave" id="overview-pod-episodes">--</p>
-                            <span class="metric-badge positive" id="overview-pod-episodes-change">
-                                <i data-lucide="trending-up" class="w-3 h-3"></i>
-                                <span>--</span>
-                            </span>
-                        </div>
-                        <div>
-                            <p class="text-sm text-tw-wave/60 mb-1">Avg Downloads/Episode</p>
-                            <p class="stat-value text-2xl text-tw-wave" id="overview-pod-avg">--</p>
-                            <span class="metric-badge positive" id="overview-pod-avg-change">
-                                <i data-lucide="trending-up" class="w-3 h-3"></i>
-                                <span>--</span>
-                            </span>
-                        </div>
-                        <div>
-                            <p class="text-sm text-tw-wave/60 mb-1">Last 30 Days</p>
-                            <p class="stat-value text-2xl text-tw-wave" id="overview-pod-last30">--</p>
-                            <span class="metric-badge positive" id="overview-pod-last30-change">
-                                <i data-lucide="trending-up" class="w-3 h-3"></i>
-                                <span>--</span>
-                            </span>
-                        </div>
+                    <div class="placeholder">
+                        <i data-lucide="link"></i>
+                        <p>LinkedIn data not yet connected.<br>CSV export integration coming soon.</p>
                     </div>
                 </div>
-                
-                <!-- LinkedIn Summary Card -->
-                <div class="stat-card mb-6">
-                    <div class="flex items-center gap-2 mb-4">
-                        <i data-lucide="linkedin" class="w-5 h-5 text-tw-sapphire"></i>
-                        <h2 class="text-lg text-tw-wave">LinkedIn Summary</h2>
+
+                <!-- Podcast Summary -->
+                <div class="card">
+                    <div class="card-header">
+                        <i data-lucide="mic" style="color:var(--tw-amethyst)"></i>
+                        <h2>Podcast Summary</h2>
                     </div>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                        <div>
-                            <p class="text-sm text-tw-wave/60 mb-1">Impressions</p>
-                            <p class="stat-value text-2xl text-tw-wave" id="li-impressions">--</p>
-                        </div>
-                        <div>
-                            <p class="text-sm text-tw-wave/60 mb-1">Followers</p>
-                            <p class="stat-value text-2xl text-tw-wave" id="li-followers">--</p>
-                        </div>
-                        <div>
-                            <p class="text-sm text-tw-wave/60 mb-1">Engagements</p>
-                            <p class="stat-value text-2xl text-tw-wave" id="li-engagements">--</p>
-                        </div>
-                        <div>
-                            <p class="text-sm text-tw-wave/60 mb-1">Click Rate</p>
-                            <p class="stat-value text-2xl text-tw-wave" id="li-ctr">--</p>
-                        </div>
+                    <div class="placeholder">
+                        <i data-lucide="headphones"></i>
+                        <p>Podcast data not yet connected.<br>Libsyn export integration coming soon.</p>
                     </div>
                 </div>
-                
-                <!-- Combined Performance Chart -->
-                <div class="stat-card">
-                    <h2 class="text-lg text-tw-wave mb-4">Combined Performance Trend</h2>
-                    <div class="h-64">
+
+                <!-- Combined Trend Chart -->
+                <div class="card">
+                    <div class="card-header">
+                        <i data-lucide="trending-up" style="color:var(--tw-wave)"></i>
+                        <h2>YouTube Views Trend (28 days)</h2>
+                    </div>
+                    <div class="chart-container">
                         <canvas id="overviewChart"></canvas>
                     </div>
                 </div>
             </section>
-            
-            <!-- YouTube Tab -->
+
+            <!-- ==================== YOUTUBE TAB ==================== -->
             <section id="tab-youtube" class="tab-content">
-                <!-- YouTube KPIs -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                    <div class="stat-card">
-                        <p class="text-sm text-tw-wave/60 mb-1">Total Views</p>
-                        <p class="stat-value text-2xl text-tw-wave" id="yt-detail-views">--</p>
+                <!-- KPI Cards -->
+                <div class="stat-grid" style="margin-bottom:16px;">
+                    <div class="card" style="margin-bottom:0;">
+                        <label style="font-size:12px;opacity:0.6;">Total Subscribers</label>
+                        <div class="stat-value" id="yt-total-subs">--</div>
                     </div>
-                    <div class="stat-card">
-                        <p class="text-sm text-tw-wave/60 mb-1">Subscribers</p>
-                        <p class="stat-value text-2xl text-tw-wave" id="yt-detail-subs">--</p>
+                    <div class="card" style="margin-bottom:0;">
+                        <label style="font-size:12px;opacity:0.6;">Channel Views (Lifetime)</label>
+                        <div class="stat-value" id="yt-channel-views">--</div>
                     </div>
-                    <div class="stat-card">
-                        <p class="text-sm text-tw-wave/60 mb-1">Watch Time</p>
-                        <p class="stat-value text-2xl text-tw-wave" id="yt-detail-watch">--</p>
+                    <div class="card" style="margin-bottom:0;">
+                        <label style="font-size:12px;opacity:0.6;">Total Videos</label>
+                        <div class="stat-value" id="yt-total-videos">--</div>
                     </div>
-                    <div class="stat-card">
-                        <p class="text-sm text-tw-wave/60 mb-1">Avg View Duration</p>
-                        <p class="stat-value text-2xl text-tw-wave" id="yt-detail-duration">--</p>
-                    </div>
-                </div>
-                
-                <!-- YouTube Views Chart -->
-                <div class="stat-card mb-6">
-                    <h2 class="text-lg text-tw-wave mb-4">Views Over Time</h2>
-                    <div class="h-64">
-                        <canvas id="youtubeViewsChart"></canvas>
+                    <div class="card" style="margin-bottom:0;">
+                        <label style="font-size:12px;opacity:0.6;">Engagement Rate</label>
+                        <div class="stat-value" id="yt-engage-rate">--</div>
                     </div>
                 </div>
-                
+
+                <!-- 28-day metrics from CSV -->
+                <div class="card">
+                    <div class="card-header">
+                        <i data-lucide="calendar" style="color:var(--tw-turmeric)"></i>
+                        <h2>Last 28 Days (from YouTube Studio export)</h2>
+                        <span class="source-badge csv">CSV</span>
+                    </div>
+                    <div class="stat-grid">
+                        <div class="stat-item">
+                            <label>Views</label>
+                            <div class="stat-value" id="yt-csv-views">--</div>
+                            <span class="stat-badge neutral" id="yt-csv-views-badge">--</span>
+                        </div>
+                        <div class="stat-item">
+                            <label>Watch Time (hrs)</label>
+                            <div class="stat-value" id="yt-csv-watch">--</div>
+                        </div>
+                        <div class="stat-item">
+                            <label>Subscribers Gained</label>
+                            <div class="stat-value" id="yt-csv-subs">--</div>
+                        </div>
+                        <div class="stat-item">
+                            <label>Impressions</label>
+                            <div class="stat-value" id="yt-csv-impressions">--</div>
+                            <span class="stat-badge neutral" id="yt-csv-ctr-badge">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="two-col">
+                    <!-- Views Trend Chart -->
+                    <div class="card">
+                        <div class="card-header">
+                            <i data-lucide="line-chart" style="color:var(--tw-flamingo)"></i>
+                            <h2>Daily Views</h2>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="ytViewsChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Impressions Chart -->
+                    <div class="card">
+                        <div class="card-header">
+                            <i data-lucide="eye" style="color:var(--tw-sapphire)"></i>
+                            <h2>Daily Impressions</h2>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="ytImpressionsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Top Videos -->
-                <div class="stat-card">
-                    <h2 class="text-lg text-tw-wave mb-4">Top Performing Videos</h2>
-                    <div id="top-videos-container" class="grid gap-4">
-                        <!-- Video cards will be injected here by n8n -->
-                        <div class="text-center py-8 text-tw-wave/50">
-                            <i data-lucide="film" class="w-12 h-12 mx-auto mb-2 opacity-50"></i>
-                            <p>Connect YouTube API to see top videos</p>
-                        </div>
+                <div class="card">
+                    <div class="card-header">
+                        <i data-lucide="play-circle" style="color:var(--tw-flamingo)"></i>
+                        <h2>Top Videos</h2>
+                        <span class="source-badge api">API</span>
+                    </div>
+                    <div class="video-grid" id="videoGrid">
+                        <!-- Populated by JS -->
                     </div>
                 </div>
+
+                <!-- All Videos Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <i data-lucide="list" style="color:var(--tw-wave)"></i>
+                        <h2>All Videos (Recent 50)</h2>
+                    </div>
+                    <div style="overflow-x:auto;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Published</th>
+                                    <th>Views</th>
+                                    <th>Likes</th>
+                                    <th>Comments</th>
+                                </tr>
+                            </thead>
+                            <tbody id="videoTable">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Data Sources -->
+                <div class="card">
+                    <div class="card-header">
+                        <i data-lucide="database" style="color:var(--tw-wave)"></i>
+                        <h2>Data Sources</h2>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Source</th>
+                                <th>Status</th>
+                                <th>Last Updated</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dataSourcesTable">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
             </section>
-            
-            <!-- LinkedIn Tab -->
+
+            <!-- ==================== LINKEDIN TAB ==================== -->
             <section id="tab-linkedin" class="tab-content">
-                <!-- Header with source indicator -->
-                <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
-                    <div class="flex items-center gap-3">
-                        <i data-lucide="linkedin" class="w-6 h-6 text-tw-sapphire"></i>
-                        <h2 class="text-xl text-tw-wave">LinkedIn Analytics</h2>
-                        <span class="px-3 py-1 bg-tw-talc border border-tw-wave/20 rounded-full text-sm text-tw-wave">Company Page</span>
-                        <span class="text-sm text-tw-wave/50 flex items-center gap-1">
-                            <i data-lucide="calendar-clock" class="w-4 h-4"></i>
-                            Last updated: <span id="li-last-updated">--</span>
-                        </span>
-                    </div>
-                </div>
-                
-                <!-- LinkedIn KPIs - Row 1 -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                    <div class="stat-card">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm text-tw-wave/60 mb-1">Impressions</p>
-                                <p class="stat-value text-2xl text-tw-wave" id="li-detail-impressions">--</p>
-                                <span class="metric-badge positive" id="li-impressions-change">
-                                    <i data-lucide="trending-up" class="w-3 h-3"></i>
-                                    <span>--</span>
-                                </span>
-                            </div>
-                            <div class="w-10 h-10 rounded-lg bg-tw-sapphire/10 flex items-center justify-center">
-                                <i data-lucide="eye" class="w-5 h-5 text-tw-sapphire"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm text-tw-wave/60 mb-1">Followers</p>
-                                <p class="stat-value text-2xl text-tw-wave" id="li-detail-followers">--</p>
-                                <span class="metric-badge positive" id="li-followers-change">
-                                    <i data-lucide="trending-up" class="w-3 h-3"></i>
-                                    <span>--</span>
-                                </span>
-                            </div>
-                            <div class="w-10 h-10 rounded-lg bg-tw-jade/10 flex items-center justify-center">
-                                <i data-lucide="users" class="w-5 h-5 text-tw-jade"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm text-tw-wave/60 mb-1">Engagements</p>
-                                <p class="stat-value text-2xl text-tw-wave" id="li-detail-engagements">--</p>
-                                <span class="metric-badge positive" id="li-engagements-change">
-                                    <i data-lucide="trending-up" class="w-3 h-3"></i>
-                                    <span>--</span>
-                                </span>
-                            </div>
-                            <div class="w-10 h-10 rounded-lg bg-tw-flamingo/10 flex items-center justify-center">
-                                <i data-lucide="heart" class="w-5 h-5 text-tw-flamingo"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm text-tw-wave/60 mb-1">Engagement Rate</p>
-                                <p class="stat-value text-2xl text-tw-wave" id="li-detail-rate">--</p>
-                                <span class="metric-badge positive" id="li-rate-change">
-                                    <i data-lucide="trending-up" class="w-3 h-3"></i>
-                                    <span>--</span>
-                                </span>
-                            </div>
-                            <div class="w-10 h-10 rounded-lg bg-tw-amethyst/10 flex items-center justify-center">
-                                <i data-lucide="percent" class="w-5 h-5 text-tw-amethyst"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- LinkedIn KPIs - Row 2 -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                    <div class="stat-card">
-                        <p class="text-sm text-tw-wave/60 mb-1">Page Views</p>
-                        <p class="stat-value text-2xl text-tw-wave" id="li-detail-views">--</p>
-                    </div>
-                    <div class="stat-card">
-                        <p class="text-sm text-tw-wave/60 mb-1">Unique Visitors</p>
-                        <p class="stat-value text-2xl text-tw-wave" id="li-detail-visitors">--</p>
-                    </div>
-                    <div class="stat-card">
-                        <p class="text-sm text-tw-wave/60 mb-1">Post Clicks</p>
-                        <p class="stat-value text-2xl text-tw-wave" id="li-detail-clicks">--</p>
-                    </div>
-                    <div class="stat-card">
-                        <p class="text-sm text-tw-wave/60 mb-1">Shares</p>
-                        <p class="stat-value text-2xl text-tw-wave" id="li-detail-shares">--</p>
-                    </div>
-                </div>
-                
-                <!-- Engagement Trend Chart -->
-                <div class="stat-card mb-6">
-                    <h2 class="text-lg text-tw-wave mb-4">Engagement Trend</h2>
-                    <div class="h-64">
-                        <canvas id="linkedinChart"></canvas>
-                    </div>
-                </div>
-                
-                <!-- Follower Demographics -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div class="stat-card">
-                        <h2 class="text-lg text-tw-wave mb-4">Followers by Industry</h2>
-                        <div class="h-64">
-                            <canvas id="linkedinIndustryChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <h2 class="text-lg text-tw-wave mb-4">Followers by Seniority</h2>
-                        <div class="h-64">
-                            <canvas id="linkedinSeniorityChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Top Performing Posts -->
-                <div class="stat-card">
-                    <h2 class="text-lg text-tw-wave mb-4">Top Performing Posts</h2>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-sm">
-                            <thead>
-                                <tr class="border-b border-tw-mist">
-                                    <th class="text-left py-3 px-4 font-semibold text-tw-wave">Post</th>
-                                    <th class="text-left py-3 px-4 font-semibold text-tw-wave">Type</th>
-                                    <th class="text-left py-3 px-4 font-semibold text-tw-wave">Published</th>
-                                    <th class="text-right py-3 px-4 font-semibold text-tw-wave">Impressions</th>
-                                    <th class="text-right py-3 px-4 font-semibold text-tw-wave">Clicks</th>
-                                    <th class="text-right py-3 px-4 font-semibold text-tw-wave">Reactions</th>
-                                    <th class="text-right py-3 px-4 font-semibold text-tw-wave">Comments</th>
-                                    <th class="text-right py-3 px-4 font-semibold text-tw-wave">Eng. Rate</th>
-                                </tr>
-                            </thead>
-                            <tbody id="linkedin-posts-table">
-                                <!-- Rows will be injected by JavaScript -->
-                            </tbody>
-                        </table>
+                <div class="card">
+                    <div class="placeholder">
+                        <i data-lucide="linkedin"></i>
+                        <p>LinkedIn analytics integration coming soon.<br>This tab will show company page metrics from CSV exports.</p>
                     </div>
                 </div>
             </section>
-            
-            <!-- Podcasts Tab -->
+
+            <!-- ==================== PODCASTS TAB ==================== -->
             <section id="tab-podcasts" class="tab-content">
-                <!-- Header with source and show selector -->
-                <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
-                    <div class="flex items-center gap-3">
-                        <i data-lucide="mic" class="w-6 h-6 text-tw-amethyst"></i>
-                        <h2 class="text-xl text-tw-wave">Podcast Analytics</h2>
-                        <span class="px-3 py-1 bg-tw-talc border border-tw-wave/20 rounded-full text-sm text-tw-wave">Libsyn</span>
-                        <span class="text-sm text-tw-wave/50 flex items-center gap-1">
-                            <i data-lucide="calendar-clock" class="w-4 h-4"></i>
-                            Last updated: <span id="pod-last-updated">--</span>
-                        </span>
-                    </div>
-                    <div class="relative">
-                        <select id="podcastShowFilter" class="appearance-none bg-tw-talc border border-tw-wave/20 text-tw-wave text-sm rounded-lg px-4 py-2 pr-8 focus:outline-none focus:border-tw-flamingo min-w-[200px]">
-                            <option value="all" selected>All Shows Combined</option>
-                            <option value="tech-podcast">Technology Podcast</option>
-                            <option value="pragmatism">Pragmatism in Practice</option>
-                            <option value="hablando">Hablando de Software</option>
-                            <option value="tecnologia">Tecnología y Negocios</option>
-                        </select>
-                        <i data-lucide="chevron-down" class="w-4 h-4 text-tw-wave absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none"></i>
-                    </div>
-                </div>
-                
-                <!-- Show Cards -->
-                <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
-                    <div class="show-card rounded-lg p-4 text-tw-talc cursor-pointer transition-all duration-200 ring-2 ring-offset-2" style="background-color: #003D4F;" data-show="all">
-                        <h3 class="font-semibold text-lg">All Shows</h3>
-                        <p class="text-sm opacity-80">Combined · All Podcasts</p>
-                    </div>
-                    <div class="show-card rounded-lg p-4 text-tw-talc cursor-pointer transition-all duration-200 opacity-50 hover:opacity-75" style="background-color: #CC850A;" data-show="tech-podcast">
-                        <h3 class="font-semibold text-lg">Technology Podcast</h3>
-                        <p class="text-sm opacity-80">Technology · Biweekly</p>
-                    </div>
-                    <div class="show-card rounded-lg p-4 text-tw-talc cursor-pointer transition-all duration-200 opacity-50 hover:opacity-75" style="background-color: #634F7D;" data-show="pragmatism">
-                        <h3 class="font-semibold text-lg">Pragmatism in Practice</h3>
-                        <p class="text-sm opacity-80">Business · Biweekly</p>
-                    </div>
-                    <div class="show-card rounded-lg p-4 text-tw-talc cursor-pointer transition-all duration-200 opacity-50 hover:opacity-75" style="background-color: #47A1AD;" data-show="hablando">
-                        <h3 class="font-semibold text-lg">Hablando de Software</h3>
-                        <p class="text-sm opacity-80">Technology · Biweekly</p>
-                    </div>
-                    <div class="show-card rounded-lg p-4 text-tw-talc cursor-pointer transition-all duration-200 opacity-50 hover:opacity-75" style="background-color: #6B9E78;" data-show="tecnologia">
-                        <h3 class="font-semibold text-lg">Tecnología y Negocios</h3>
-                        <p class="text-sm opacity-80">Technology · Biweekly</p>
-                    </div>
-                </div>
-                
-                <!-- Note about data sources -->
-                <p class="text-sm text-tw-wave/60 mb-6">
-                    Download data from Libsyn. Note: Subscriber counts require separate access to Apple Podcasts Connect and Spotify for Podcasters.
-                </p>
-                
-                <!-- Podcast KPIs -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                    <div class="stat-card">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm text-tw-wave/60 mb-1">Total Downloads</p>
-                                <p class="stat-value text-2xl text-tw-wave" id="pod-downloads">--</p>
-                                <span class="metric-badge positive" id="pod-downloads-change">
-                                    <i data-lucide="trending-up" class="w-3 h-3"></i>
-                                    <span>--</span>
-                                </span>
-                            </div>
-                            <div class="w-10 h-10 rounded-lg bg-tw-amethyst/10 flex items-center justify-center">
-                                <i data-lucide="download" class="w-5 h-5 text-tw-amethyst"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm text-tw-wave/60 mb-1">Episodes</p>
-                                <p class="stat-value text-2xl text-tw-wave" id="pod-episodes">--</p>
-                                <span class="metric-badge positive" id="pod-episodes-change">
-                                    <i data-lucide="trending-up" class="w-3 h-3"></i>
-                                    <span>--</span>
-                                </span>
-                            </div>
-                            <div class="w-10 h-10 rounded-lg bg-tw-sapphire/10 flex items-center justify-center">
-                                <i data-lucide="list" class="w-5 h-5 text-tw-sapphire"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm text-tw-wave/60 mb-1">Avg Downloads/Episode</p>
-                                <p class="stat-value text-2xl text-tw-wave" id="pod-avg-downloads">--</p>
-                                <span class="metric-badge positive" id="pod-avg-change">
-                                    <i data-lucide="trending-up" class="w-3 h-3"></i>
-                                    <span>--</span>
-                                </span>
-                            </div>
-                            <div class="w-10 h-10 rounded-lg bg-tw-jade/10 flex items-center justify-center">
-                                <i data-lucide="bar-chart-2" class="w-5 h-5 text-tw-jade"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm text-tw-wave/60 mb-1">Last 30 Days</p>
-                                <p class="stat-value text-2xl text-tw-wave" id="pod-last30">--</p>
-                                <span class="metric-badge positive" id="pod-last30-change">
-                                    <i data-lucide="trending-up" class="w-3 h-3"></i>
-                                    <span>--</span>
-                                </span>
-                            </div>
-                            <div class="w-10 h-10 rounded-lg bg-tw-flamingo/10 flex items-center justify-center">
-                                <i data-lucide="calendar" class="w-5 h-5 text-tw-flamingo"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Downloads Trend Chart -->
-                <div class="stat-card mb-6">
-                    <h2 class="text-lg text-tw-wave mb-4">Downloads Trend</h2>
-                    <div class="h-64">
-                        <canvas id="podcastChart"></canvas>
-                    </div>
-                </div>
-                
-                <!-- Per-Show Breakdown Table -->
-                <div class="stat-card mb-6" id="show-breakdown-section">
-                    <h2 class="text-lg text-tw-wave mb-4">Show Performance Breakdown</h2>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-sm">
-                            <thead>
-                                <tr class="border-b border-tw-mist">
-                                    <th class="text-left py-3 px-4 font-semibold text-tw-wave">Show</th>
-                                    <th class="text-right py-3 px-4 font-semibold text-tw-wave">Downloads</th>
-                                    <th class="text-right py-3 px-4 font-semibold text-tw-wave">Episodes</th>
-                                    <th class="text-right py-3 px-4 font-semibold text-tw-wave">Avg/Episode</th>
-                                    <th class="text-right py-3 px-4 font-semibold text-tw-wave">Last 30 Days</th>
-                                    <th class="text-right py-3 px-4 font-semibold text-tw-wave">Trend</th>
-                                </tr>
-                            </thead>
-                            <tbody id="podcast-breakdown-table">
-                                <!-- Rows will be injected by JavaScript -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <!-- Latest Episodes Table -->
-                <div class="stat-card">
-                    <h2 class="text-lg text-tw-wave mb-4">Latest Episodes Performance</h2>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-sm">
-                            <thead>
-                                <tr class="border-b border-tw-mist">
-                                    <th class="text-left py-3 px-4 font-semibold text-tw-wave">Episode</th>
-                                    <th class="text-left py-3 px-4 font-semibold text-tw-wave">Show</th>
-                                    <th class="text-left py-3 px-4 font-semibold text-tw-wave">Published</th>
-                                    <th class="text-right py-3 px-4 font-semibold text-tw-wave">Downloads</th>
-                                    <th class="text-right py-3 px-4 font-semibold text-tw-wave">7-Day</th>
-                                    <th class="text-right py-3 px-4 font-semibold text-tw-wave">30-Day</th>
-                                    <th class="text-right py-3 px-4 font-semibold text-tw-wave">vs Avg</th>
-                                </tr>
-                            </thead>
-                            <tbody id="podcast-episodes-table">
-                                <!-- Rows will be injected by JavaScript -->
-                            </tbody>
-                        </table>
+                <div class="card">
+                    <div class="placeholder">
+                        <i data-lucide="mic"></i>
+                        <p>Podcast analytics integration coming soon.<br>This tab will show Libsyn metrics across all podcast properties.</p>
                     </div>
                 </div>
             </section>
-            
+
         </main>
-        
-        <!-- Footer -->
-        <footer class="bg-tw-wave rounded-lg mt-4 px-6 py-3">
-            <p class="text-center text-tw-talc/70 text-sm">
-                Multimedia Analytics Hub · Thoughtworks
-            </p>
-        </footer>
-        
     </div>
-    
+
     <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
-        
-        // Tab Navigation
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Remove active from all tabs
-                document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                
-                // Add active to clicked tab
-                btn.classList.add('active');
-                document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
+        // ============================================
+        // CONFIGURATION
+        // ============================================
+        const API_URL = 'https://script.google.com/a/macros/thoughtworks.com/s/AKfycbzp9KZ5WlLHHsfBgA9wQ8Quemw1J7BurCmL54Zu39SHrRrJ4Mj_-gZ4OaEcQDUicaYr/exec';
+
+        // Store data globally
+        let dashData = null;
+        let charts = {};
+
+        // ============================================
+        // TAB SWITCHING
+        // ============================================
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.tab === tabName);
             });
-        });
-        
-        // Thoughtworks Brand Colors for Charts
-        const twColors = {
-            wave: '#003D4F',
-            flamingo: '#F2617A',
-            mist: '#EDF1F3',
-            turmeric: '#CC850A',
-            jade: '#6B9E78',
-            sapphire: '#47A1AD',
-            amethyst: '#634F7D'
-        };
-        
-        // Chart.js Global Defaults
-        Chart.defaults.font.family = "'Inter', sans-serif";
-        Chart.defaults.color = twColors.wave;
-        
-        // Initialize Charts with placeholder data
-        // These will be updated by n8n webhook data
-        
-        // Overview Chart
-        const overviewCtx = document.getElementById('overviewChart').getContext('2d');
-        const overviewChart = new Chart(overviewCtx, {
-            type: 'line',
-            data: {
-                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-                datasets: [
-                    {
-                        label: 'YouTube Views',
-                        data: [0, 0, 0, 0],
-                        borderColor: twColors.flamingo,
-                        backgroundColor: twColors.flamingo + '20',
-                        tension: 0.4,
-                        fill: false
-                    },
-                    {
-                        label: 'LinkedIn Engagements',
-                        data: [0, 0, 0, 0],
-                        borderColor: twColors.sapphire,
-                        backgroundColor: twColors.sapphire + '20',
-                        tension: 0.4,
-                        fill: false
-                    },
-                    {
-                        label: 'Podcast Downloads',
-                        data: [0, 0, 0, 0],
-                        borderColor: twColors.amethyst,
-                        backgroundColor: twColors.amethyst + '20',
-                        tension: 0.4,
-                        fill: false
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                        labels: {
-                            usePointStyle: true,
-                            padding: 20
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: {
-                            color: twColors.mist
-                        }
-                    },
-                    x: {
-                        grid: {
-                            display: false
-                        }
-                    }
-                }
-            }
-        });
-        
-        // YouTube Views Chart
-        const ytCtx = document.getElementById('youtubeViewsChart').getContext('2d');
-        const youtubeChart = new Chart(ytCtx, {
-            type: 'bar',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: 'Daily Views',
-                    data: [],
-                    backgroundColor: twColors.flamingo,
-                    borderRadius: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: {
-                            color: twColors.mist
-                        }
-                    },
-                    x: {
-                        grid: {
-                            display: false
-                        }
-                    }
-                }
-            }
-        });
-        
-        // LinkedIn Chart
-        const liCtx = document.getElementById('linkedinChart').getContext('2d');
-        const linkedinChart = new Chart(liCtx, {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: 'Engagements',
-                    data: [],
-                    borderColor: twColors.sapphire,
-                    backgroundColor: twColors.sapphire + '20',
-                    tension: 0.4,
-                    fill: true
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: {
-                            color: twColors.mist
-                        }
-                    },
-                    x: {
-                        grid: {
-                            display: false
-                        }
-                    }
-                }
-            }
-        });
-        
-        // Podcast Chart
-        const podCtx = document.getElementById('podcastChart').getContext('2d');
-        const podcastChart = new Chart(podCtx, {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: 'Downloads',
-                    data: [],
-                    borderColor: twColors.amethyst,
-                    backgroundColor: twColors.amethyst + '20',
-                    tension: 0.4,
-                    fill: true
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: {
-                            color: twColors.mist
-                        }
-                    },
-                    x: {
-                        grid: {
-                            display: false
-                        }
-                    }
-                }
-            }
-        });
-        
-        // LinkedIn Industry Chart (Horizontal Bar)
-        const liIndustryCtx = document.getElementById('linkedinIndustryChart').getContext('2d');
-        const linkedinIndustryChart = new Chart(liIndustryCtx, {
-            type: 'bar',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: 'Followers',
-                    data: [],
-                    backgroundColor: [
-                        twColors.sapphire,
-                        twColors.jade,
-                        twColors.amethyst,
-                        twColors.turmeric,
-                        twColors.flamingo
-                    ],
-                    borderRadius: 4
-                }]
-            },
-            options: {
-                indexAxis: 'y',
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
-                scales: {
-                    x: {
-                        beginAtZero: true,
-                        grid: {
-                            color: twColors.mist
-                        }
-                    },
-                    y: {
-                        grid: {
-                            display: false
-                        }
-                    }
-                }
-            }
-        });
-        
-        // LinkedIn Seniority Chart (Doughnut)
-        const liSeniorityCtx = document.getElementById('linkedinSeniorityChart').getContext('2d');
-        const linkedinSeniorityChart = new Chart(liSeniorityCtx, {
-            type: 'doughnut',
-            data: {
-                labels: [],
-                datasets: [{
-                    data: [],
-                    backgroundColor: [
-                        twColors.wave,
-                        twColors.sapphire,
-                        twColors.jade,
-                        twColors.turmeric,
-                        twColors.amethyst,
-                        twColors.flamingo
-                    ],
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'right',
-                        labels: {
-                            usePointStyle: true,
-                            padding: 15
-                        }
-                    }
-                }
-            }
-        });
-        
-        // ============================================
-        // DATA UPDATE FUNCTIONS FOR N8N INTEGRATION
-        // ============================================
-        
-        // Format large numbers with K/M suffix
-        function formatNumber(num) {
-            if (num >= 1000000) {
-                return (num / 1000000).toFixed(1) + 'M';
-            }
-            if (num >= 1000) {
-                return (num / 1000).toFixed(1) + 'K';
-            }
-            return num.toString();
+            document.querySelectorAll('.tab-content').forEach(section => {
+                section.classList.toggle('active', section.id === 'tab-' + tabName);
+            });
         }
-        
+
         // ============================================
-        // N8N WEBHOOK / POSTMESSAGE LISTENER
+        // DATA LOADING
         // ============================================
-        // This allows n8n to send data to the dashboard via postMessage
-        // when embedded in Confluence or called via webhook
-        
-        window.addEventListener('message', function(event) {
-            // In production, validate event.origin for security
-            // if (event.origin !== 'https://your-confluence-domain.com') return;
-            
-            const data = event.data;
-            if (!data || !data.type) return;
-            
-            switch(data.type) {
-                case 'youtube':
-                    if (data.metrics) updateYouTubeMetrics(data.metrics);
-                    if (data.chart) updateYouTubeChart(data.chart.labels, data.chart.data);
-                    if (data.videos) updateTopVideos(data.videos);
-                    break;
-                    
-                case 'linkedin':
-                    if (data.metrics) updateLinkedInMetrics(data.metrics);
-                    if (data.chart) updateLinkedInChart(data.chart.labels, data.chart.data);
-                    if (data.industries) updateLinkedInIndustryChart(data.industries);
-                    if (data.seniorities) updateLinkedInSeniorityChart(data.seniorities);
-                    if (data.posts) updateLinkedInTopPosts(data.posts);
-                    if (data.lastUpdated) updateLinkedInLastUpdated(data.lastUpdated);
-                    break;
-                    
-                case 'podcast':
-                    if (data.metrics) updatePodcastMetrics(data.metrics);
-                    if (data.chart) updatePodcastChart(data.chart.labels, data.chart.data);
-                    if (data.shows) updatePodcastShowBreakdown(data.shows);
-                    if (data.episodes) updatePodcastLatestEpisodes(data.episodes);
-                    if (data.lastUpdated) updatePodcastLastUpdated(data.lastUpdated);
-                    // Store data for filtering if all components provided
-                    if (data.shows && data.episodes && data.chart) {
-                        storePodcastData(data.shows, data.episodes, data.chart, data.showChartData);
-                    }
-                    break;
-                    
-                case 'all':
-                    // Bulk update all platforms at once
-                    if (data.youtube) {
-                        if (data.youtube.metrics) updateYouTubeMetrics(data.youtube.metrics);
-                        if (data.youtube.chart) updateYouTubeChart(data.youtube.chart.labels, data.youtube.chart.data);
-                        if (data.youtube.videos) updateTopVideos(data.youtube.videos);
-                    }
-                    if (data.linkedin) {
-                        if (data.linkedin.metrics) updateLinkedInMetrics(data.linkedin.metrics);
-                        if (data.linkedin.chart) updateLinkedInChart(data.linkedin.chart.labels, data.linkedin.chart.data);
-                        if (data.linkedin.industries) updateLinkedInIndustryChart(data.linkedin.industries);
-                        if (data.linkedin.seniorities) updateLinkedInSeniorityChart(data.linkedin.seniorities);
-                        if (data.linkedin.posts) updateLinkedInTopPosts(data.linkedin.posts);
-                        if (data.linkedin.lastUpdated) updateLinkedInLastUpdated(data.linkedin.lastUpdated);
-                    }
-                    if (data.podcast) {
-                        if (data.podcast.metrics) updatePodcastMetrics(data.podcast.metrics);
-                        if (data.podcast.chart) updatePodcastChart(data.podcast.chart.labels, data.podcast.chart.data);
-                        if (data.podcast.shows) updatePodcastShowBreakdown(data.podcast.shows);
-                        if (data.podcast.episodes) updatePodcastLatestEpisodes(data.podcast.episodes);
-                        if (data.podcast.lastUpdated) updatePodcastLastUpdated(data.podcast.lastUpdated);
-                    }
-                    break;
+        async function loadData() {
+            const btn = document.getElementById('refreshBtn');
+            btn.classList.add('loading');
+            document.getElementById('lastUpdated').textContent = 'Loading...';
+
+            try {
+                const response = await fetch(API_URL);
+                dashData = await response.json();
+                console.log('Data loaded:', dashData);
+                renderAll();
+            } catch (error) {
+                console.error('Failed to load data:', error);
+                document.getElementById('lastUpdated').textContent = 'Error loading data';
+            } finally {
+                btn.classList.remove('loading');
             }
-        });
-        
+        }
+
         // ============================================
-        // CSV/XLS PARSING HELPERS FOR MANUAL UPLOADS
+        // RENDER ALL SECTIONS
         // ============================================
-        // These functions help parse exported CSV/XLS files from LinkedIn and Libsyn
-        
-        // Parse LinkedIn Content Export CSV
-        // Expected columns: Post Title, Type, Published Date, Impressions, Clicks, Reactions, Comments, Shares
-        window.parseLinkedInContentCSV = function(csvText) {
-            const lines = csvText.trim().split('\n');
-            const headers = lines[0].split(',').map(h => h.trim().toLowerCase().replace(/['"]/g, ''));
-            
-            const posts = [];
-            for (let i = 1; i < lines.length; i++) {
-                const values = lines[i].split(',').map(v => v.trim().replace(/['"]/g, ''));
-                const row = {};
-                headers.forEach((h, idx) => row[h] = values[idx]);
-                
-                const impressions = parseInt(row.impressions) || 0;
-                const clicks = parseInt(row.clicks) || 0;
-                const reactions = parseInt(row.reactions) || 0;
-                const comments = parseInt(row.comments) || 0;
-                const shares = parseInt(row.shares) || 0;
-                
-                posts.push({
-                    title: row['post title'] || row.title || row.content?.substring(0, 100) || 'Untitled',
-                    type: row.type || 'text',
-                    publishedDate: row['published date'] || row.date || '',
-                    impressions: impressions,
-                    clicks: clicks,
-                    reactions: reactions,
-                    comments: comments,
-                    engagementRate: impressions > 0 ? ((clicks + reactions + comments + shares) / impressions * 100) : 0
-                });
+        function renderAll() {
+            if (!dashData) return;
+
+            renderOverview();
+            renderYouTube();
+            renderCharts();
+            renderDataSources();
+            updateLastUpdated();
+
+            // Re-init Lucide icons for dynamically added elements
+            lucide.createIcons();
+        }
+
+        // ============================================
+        // HELPERS
+        // ============================================
+        function fmt(n) {
+            if (n === null || n === undefined || n === '' || isNaN(n)) return '--';
+            const num = Number(n);
+            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+            return num.toLocaleString();
+        }
+
+        function fmtFull(n) {
+            if (n === null || n === undefined || n === '' || isNaN(n)) return '--';
+            return Number(n).toLocaleString();
+        }
+
+        function setBadge(id, value) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            if (value === null || value === undefined || value === '' || isNaN(value)) {
+                el.textContent = '--';
+                el.className = 'stat-badge neutral';
+                return;
             }
-            return posts.sort((a, b) => b.impressions - a.impressions).slice(0, 10);
-        };
-        
-        // Parse LinkedIn Followers Demographics CSV
-        // Expected columns: Category, Value, Count or Percentage
-        window.parseLinkedInFollowersCSV = function(csvText, demographicType) {
-            const lines = csvText.trim().split('\n');
-            const headers = lines[0].split(',').map(h => h.trim().toLowerCase().replace(/['"]/g, ''));
-            
-            const data = [];
-            for (let i = 1; i < lines.length; i++) {
-                const values = lines[i].split(',').map(v => v.trim().replace(/['"]/g, ''));
-                const row = {};
-                headers.forEach((h, idx) => row[h] = values[idx]);
-                
-                data.push({
-                    name: row.category || row.name || row[demographicType] || values[0],
-                    percentage: parseFloat(row.percentage || row.count) || 0
-                });
+            const num = Number(value);
+            const prefix = num >= 0 ? '+' : '';
+            el.innerHTML = `<i data-lucide="${num >= 0 ? 'trending-up' : 'trending-down'}"></i> ${prefix}${num}%`;
+            el.className = 'stat-badge ' + (num >= 0 ? 'positive' : 'negative');
+        }
+
+        function parseDate(d) {
+            if (!d) return null;
+            // Handle epoch timestamps from Google Sheets
+            if (typeof d === 'number' && d > 1000000000) {
+                return new Date(d);
             }
-            return data.slice(0, 6); // Top 6 for charts
-        };
-        
-        // Parse Libsyn Episode Export CSV
-        // Expected columns: Title, Show, Release Date, Total Downloads, 7-Day Downloads, 30-Day Downloads
-        window.parseLibsynEpisodesCSV = function(csvText) {
-            const lines = csvText.trim().split('\n');
-            const headers = lines[0].split(',').map(h => h.trim().toLowerCase().replace(/['"]/g, ''));
-            
-            // Map show names to IDs
-            const showNameToId = {
-                'technology podcast': 'tech-podcast',
-                'thoughtworks technology podcast': 'tech-podcast',
-                'pragmatism in practice': 'pragmatism',
-                'hablando de software': 'hablando',
-                'tecnología y negocios': 'tecnologia',
-                'tecnologia y negocios': 'tecnologia'
-            };
-            
-            const episodes = [];
-            let totalDownloads = 0;
-            
-            for (let i = 1; i < lines.length; i++) {
-                const values = lines[i].split(',').map(v => v.trim().replace(/['"]/g, ''));
-                const row = {};
-                headers.forEach((h, idx) => row[h] = values[idx]);
-                
-                const downloads = parseInt(row['total downloads'] || row.downloads) || 0;
-                totalDownloads += downloads;
-                
-                const showName = (row.show || row['show name'] || '').toLowerCase();
-                const showId = showNameToId[showName] || 'tech-podcast';
-                
-                episodes.push({
-                    title: row.title || 'Untitled Episode',
-                    showId: showId,
-                    publishedDate: row['release date'] || row.date || '',
-                    totalDownloads: downloads,
-                    downloads7Day: parseInt(row['7-day downloads'] || row['7 day']) || 0,
-                    downloads30Day: parseInt(row['30-day downloads'] || row['30 day']) || 0,
-                    vsAverage: 0 // Will be calculated after all episodes loaded
-                });
+            return new Date(d);
+        }
+
+        function shortDate(d) {
+            const date = parseDate(d);
+            if (!date || isNaN(date)) return '--';
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+
+        function fullDate(d) {
+            const date = parseDate(d);
+            if (!date || isNaN(date)) return '--';
+            return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        }
+
+        // ============================================
+        // OVERVIEW RENDERING
+        // ============================================
+        function renderOverview() {
+            const m = dashData.metrics || {};
+
+            // YouTube overview stats
+            const views = m.csvTotalViews || m.totalVideoViews || 0;
+            document.getElementById('ov-yt-views').textContent = fmt(views);
+            document.getElementById('ov-yt-subs').textContent = fmt(m.totalSubscribers);
+            document.getElementById('ov-yt-watch').textContent = fmt(m.watchTimeHours);
+            document.getElementById('ov-yt-engage').textContent = m.engagementRate ? m.engagementRate + '%' : '--';
+
+            setBadge('ov-yt-views-badge', m.viewsChange);
+            setBadge('ov-yt-subs-badge', m.subsChange);
+            setBadge('ov-yt-watch-badge', m.watchChange);
+
+            // Update source badge
+            const sourceBadge = document.getElementById('yt-source-badge');
+            if (m.hasWatchTime === 1 || m.hasWatchTime === 'true') {
+                sourceBadge.textContent = 'API + CSV';
+                sourceBadge.className = 'source-badge csv';
             }
-            
-            // Calculate vs average
-            const avgDownloads = totalDownloads / episodes.length;
-            episodes.forEach(ep => {
-                ep.vsAverage = avgDownloads > 0 ? ((ep.totalDownloads - avgDownloads) / avgDownloads * 100) : 0;
-            });
-            
-            return episodes.slice(0, 10);
-        };
-        
-        // Parse Libsyn Show Summary CSV
-        // Expected columns: Show Name, Total Downloads, Episode Count, Last 30 Days
-        window.parseLibsynShowsCSV = function(csvText) {
-            const lines = csvText.trim().split('\n');
-            const headers = lines[0].split(',').map(h => h.trim().toLowerCase().replace(/['"]/g, ''));
-            
-            const showNameToId = {
-                'technology podcast': 'tech-podcast',
-                'thoughtworks technology podcast': 'tech-podcast',
-                'pragmatism in practice': 'pragmatism',
-                'hablando de software': 'hablando',
-                'tecnología y negocios': 'tecnologia',
-                'tecnologia y negocios': 'tecnologia'
-            };
-            
-            const shows = [];
-            for (let i = 1; i < lines.length; i++) {
-                const values = lines[i].split(',').map(v => v.trim().replace(/['"]/g, ''));
-                const row = {};
-                headers.forEach((h, idx) => row[h] = values[idx]);
-                
-                const showName = row['show name'] || row.show || row.name || '';
-                const downloads = parseInt(row['total downloads'] || row.downloads) || 0;
-                const episodes = parseInt(row['episode count'] || row.episodes) || 0;
-                const last30 = parseInt(row['last 30 days'] || row['30 day']) || 0;
-                
-                shows.push({
-                    id: showNameToId[showName.toLowerCase()] || showName.toLowerCase().replace(/\s+/g, '-'),
-                    name: showName,
-                    downloads: downloads,
-                    episodes: episodes,
-                    avgPerEpisode: episodes > 0 ? Math.round(downloads / episodes) : 0,
-                    last30Days: last30,
-                    trend: 0 // Would need historical data to calculate
-                });
+        }
+
+        // ============================================
+        // YOUTUBE TAB RENDERING
+        // ============================================
+        function renderYouTube() {
+            const m = dashData.metrics || {};
+            const videos = dashData.videos || [];
+
+            // Channel stats (from API)
+            document.getElementById('yt-total-subs').textContent = fmt(m.totalSubscribers);
+            document.getElementById('yt-channel-views').textContent = fmt(m.totalChannelViews);
+            document.getElementById('yt-total-videos').textContent = fmtFull(m.totalVideos);
+            document.getElementById('yt-engage-rate').textContent = m.engagementRate ? m.engagementRate + '%' : '--';
+
+            // CSV metrics
+            document.getElementById('yt-csv-views').textContent = fmt(m.csvTotalViews);
+            document.getElementById('yt-csv-watch').textContent = fmt(m.watchTimeHours);
+            document.getElementById('yt-csv-subs').textContent = fmtFull(m.subscribersGained);
+            document.getElementById('yt-csv-impressions').textContent = fmt(m.csvImpressions);
+
+            setBadge('yt-csv-views-badge', m.viewsChange);
+
+            const ctr = m.csvCTR;
+            const ctrBadge = document.getElementById('yt-csv-ctr-badge');
+            if (ctr && ctr > 0) {
+                ctrBadge.textContent = ctr + '% CTR';
+                ctrBadge.className = 'stat-badge neutral';
             }
-            return shows;
-        };
-        
-        // Convenience function to load all LinkedIn data from CSV files
-        window.loadLinkedInFromCSV = function(contentCSV, followersIndustryCSV, followersSeniorityCSV, timestamp) {
-            if (contentCSV) {
-                const posts = parseLinkedInContentCSV(contentCSV);
-                updateLinkedInTopPosts(posts);
-            }
-            if (followersIndustryCSV) {
-                const industries = parseLinkedInFollowersCSV(followersIndustryCSV, 'industry');
-                updateLinkedInIndustryChart(industries);
-            }
-            if (followersSeniorityCSV) {
-                const seniorities = parseLinkedInFollowersCSV(followersSeniorityCSV, 'seniority');
-                updateLinkedInSeniorityChart(seniorities);
-            }
-            if (timestamp) {
-                updateLinkedInLastUpdated(timestamp);
-            }
-        };
-        
-        // Convenience function to load all Podcast data from CSV files
-        window.loadPodcastFromCSV = function(episodesCSV, showsCSV, timestamp) {
-            let shows = [];
-            let episodes = [];
-            
-            if (showsCSV) {
-                shows = parseLibsynShowsCSV(showsCSV);
-                updatePodcastShowBreakdown(shows);
-            }
-            if (episodesCSV) {
-                episodes = parseLibsynEpisodesCSV(episodesCSV);
-                updatePodcastLatestEpisodes(episodes);
-            }
-            if (timestamp) {
-                updatePodcastLastUpdated(timestamp);
-            }
-            
-            // Calculate and update aggregate metrics
-            if (shows.length > 0) {
-                const totalDownloads = shows.reduce((sum, s) => sum + s.downloads, 0);
-                const totalEpisodes = shows.reduce((sum, s) => sum + s.episodes, 0);
-                const last30Total = shows.reduce((sum, s) => sum + s.last30Days, 0);
-                
-                updatePodcastMetrics({
-                    totalDownloads: totalDownloads,
-                    episodeCount: totalEpisodes,
-                    avgDownloads: totalEpisodes > 0 ? Math.round(totalDownloads / totalEpisodes) : 0,
-                    last30Days: last30Total,
-                    downloadsChange: 0, // Would need historical data
-                    episodesChange: 0,
-                    avgChange: 0,
-                    last30Change: 0
-                });
-            }
-        };
-        
-        // Update YouTube metrics
-        // Call this function from n8n webhook: updateYouTubeMetrics(data)
-        window.updateYouTubeMetrics = function(data) {
-            // Overview tab
-            document.getElementById('yt-total-views').textContent = formatNumber(data.totalViews || 0);
-            document.getElementById('yt-subscribers').textContent = '+' + formatNumber(data.subscribersGained || 0);
-            document.getElementById('yt-watch-time').textContent = formatNumber(data.watchTimeHours || 0);
-            document.getElementById('yt-engagement').textContent = (data.engagementRate || 0).toFixed(1) + '%';
-            
-            // Detail tab
-            document.getElementById('yt-detail-views').textContent = formatNumber(data.totalViews || 0);
-            document.getElementById('yt-detail-subs').textContent = formatNumber(data.totalSubscribers || 0);
-            document.getElementById('yt-detail-watch').textContent = formatNumber(data.watchTimeHours || 0) + ' hrs';
-            document.getElementById('yt-detail-duration').textContent = (data.avgViewDuration || 0) + ' min';
-            
-            // Update change badges
-            updateChangeBadge('yt-views-change', data.viewsChange);
-            updateChangeBadge('yt-subs-change', data.subsChange);
-            updateChangeBadge('yt-watch-change', data.watchChange);
-            updateChangeBadge('yt-engage-change', data.engageChange);
-        };
-        
-        // Update YouTube chart
-        window.updateYouTubeChart = function(labels, viewsData) {
-            youtubeChart.data.labels = labels;
-            youtubeChart.data.datasets[0].data = viewsData;
-            youtubeChart.update();
-            
-            // Also update overview chart
-            overviewChart.data.labels = labels;
-            overviewChart.data.datasets[0].data = viewsData;
-            overviewChart.update();
-        };
-        
-        // Update Top Videos
-        window.updateTopVideos = function(videos) {
-            const container = document.getElementById('top-videos-container');
-            container.innerHTML = videos.map(video => `
-                <div class="video-card flex gap-4 p-4">
-                    <img src="${video.thumbnail}" alt="${video.title}" class="w-32 h-20 object-cover rounded">
-                    <div class="flex-1">
-                        <h3 class="font-semibold text-tw-wave line-clamp-2">${video.title}</h3>
-                        <div class="flex gap-4 mt-2 text-sm text-tw-wave/60">
-                            <span class="flex items-center gap-1">
-                                <i data-lucide="eye" class="w-4 h-4"></i>
-                                ${formatNumber(video.views)}
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <i data-lucide="thumbs-up" class="w-4 h-4"></i>
-                                ${formatNumber(video.likes)}
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <i data-lucide="message-circle" class="w-4 h-4"></i>
-                                ${formatNumber(video.comments)}
-                            </span>
+
+            // Top videos grid (top 10)
+            const topVideos = videos.slice(0, 10);
+            const videoGrid = document.getElementById('videoGrid');
+            videoGrid.innerHTML = topVideos.map(v => `
+                <div class="video-card">
+                    <img class="video-thumb" src="${v.thumbnail || ''}" alt="${v.title || ''}" onerror="this.style.display='none'">
+                    <div class="video-info">
+                        <div class="video-title">${v.title || 'Untitled'}</div>
+                        <div class="video-meta">
+                            <span>${fmt(v.views)} views</span>
+                            <span>${fmt(v.likes)} likes</span>
+                            <span>${fmt(v.comments)} comments</span>
                         </div>
                     </div>
                 </div>
             `).join('');
-            lucide.createIcons();
-        };
-        
-        // Update LinkedIn metrics
-        window.updateLinkedInMetrics = function(data) {
-            // Overview tab
-            document.getElementById('li-impressions').textContent = formatNumber(data.impressions || 0);
-            document.getElementById('li-followers').textContent = formatNumber(data.followers || 0);
-            document.getElementById('li-engagements').textContent = formatNumber(data.engagements || 0);
-            document.getElementById('li-ctr').textContent = (data.clickRate || 0).toFixed(1) + '%';
-            
-            // Detail tab - Row 1
-            document.getElementById('li-detail-impressions').textContent = formatNumber(data.impressions || 0);
-            document.getElementById('li-detail-followers').textContent = formatNumber(data.followers || 0);
-            document.getElementById('li-detail-engagements').textContent = formatNumber(data.engagements || 0);
-            document.getElementById('li-detail-rate').textContent = (data.engagementRate || 0).toFixed(2) + '%';
-            
-            // Detail tab - Row 2
-            document.getElementById('li-detail-views').textContent = formatNumber(data.pageViews || 0);
-            document.getElementById('li-detail-visitors').textContent = formatNumber(data.uniqueVisitors || 0);
-            document.getElementById('li-detail-clicks').textContent = formatNumber(data.clicks || 0);
-            document.getElementById('li-detail-shares').textContent = formatNumber(data.shares || 0);
-            
-            // Update change badges
-            updateChangeBadge('li-impressions-change', data.impressionsChange);
-            updateChangeBadge('li-followers-change', data.followersChange);
-            updateChangeBadge('li-engagements-change', data.engagementsChange);
-            updateChangeBadge('li-rate-change', data.rateChange);
-        };
-        
-        // Update LinkedIn chart
-        window.updateLinkedInChart = function(labels, engagementData) {
-            linkedinChart.data.labels = labels;
-            linkedinChart.data.datasets[0].data = engagementData;
-            linkedinChart.update();
-            
-            // Also update overview chart
-            overviewChart.data.datasets[1].data = engagementData;
-            overviewChart.update();
-        };
-        
-        // Update LinkedIn Industry Chart
-        window.updateLinkedInIndustryChart = function(industries) {
-            linkedinIndustryChart.data.labels = industries.map(i => i.name);
-            linkedinIndustryChart.data.datasets[0].data = industries.map(i => i.percentage);
-            linkedinIndustryChart.update();
-        };
-        
-        // Update LinkedIn Seniority Chart
-        window.updateLinkedInSeniorityChart = function(seniorities) {
-            linkedinSeniorityChart.data.labels = seniorities.map(s => s.name);
-            linkedinSeniorityChart.data.datasets[0].data = seniorities.map(s => s.percentage);
-            linkedinSeniorityChart.update();
-        };
-        
-        // Update LinkedIn Top Posts Table
-        window.updateLinkedInTopPosts = function(posts) {
-            const tbody = document.getElementById('linkedin-posts-table');
-            const typeIcons = {
-                'article': 'file-text',
-                'image': 'image',
-                'video': 'video',
-                'document': 'file',
-                'text': 'type'
-            };
-            
-            tbody.innerHTML = posts.map(post => `
-                <tr class="border-b border-tw-mist/50 hover:bg-tw-mist/30">
-                    <td class="py-3 px-4">
-                        <span class="font-medium text-tw-wave line-clamp-2">${post.title}</span>
-                    </td>
-                    <td class="py-3 px-4">
-                        <div class="flex items-center gap-1 text-tw-wave/70">
-                            <i data-lucide="${typeIcons[post.type] || 'file'}" class="w-4 h-4"></i>
-                            <span class="text-xs capitalize">${post.type}</span>
+
+            // Videos table (all 50)
+            const videoTable = document.getElementById('videoTable');
+            videoTable.innerHTML = videos.map(v => `
+                <tr>
+                    <td style="max-width:300px;">
+                        <div style="display:flex;align-items:center;gap:8px;">
+                            <img src="${v.thumbnail || ''}" style="width:60px;height:34px;border-radius:4px;object-fit:cover;" onerror="this.style.display='none'">
+                            <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${v.title || 'Untitled'}</span>
                         </div>
                     </td>
-                    <td class="py-3 px-4 text-tw-wave/70 whitespace-nowrap">${post.publishedDate}</td>
-                    <td class="py-3 px-4 text-right text-tw-wave">${formatNumber(post.impressions)}</td>
-                    <td class="py-3 px-4 text-right text-tw-wave">${formatNumber(post.clicks)}</td>
-                    <td class="py-3 px-4 text-right text-tw-wave">${formatNumber(post.reactions)}</td>
-                    <td class="py-3 px-4 text-right text-tw-wave">${formatNumber(post.comments)}</td>
-                    <td class="py-3 px-4 text-right">
-                        <span class="text-tw-jade font-medium">${post.engagementRate.toFixed(2)}%</span>
-                    </td>
+                    <td>${fullDate(v.publishedAt)}</td>
+                    <td>${fmtFull(v.views)}</td>
+                    <td>${fmtFull(v.likes)}</td>
+                    <td>${fmtFull(v.comments)}</td>
                 </tr>
             `).join('');
-            lucide.createIcons();
-        };
-        
-        // Update LinkedIn last updated timestamp
-        window.updateLinkedInLastUpdated = function(timestamp) {
-            document.getElementById('li-last-updated').textContent = timestamp;
-        };
-        
-        // Update Podcast metrics (also updates overview)
-        window.updatePodcastMetrics = function(data) {
-            document.getElementById('pod-downloads').textContent = formatNumber(data.totalDownloads || 0);
-            document.getElementById('pod-episodes').textContent = data.episodeCount || 0;
-            document.getElementById('pod-avg-downloads').textContent = formatNumber(data.avgDownloads || 0);
-            document.getElementById('pod-last30').textContent = formatNumber(data.last30Days || 0);
-            
-            // Update change badges
-            updateChangeBadge('pod-downloads-change', data.downloadsChange);
-            updateChangeBadge('pod-episodes-change', data.episodesChange);
-            updateChangeBadge('pod-avg-change', data.avgChange);
-            updateChangeBadge('pod-last30-change', data.last30Change);
-            
-            // Also update overview podcast summary
-            document.getElementById('overview-pod-downloads').textContent = formatNumber(data.totalDownloads || 0);
-            document.getElementById('overview-pod-episodes').textContent = data.episodeCount || 0;
-            document.getElementById('overview-pod-avg').textContent = formatNumber(data.avgDownloads || 0);
-            document.getElementById('overview-pod-last30').textContent = formatNumber(data.last30Days || 0);
-            
-            updateChangeBadge('overview-pod-downloads-change', data.downloadsChange);
-            updateChangeBadge('overview-pod-episodes-change', data.episodesChange);
-            updateChangeBadge('overview-pod-avg-change', data.avgChange);
-            updateChangeBadge('overview-pod-last30-change', data.last30Change);
-        };
-        
-        // Update Podcast chart
-        window.updatePodcastChart = function(labels, downloadsData) {
-            podcastChart.data.labels = labels;
-            podcastChart.data.datasets[0].data = downloadsData;
-            podcastChart.update();
-            
-            // Also update overview chart with podcast data
-            overviewChart.data.datasets[2].data = downloadsData;
-            overviewChart.update();
-        };
-        
-        // Update Podcast show breakdown table
-        window.updatePodcastShowBreakdown = function(shows) {
-            const tbody = document.getElementById('podcast-breakdown-table');
-            const showColors = {
-                'tech-podcast': '#CC850A',
-                'pragmatism': '#634F7D',
-                'hablando': '#47A1AD',
-                'tecnologia': '#6B9E78'
-            };
-            
-            tbody.innerHTML = shows.map(show => `
-                <tr class="border-b border-tw-mist/50 hover:bg-tw-mist/30">
-                    <td class="py-3 px-4">
-                        <div class="flex items-center gap-2">
-                            <span class="w-3 h-3 rounded-full" style="background-color: ${showColors[show.id] || '#003D4F'}"></span>
-                            <span class="font-medium text-tw-wave">${show.name}</span>
-                        </div>
-                    </td>
-                    <td class="py-3 px-4 text-right text-tw-wave">${formatNumber(show.downloads)}</td>
-                    <td class="py-3 px-4 text-right text-tw-wave">${show.episodes}</td>
-                    <td class="py-3 px-4 text-right text-tw-wave">${formatNumber(show.avgPerEpisode)}</td>
-                    <td class="py-3 px-4 text-right text-tw-wave">${formatNumber(show.last30Days)}</td>
-                    <td class="py-3 px-4 text-right">
-                        <span class="metric-badge ${show.trend >= 0 ? 'positive' : 'negative'}">
-                            <i data-lucide="${show.trend >= 0 ? 'trending-up' : 'trending-down'}" class="w-3 h-3"></i>
-                            <span>${show.trend >= 0 ? '+' : ''}${show.trend.toFixed(1)}%</span>
-                        </span>
-                    </td>
-                </tr>
-            `).join('');
-            lucide.createIcons();
-        };
-        
-        // Update Latest Episodes table
-        window.updatePodcastLatestEpisodes = function(episodes) {
-            const tbody = document.getElementById('podcast-episodes-table');
-            const showColors = {
-                'tech-podcast': '#CC850A',
-                'pragmatism': '#634F7D',
-                'hablando': '#47A1AD',
-                'tecnologia': '#6B9E78'
-            };
-            const showNames = {
-                'tech-podcast': 'Technology Podcast',
-                'pragmatism': 'Pragmatism in Practice',
-                'hablando': 'Hablando de Software',
-                'tecnologia': 'Tecnología y Negocios'
-            };
-            
-            tbody.innerHTML = episodes.map(ep => `
-                <tr class="border-b border-tw-mist/50 hover:bg-tw-mist/30">
-                    <td class="py-3 px-4">
-                        <span class="font-medium text-tw-wave line-clamp-2">${ep.title}</span>
-                    </td>
-                    <td class="py-3 px-4">
-                        <div class="flex items-center gap-2">
-                            <span class="w-2 h-2 rounded-full" style="background-color: ${showColors[ep.showId] || '#003D4F'}"></span>
-                            <span class="text-tw-wave/70 text-xs">${showNames[ep.showId] || ep.showId}</span>
-                        </div>
-                    </td>
-                    <td class="py-3 px-4 text-tw-wave/70 whitespace-nowrap">${ep.publishedDate}</td>
-                    <td class="py-3 px-4 text-right text-tw-wave font-medium">${formatNumber(ep.totalDownloads)}</td>
-                    <td class="py-3 px-4 text-right text-tw-wave">${formatNumber(ep.downloads7Day)}</td>
-                    <td class="py-3 px-4 text-right text-tw-wave">${formatNumber(ep.downloads30Day)}</td>
-                    <td class="py-3 px-4 text-right">
-                        <span class="metric-badge ${ep.vsAverage >= 0 ? 'positive' : 'negative'}">
-                            <i data-lucide="${ep.vsAverage >= 0 ? 'trending-up' : 'trending-down'}" class="w-3 h-3"></i>
-                            <span>${ep.vsAverage >= 0 ? '+' : ''}${ep.vsAverage.toFixed(0)}%</span>
-                        </span>
-                    </td>
-                </tr>
-            `).join('');
-            lucide.createIcons();
-        };
-        
-        // Update last updated timestamp
-        window.updatePodcastLastUpdated = function(timestamp) {
-            document.getElementById('pod-last-updated').textContent = timestamp;
-        };
-        
+        }
+
         // ============================================
-        // PODCAST DATA STORE FOR FILTERING
+        // CHARTS
         // ============================================
-        
-        const podcastDataStore = {
-            allShows: [],
-            allEpisodes: [],
-            allChartData: { labels: [], data: [] },
-            showChartData: {}  // Per-show chart data
-        };
-        
-        // Store all podcast data for filtering
-        window.storePodcastData = function(shows, episodes, chartData, showChartData) {
-            podcastDataStore.allShows = shows;
-            podcastDataStore.allEpisodes = episodes;
-            podcastDataStore.allChartData = chartData;
-            podcastDataStore.showChartData = showChartData || {};
-        };
-        
-        // Filter and display podcast data by show
-        function filterPodcastsByShow(showId) {
-            const { allShows, allEpisodes, allChartData, showChartData } = podcastDataStore;
-            
-            if (showId === 'all') {
-                // Show all combined data
-                const combinedMetrics = {
-                    totalDownloads: allShows.reduce((sum, s) => sum + s.downloads, 0),
-                    episodeCount: allShows.reduce((sum, s) => sum + s.episodes, 0),
-                    avgDownloads: Math.round(allShows.reduce((sum, s) => sum + s.downloads, 0) / allShows.reduce((sum, s) => sum + s.episodes, 0)),
-                    last30Days: allShows.reduce((sum, s) => sum + s.last30Days, 0),
-                    downloadsChange: allShows.reduce((sum, s) => sum + s.trend, 0) / allShows.length,
-                    episodesChange: 8.2,
-                    avgChange: 12.1,
-                    last30Change: 18.5
-                };
-                updatePodcastMetrics(combinedMetrics);
-                updatePodcastShowBreakdown(allShows);
-                updatePodcastLatestEpisodes(allEpisodes);
-                updatePodcastChart(allChartData.labels, allChartData.data);
-                
-                // Show the breakdown table
-                document.getElementById('show-breakdown-section').style.display = 'block';
-            } else {
-                // Filter to specific show
-                const show = allShows.find(s => s.id === showId);
-                if (show) {
-                    const showMetrics = {
-                        totalDownloads: show.downloads,
-                        episodeCount: show.episodes,
-                        avgDownloads: show.avgPerEpisode,
-                        last30Days: show.last30Days,
-                        downloadsChange: show.trend,
-                        episodesChange: show.trend * 0.5,
-                        avgChange: show.trend * 0.8,
-                        last30Change: show.trend * 1.2
-                    };
-                    updatePodcastMetrics(showMetrics);
-                    
-                    // Filter episodes to this show only
-                    const filteredEpisodes = allEpisodes.filter(ep => ep.showId === showId);
-                    updatePodcastLatestEpisodes(filteredEpisodes);
-                    
-                    // Update chart with show-specific data if available
-                    if (showChartData[showId]) {
-                        updatePodcastChart(showChartData[showId].labels, showChartData[showId].data);
+        function renderCharts() {
+            const chartData = dashData.chart || [];
+
+            if (chartData.length === 0) return;
+
+            // Parse dates and sort
+            const sorted = chartData
+                .map(d => ({
+                    ...d,
+                    dateObj: parseDate(d.date)
+                }))
+                .filter(d => d.dateObj && !isNaN(d.dateObj))
+                .sort((a, b) => a.dateObj - b.dateObj);
+
+            const labels = sorted.map(d => shortDate(d.date));
+            const views = sorted.map(d => d.views || 0);
+            const impressions = sorted.map(d => d.impressions || 0);
+
+            // Shared chart options
+            const baseOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#003D4F',
+                        titleFont: { family: 'Inter' },
+                        bodyFont: { family: 'Inter' },
+                        padding: 10,
+                        cornerRadius: 8
                     }
-                    
-                    // Hide the breakdown table when viewing single show
-                    document.getElementById('show-breakdown-section').style.display = 'none';
-                }
-            }
-        }
-        
-        // Show card click handlers with visual selection state
-        function updateShowCardSelection(selectedShowId) {
-            document.querySelectorAll('.show-card').forEach(card => {
-                const isSelected = card.dataset.show === selectedShowId;
-                if (isSelected) {
-                    card.classList.remove('opacity-50', 'hover:opacity-75');
-                    card.classList.add('ring-2', 'ring-offset-2');
-                } else {
-                    card.classList.add('opacity-50', 'hover:opacity-75');
-                    card.classList.remove('ring-2', 'ring-offset-2');
-                }
-            });
-        }
-        
-        document.querySelectorAll('.show-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const showId = card.dataset.show;
-                document.getElementById('podcastShowFilter').value = showId;
-                updateShowCardSelection(showId);
-                filterPodcastsByShow(showId);
-            });
-        });
-        
-        // Podcast show filter change handler (also updates cards when dropdown is used)
-        document.getElementById('podcastShowFilter').addEventListener('change', (e) => {
-            const showId = e.target.value;
-            updateShowCardSelection(showId);
-            filterPodcastsByShow(showId);
-        });
-        
-        // Helper to update change badges
-        function updateChangeBadge(elementId, changeValue) {
-            const badge = document.getElementById(elementId);
-            if (badge && changeValue !== undefined) {
-                const isPositive = changeValue >= 0;
-                badge.className = `metric-badge ${isPositive ? 'positive' : 'negative'}`;
-                badge.innerHTML = `
-                    <i data-lucide="${isPositive ? 'trending-up' : 'trending-down'}" class="w-3 h-3"></i>
-                    <span>${isPositive ? '+' : ''}${changeValue.toFixed(1)}%</span>
-                `;
-                lucide.createIcons();
-            }
-        }
-        
-        // Refresh button handler
-        document.getElementById('refreshBtn').addEventListener('click', () => {
-            // This would trigger n8n workflow to fetch fresh data
-            // For now, just show loading state
-            const btn = document.getElementById('refreshBtn');
-            btn.querySelector('i').classList.add('animate-spin');
-            
-            // Simulate refresh delay
-            setTimeout(() => {
-                btn.querySelector('i').classList.remove('animate-spin');
-            }, 2000);
-            
-            // In production, this would call your n8n webhook:
-            // fetch('YOUR_N8N_WEBHOOK_URL').then(...)
-        });
-        
-        // ============================================
-        // DEMO DATA STORE (Remove when connecting to n8n)
-        // ============================================
-        
-        // Data store with different values for each date range
-        const demoDataByDateRange = {
-            '7': {
-                youtube: {
-                    totalViews: 185000,
-                    subscribersGained: 820,
-                    totalSubscribers: 285000,
-                    watchTimeHours: 6200,
-                    engagementRate: 5.2,
-                    avgViewDuration: 6.8,
-                    viewsChange: 8.5,
-                    subsChange: 5.2,
-                    watchChange: 9.1,
-                    engageChange: 1.8,
-                    chartLabels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                    chartData: [24000, 28000, 26000, 31000, 29000, 22000, 25000]
                 },
-                linkedin: {
-                    impressions: 380000,
-                    followers: 285000,
-                    engagements: 6800,
-                    engagementRate: 1.79,
-                    clickRate: 3.4,
-                    pageViews: 18500,
-                    uniqueVisitors: 12000,
-                    clicks: 4200,
-                    shares: 1200,
-                    impressionsChange: 8.5,
-                    followersChange: 0.8,
-                    engagementsChange: 12.3,
-                    rateChange: 3.5,
-                    chartData: [850, 920, 1100, 980, 1050, 900, 1000]
-                },
-                podcast: {
-                    totalDownloads: 18500,
-                    episodeCount: 162,
-                    avgDownloads: 5250,
-                    last30Days: 18500,
-                    downloadsChange: 12.1,
-                    episodesChange: 0,
-                    avgChange: 8.5,
-                    last30Change: 12.1,
-                    chartLabels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                    chartData: [2400, 2800, 2600, 2900, 2700, 2500, 2600]
-                }
-            },
-            '30': {
-                youtube: {
-                    totalViews: 1250000,
-                    subscribersGained: 5420,
-                    totalSubscribers: 285000,
-                    watchTimeHours: 42500,
-                    engagementRate: 4.8,
-                    avgViewDuration: 6.5,
-                    viewsChange: 12.5,
-                    subsChange: 8.3,
-                    watchChange: 15.2,
-                    engageChange: 2.1,
-                    chartLabels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-                    chartData: [280000, 320000, 295000, 355000]
-                },
-                linkedin: {
-                    impressions: 2500000,
-                    followers: 285000,
-                    engagements: 45000,
-                    engagementRate: 1.80,
-                    clickRate: 3.2,
-                    pageViews: 125000,
-                    uniqueVisitors: 78000,
-                    clicks: 28000,
-                    shares: 8500,
-                    impressionsChange: 15.2,
-                    followersChange: 2.1,
-                    engagementsChange: 18.5,
-                    rateChange: 2.8,
-                    chartData: [8500, 9200, 11500, 15800]
-                },
-                podcast: {
-                    totalDownloads: 78500,
-                    episodeCount: 162,
-                    avgDownloads: 5250,
-                    last30Days: 78500,
-                    downloadsChange: 15.4,
-                    episodesChange: 8.2,
-                    avgChange: 12.1,
-                    last30Change: 18.5,
-                    chartLabels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-                    chartData: [18200, 19500, 18800, 22000]
-                }
-            },
-            '90': {
-                youtube: {
-                    totalViews: 3850000,
-                    subscribersGained: 18200,
-                    totalSubscribers: 285000,
-                    watchTimeHours: 128000,
-                    engagementRate: 4.6,
-                    avgViewDuration: 6.3,
-                    viewsChange: 18.2,
-                    subsChange: 12.5,
-                    watchChange: 22.1,
-                    engageChange: 3.4,
-                    chartLabels: ['Month 1', 'Month 2', 'Month 3'],
-                    chartData: [1150000, 1280000, 1420000]
-                },
-                linkedin: {
-                    impressions: 7200000,
-                    followers: 285000,
-                    engagements: 128000,
-                    engagementRate: 1.78,
-                    clickRate: 3.1,
-                    pageViews: 365000,
-                    uniqueVisitors: 215000,
-                    clicks: 82000,
-                    shares: 24500,
-                    impressionsChange: 22.5,
-                    followersChange: 5.8,
-                    engagementsChange: 28.2,
-                    rateChange: 4.6,
-                    chartData: [38000, 42000, 48000]
-                },
-                podcast: {
-                    totalDownloads: 245000,
-                    episodeCount: 162,
-                    avgDownloads: 5250,
-                    last30Days: 78500,
-                    downloadsChange: 22.8,
-                    episodesChange: 15.5,
-                    avgChange: 18.2,
-                    last30Change: 24.1,
-                    chartLabels: ['Month 1', 'Month 2', 'Month 3'],
-                    chartData: [72000, 81000, 92000]
-                }
-            },
-            '365': {
-                youtube: {
-                    totalViews: 15200000,
-                    subscribersGained: 68500,
-                    totalSubscribers: 285000,
-                    watchTimeHours: 512000,
-                    engagementRate: 4.4,
-                    avgViewDuration: 6.1,
-                    viewsChange: 35.5,
-                    subsChange: 28.2,
-                    watchChange: 42.1,
-                    engageChange: 8.2,
-                    chartLabels: ['Q1', 'Q2', 'Q3', 'Q4'],
-                    chartData: [3200000, 3650000, 3950000, 4400000]
-                },
-                linkedin: {
-                    impressions: 28500000,
-                    followers: 285000,
-                    engagements: 485000,
-                    engagementRate: 1.70,
-                    clickRate: 2.9,
-                    pageViews: 1420000,
-                    uniqueVisitors: 820000,
-                    clicks: 312000,
-                    shares: 92000,
-                    impressionsChange: 45.2,
-                    followersChange: 18.5,
-                    engagementsChange: 52.8,
-                    rateChange: 5.2,
-                    chartData: [105000, 118000, 125000, 137000]
-                },
-                podcast: {
-                    totalDownloads: 850000,
-                    episodeCount: 162,
-                    avgDownloads: 5250,
-                    last30Days: 78500,
-                    downloadsChange: 45.2,
-                    episodesChange: 32.5,
-                    avgChange: 28.8,
-                    last30Change: 38.5,
-                    chartLabels: ['Q1', 'Q2', 'Q3', 'Q4'],
-                    chartData: [185000, 205000, 225000, 235000]
-                }
-            }
-        };
-        
-        // Function to update all data based on date range
-        function updateAllDataForDateRange(days) {
-            const data = demoDataByDateRange[days];
-            if (!data) return;
-            
-            // Update YouTube
-            updateYouTubeMetrics(data.youtube);
-            updateYouTubeChart(data.youtube.chartLabels, data.youtube.chartData);
-            
-            // Update LinkedIn
-            updateLinkedInMetrics(data.linkedin);
-            updateLinkedInChart(data.youtube.chartLabels, data.linkedin.chartData);
-            
-            // Update Podcast (only the overview metrics, not the filtered show data)
-            // Store current show filter
-            const currentShowFilter = document.getElementById('podcastShowFilter').value;
-            
-            // Update the stored "all shows" data for the new date range
-            const updatedAllChartData = {
-                labels: data.podcast.chartLabels,
-                data: data.podcast.chartData
-            };
-            
-            // Scale the per-show chart data proportionally
-            const scaleFactor = data.podcast.totalDownloads / 850000; // ratio to base data
-            const updatedShowChartData = {
-                'tech-podcast': {
-                    labels: data.podcast.chartLabels,
-                    data: [1800, 2100, 1600, 1900].slice(0, data.podcast.chartLabels.length).map(v => Math.round(v * scaleFactor * (data.podcast.chartLabels.length / 4)))
-                },
-                'pragmatism': {
-                    labels: data.podcast.chartLabels,
-                    data: [950, 1000, 880, 920].slice(0, data.podcast.chartLabels.length).map(v => Math.round(v * scaleFactor * (data.podcast.chartLabels.length / 4)))
-                },
-                'hablando': {
-                    labels: data.podcast.chartLabels,
-                    data: [850, 800, 780, 750].slice(0, data.podcast.chartLabels.length).map(v => Math.round(v * scaleFactor * (data.podcast.chartLabels.length / 4)))
-                },
-                'tecnologia': {
-                    labels: data.podcast.chartLabels,
-                    data: [600, 600, 540, 530].slice(0, data.podcast.chartLabels.length).map(v => Math.round(v * scaleFactor * (data.podcast.chartLabels.length / 4)))
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: {
+                            font: { family: 'Inter', size: 11 },
+                            color: 'rgba(0,61,79,0.4)',
+                            maxTicksLimit: 8
+                        }
+                    },
+                    y: {
+                        grid: { color: 'rgba(0,61,79,0.06)' },
+                        ticks: {
+                            font: { family: 'Inter', size: 11 },
+                            color: 'rgba(0,61,79,0.4)',
+                            callback: function(v) { return v >= 1000 ? (v/1000) + 'K' : v; }
+                        }
+                    }
                 }
             };
-            
-            // Update the podcast data store
-            podcastDataStore.allChartData = updatedAllChartData;
-            podcastDataStore.showChartData = updatedShowChartData;
-            
-            // Re-apply the current filter to refresh display
-            if (currentShowFilter === 'all') {
-                updatePodcastMetrics(data.podcast);
-                updatePodcastChart(updatedAllChartData.labels, updatedAllChartData.data);
+
+            // Overview chart
+            if (charts.overview) charts.overview.destroy();
+            charts.overview = new Chart(document.getElementById('overviewChart'), {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Views',
+                        data: views,
+                        borderColor: '#F2617A',
+                        backgroundColor: 'rgba(242, 97, 122, 0.08)',
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 2,
+                        pointHoverRadius: 5,
+                        borderWidth: 2
+                    }]
+                },
+                options: baseOptions
+            });
+
+            // YouTube views chart
+            if (charts.ytViews) charts.ytViews.destroy();
+            charts.ytViews = new Chart(document.getElementById('ytViewsChart'), {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Views',
+                        data: views,
+                        backgroundColor: 'rgba(242, 97, 122, 0.7)',
+                        borderRadius: 4,
+                        borderSkipped: false
+                    }]
+                },
+                options: baseOptions
+            });
+
+            // YouTube impressions chart
+            if (charts.ytImpressions) charts.ytImpressions.destroy();
+            charts.ytImpressions = new Chart(document.getElementById('ytImpressionsChart'), {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Impressions',
+                        data: impressions,
+                        backgroundColor: 'rgba(71, 161, 173, 0.7)',
+                        borderRadius: 4,
+                        borderSkipped: false
+                    }]
+                },
+                options: baseOptions
+            });
+        }
+
+        // ============================================
+        // DATA SOURCES TABLE
+        // ============================================
+        function renderDataSources() {
+            const m = dashData.metrics || {};
+            const c = dashData.config || {};
+
+            const apiDate = m.lastApiUpdate ? fullDate(m.lastApiUpdate) : '--';
+            const csvStatus = c.youtube_csv_status || 'Not run';
+            const csvDate = c.last_youtube_csv_update ? fullDate(c.last_youtube_csv_update) : '--';
+
+            document.getElementById('dataSourcesTable').innerHTML = `
+                <tr>
+                    <td><span class="status-dot live"></span>YouTube Data API</td>
+                    <td><span class="source-badge api">Automated</span></td>
+                    <td>${apiDate}</td>
+                    <td>Channel stats, video details (top ${m.videosAnalyzed || 50})</td>
+                </tr>
+                <tr>
+                    <td><span class="status-dot manual"></span>YouTube Studio CSV</td>
+                    <td><span class="source-badge csv">Manual</span></td>
+                    <td>${csvDate}</td>
+                    <td>${csvStatus}</td>
+                </tr>
+                <tr>
+                    <td><span class="status-dot offline"></span>LinkedIn</td>
+                    <td><span style="opacity:0.4;">Not connected</span></td>
+                    <td>--</td>
+                    <td>Coming soon</td>
+                </tr>
+                <tr>
+                    <td><span class="status-dot offline"></span>Podcasts (Libsyn)</td>
+                    <td><span style="opacity:0.4;">Not connected</span></td>
+                    <td>--</td>
+                    <td>Coming soon</td>
+                </tr>
+            `;
+        }
+
+        // ============================================
+        // LAST UPDATED
+        // ============================================
+        function updateLastUpdated() {
+            const m = dashData.metrics || {};
+            if (m.lastApiUpdate) {
+                const date = new Date(m.lastApiUpdate);
+                document.getElementById('lastUpdated').textContent =
+                    'Updated ' + date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) +
+                    ' at ' + date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
             } else {
-                filterPodcastsByShow(currentShowFilter);
+                document.getElementById('lastUpdated').textContent = 'Data loaded';
             }
         }
-        
-        // Date range change handler
-        document.getElementById('dateRange').addEventListener('change', (e) => {
-            const days = e.target.value;
-            updateAllDataForDateRange(days);
-        });
-        
+
         // ============================================
-        // INITIAL DEMO DATA LOAD
+        // INIT
         // ============================================
-        
-        // Load demo data on page load
-        window.addEventListener('DOMContentLoaded', () => {
-            // Load initial data for default 30-day range
-            const initialData = demoDataByDateRange['30'];
-            
-            // YouTube
-            updateYouTubeMetrics(initialData.youtube);
-            updateYouTubeChart(initialData.youtube.chartLabels, initialData.youtube.chartData);
-            
-            // Demo top videos (these don't change with date range in this demo)
-            updateTopVideos([
-                {
-                    title: 'Technology Radar Vol. 30 - Key Trends for 2025',
-                    thumbnail: 'https://i.ytimg.com/vi/placeholder/mqdefault.jpg',
-                    views: 125000,
-                    likes: 4200,
-                    comments: 320
-                },
-                {
-                    title: 'Building Event-Driven Architectures at Scale',
-                    thumbnail: 'https://i.ytimg.com/vi/placeholder/mqdefault.jpg',
-                    views: 98000,
-                    likes: 3100,
-                    comments: 245
-                },
-                {
-                    title: 'Platform Engineering: A Practical Guide',
-                    thumbnail: 'https://i.ytimg.com/vi/placeholder/mqdefault.jpg',
-                    views: 87500,
-                    likes: 2800,
-                    comments: 198
-                }
-            ]);
-            
-            // LinkedIn
-            updateLinkedInMetrics(initialData.linkedin);
-            updateLinkedInChart(initialData.youtube.chartLabels, initialData.linkedin.chartData);
-            
-            // LinkedIn Demographics (from manual CSV export)
-            updateLinkedInIndustryChart([
-                { name: 'Information Technology', percentage: 32 },
-                { name: 'Financial Services', percentage: 18 },
-                { name: 'Manufacturing', percentage: 12 },
-                { name: 'Healthcare', percentage: 10 },
-                { name: 'Retail', percentage: 8 }
-            ]);
-            
-            updateLinkedInSeniorityChart([
-                { name: 'Senior', percentage: 28 },
-                { name: 'Manager', percentage: 24 },
-                { name: 'Director', percentage: 18 },
-                { name: 'Entry', percentage: 15 },
-                { name: 'VP', percentage: 10 },
-                { name: 'C-Suite', percentage: 5 }
-            ]);
-            
-            // LinkedIn Top Posts (from manual CSV export)
-            updateLinkedInTopPosts([
-                {
-                    title: 'Announcing Technology Radar Vol. 31 - Our latest insights on emerging tech trends',
-                    type: 'article',
-                    publishedDate: 'Jan 28, 2026',
-                    impressions: 185000,
-                    clicks: 12500,
-                    reactions: 4200,
-                    comments: 342,
-                    engagementRate: 9.21
-                },
-                {
-                    title: 'How we helped a Fortune 500 retailer modernize their platform',
-                    type: 'video',
-                    publishedDate: 'Jan 22, 2026',
-                    impressions: 142000,
-                    clicks: 8900,
-                    reactions: 3100,
-                    comments: 156,
-                    engagementRate: 8.56
-                },
-                {
-                    title: 'The future of AI agents in enterprise software development',
-                    type: 'article',
-                    publishedDate: 'Jan 18, 2026',
-                    impressions: 128000,
-                    clicks: 7200,
-                    reactions: 2800,
-                    comments: 289,
-                    engagementRate: 8.04
-                },
-                {
-                    title: 'Join us at QCon London 2026 - Meet our speakers',
-                    type: 'image',
-                    publishedDate: 'Jan 15, 2026',
-                    impressions: 95000,
-                    clicks: 4500,
-                    reactions: 1900,
-                    comments: 78,
-                    engagementRate: 6.82
-                },
-                {
-                    title: 'Platform engineering is changing how teams deliver software',
-                    type: 'document',
-                    publishedDate: 'Jan 10, 2026',
-                    impressions: 88000,
-                    clicks: 5200,
-                    reactions: 2100,
-                    comments: 124,
-                    engagementRate: 8.43
-                }
-            ]);
-            
-            // LinkedIn last updated
-            updateLinkedInLastUpdated('Feb 3, 2026 at 10:30 AM');
-            
-            // Podcast - Setup show data and initial metrics
-            const demoShows = [
-                {
-                    id: 'tech-podcast',
-                    name: 'Technology Podcast',
-                    downloads: 420000,
-                    episodes: 85,
-                    avgPerEpisode: 4940,
-                    last30Days: 38500,
-                    trend: 14.2
-                },
-                {
-                    id: 'pragmatism',
-                    name: 'Pragmatism in Practice',
-                    downloads: 185000,
-                    episodes: 42,
-                    avgPerEpisode: 4405,
-                    last30Days: 18200,
-                    trend: 11.8
-                },
-                {
-                    id: 'hablando',
-                    name: 'Hablando de Software',
-                    downloads: 145000,
-                    episodes: 20,
-                    avgPerEpisode: 7250,
-                    last30Days: 12800,
-                    trend: 22.5
-                },
-                {
-                    id: 'tecnologia',
-                    name: 'Tecnología y Negocios',
-                    downloads: 100000,
-                    episodes: 15,
-                    avgPerEpisode: 6667,
-                    last30Days: 9000,
-                    trend: 19.3
-                }
-            ];
-            
-            const demoEpisodes = [
-                {
-                    title: 'Technology Radar Vol. 31: AI Agents and the Future of Software Development',
-                    showId: 'tech-podcast',
-                    publishedDate: 'Jan 28, 2026',
-                    totalDownloads: 8450,
-                    downloads7Day: 6200,
-                    downloads30Day: 8450,
-                    vsAverage: 71
-                },
-                {
-                    title: 'Building Sustainable Engineering Cultures',
-                    showId: 'pragmatism',
-                    publishedDate: 'Jan 25, 2026',
-                    totalDownloads: 5820,
-                    downloads7Day: 3100,
-                    downloads30Day: 5820,
-                    vsAverage: 32
-                },
-                {
-                    title: 'El futuro de la arquitectura de microservicios',
-                    showId: 'hablando',
-                    publishedDate: 'Jan 22, 2026',
-                    totalDownloads: 9200,
-                    downloads7Day: 2800,
-                    downloads30Day: 9200,
-                    vsAverage: 27
-                },
-                {
-                    title: 'Platform Engineering: Beyond the Hype',
-                    showId: 'tech-podcast',
-                    publishedDate: 'Jan 14, 2026',
-                    totalDownloads: 6100,
-                    downloads7Day: 890,
-                    downloads30Day: 6100,
-                    vsAverage: 23
-                },
-                {
-                    title: 'Transformación digital en América Latina',
-                    showId: 'tecnologia',
-                    publishedDate: 'Jan 12, 2026',
-                    totalDownloads: 7650,
-                    downloads7Day: 720,
-                    downloads30Day: 7650,
-                    vsAverage: 15
-                },
-                {
-                    title: 'The Art of Technical Decision Making',
-                    showId: 'pragmatism',
-                    publishedDate: 'Jan 11, 2026',
-                    totalDownloads: 4200,
-                    downloads7Day: 580,
-                    downloads30Day: 4200,
-                    vsAverage: -5
-                },
-                {
-                    title: 'DevEx: Measuring Developer Experience',
-                    showId: 'tech-podcast',
-                    publishedDate: 'Dec 31, 2025',
-                    totalDownloads: 5400,
-                    downloads7Day: 320,
-                    downloads30Day: 4800,
-                    vsAverage: 9
-                },
-                {
-                    title: 'Cómo escalar equipos de ingeniería',
-                    showId: 'hablando',
-                    publishedDate: 'Dec 28, 2025',
-                    totalDownloads: 6800,
-                    downloads7Day: 290,
-                    downloads30Day: 4100,
-                    vsAverage: -6
-                },
-                {
-                    title: 'Navigating Organizational Change',
-                    showId: 'pragmatism',
-                    publishedDate: 'Dec 22, 2025',
-                    totalDownloads: 4850,
-                    downloads7Day: 180,
-                    downloads30Day: 2200,
-                    vsAverage: 10
-                },
-                {
-                    title: 'IA Generativa: Impacto en los negocios',
-                    showId: 'tecnologia',
-                    publishedDate: 'Dec 18, 2025',
-                    totalDownloads: 8100,
-                    downloads7Day: 210,
-                    downloads30Day: 2800,
-                    vsAverage: 22
-                }
-            ];
-            
-            const demoChartData = {
-                labels: initialData.podcast.chartLabels,
-                data: initialData.podcast.chartData
-            };
-            
-            const demoShowChartData = {
-                'tech-podcast': {
-                    labels: initialData.podcast.chartLabels,
-                    data: [8500, 9200, 8800, 10000]
-                },
-                'pragmatism': {
-                    labels: initialData.podcast.chartLabels,
-                    data: [4200, 4500, 4300, 5000]
-                },
-                'hablando': {
-                    labels: initialData.podcast.chartLabels,
-                    data: [3200, 3400, 3100, 3800]
-                },
-                'tecnologia': {
-                    labels: initialData.podcast.chartLabels,
-                    data: [2300, 2400, 2600, 3200]
-                }
-            };
-            
-            // Store the data for filtering
-            storePodcastData(demoShows, demoEpisodes, demoChartData, demoShowChartData);
-            
-            // Initial display (all shows combined)
-            updatePodcastMetrics(initialData.podcast);
-            updatePodcastChart(demoChartData.labels, demoChartData.data);
-            updatePodcastShowBreakdown(demoShows);
-            updatePodcastLatestEpisodes(demoEpisodes);
-            
-            // Demo last updated timestamp
-            updatePodcastLastUpdated('Feb 3, 2026 at 2:45 PM');
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            loadData();
         });
     </script>
 </body>
