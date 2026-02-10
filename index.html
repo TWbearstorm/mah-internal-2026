@@ -67,7 +67,9 @@
             background: var(--tw-talc);
             border-bottom: 1px solid var(--tw-mist);
             display: flex; padding: 0; overflow-x: auto;
+            scrollbar-width: none; -ms-overflow-style: none;
         }
+        .tabs::-webkit-scrollbar { display: none; }
         .tab-btn {
             padding: 12px 20px; border: none; background: none; cursor: pointer;
             color: var(--tw-wave); opacity: 0.5;
@@ -441,7 +443,7 @@
                 <h1>Multimedia Brand Hub</h1>
             </div>
             <div class="header-right">
-                <span class="header-subtitle">Self-service resources &amp; templates</span>
+
                 <a class="header-link" href="https://brand.thoughtworks.com" target="_blank">
                     <i data-lucide="external-link" style="width:14px;height:14px;"></i> Brand Hub
                 </a>
@@ -453,11 +455,14 @@
             <button class="tab-btn active" data-tab="home" onclick="switchTab('home')">
                 <i data-lucide="home"></i> Home
             </button>
-            <button class="tab-btn" data-tab="analytics" onclick="switchTab('analytics')">
-                <i data-lucide="bar-chart-3"></i> Analytics
-            </button>
             <button class="tab-btn" data-tab="guides" onclick="switchTab('guides')">
                 <i data-lucide="book-open"></i> Guides
+            </button>
+            <button class="tab-btn" data-tab="help" onclick="switchTab('help')">
+                <i data-lucide="life-buoy"></i> Get Help
+            </button>
+            <button class="tab-btn" data-tab="analytics" onclick="switchTab('analytics')">
+                <i data-lucide="bar-chart-3"></i> Analytics
             </button>
             <button class="tab-btn" data-tab="templates" onclick="switchTab('templates')">
                 <i data-lucide="layout-template"></i> Templates
@@ -470,9 +475,6 @@
             </button>
             <button class="tab-btn" data-tab="structure" onclick="switchTab('structure')">
                 <i data-lucide="folder-tree"></i> Folder Map
-            </button>
-            <button class="tab-btn" data-tab="help" onclick="switchTab('help')">
-                <i data-lucide="life-buoy"></i> Get Help
             </button>
         </nav>
 
