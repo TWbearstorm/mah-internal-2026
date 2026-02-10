@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multimedia Analytics Hub | Thoughtworks</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Multimedia Brand Hub | Thoughtworks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@700&family=Inter:wght@400;500;600;700&family=Fira+Code&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <style>
@@ -20,6 +20,7 @@
             --tw-amethyst: #634F7D;
             --font-headline: 'Bitter', Georgia, serif;
             --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'Fira Code', monospace;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -32,644 +33,1027 @@
             font-size: 14px;
         }
 
-        h1, h2, h3 {
-            font-family: var(--font-headline);
-            font-weight: 700;
-        }
+        h1, h2, h3 { font-family: var(--font-headline); font-weight: 700; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 24px;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
 
-        /* Header */
+        /* ── Header ── */
         .header {
             background: var(--tw-wave);
             border-radius: 12px 12px 0 0;
             padding: 16px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            display: flex; align-items: center; justify-content: space-between;
         }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
+        .header-left { display: flex; align-items: center; gap: 12px; }
         .header-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--tw-flamingo);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 40px; height: 40px; background: var(--tw-flamingo);
+            border-radius: 8px; display: flex; align-items: center; justify-content: center;
         }
-
         .header-icon svg { color: var(--tw-talc); }
-
-        .header h1 {
-            color: var(--tw-talc);
-            font-size: 20px;
+        .header h1 { color: var(--tw-talc); font-size: 20px; }
+        .header-right { display: flex; align-items: center; gap: 12px; }
+        .header-subtitle { color: rgba(255,255,255,0.6); font-size: 12px; }
+        .header-link {
+            background: none; border: 1px solid rgba(255,255,255,0.3);
+            color: rgba(255,255,255,0.7); padding: 6px 12px; border-radius: 6px;
+            cursor: pointer; font-size: 12px; font-family: var(--font-body);
+            display: flex; align-items: center; gap: 6px;
+            transition: all 0.2s; text-decoration: none;
         }
+        .header-link:hover { border-color: rgba(255,255,255,0.6); color: var(--tw-talc); }
 
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .last-updated {
-            color: rgba(255,255,255,0.6);
-            font-size: 12px;
-        }
-
-        .refresh-btn {
-            background: none;
-            border: 1px solid rgba(255,255,255,0.3);
-            color: rgba(255,255,255,0.7);
-            padding: 6px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s;
-        }
-
-        .refresh-btn:hover {
-            border-color: rgba(255,255,255,0.6);
-            color: var(--tw-talc);
-        }
-
-        .refresh-btn.loading svg {
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* Tabs */
+        /* ── Main Tabs ── */
         .tabs {
             background: var(--tw-talc);
             border-bottom: 1px solid var(--tw-mist);
-            display: flex;
-            padding: 0;
+            display: flex; padding: 0; overflow-x: auto;
         }
-
         .tab-btn {
-            padding: 12px 20px;
-            border: none;
-            background: none;
-            cursor: pointer;
-            color: var(--tw-wave);
-            opacity: 0.5;
-            font-family: var(--font-body);
-            font-size: 14px;
-            font-weight: 500;
+            padding: 12px 20px; border: none; background: none; cursor: pointer;
+            color: var(--tw-wave); opacity: 0.5;
+            font-family: var(--font-body); font-size: 14px; font-weight: 500;
             border-bottom: 3px solid transparent;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
+            display: flex; align-items: center; gap: 8px;
+            transition: all 0.2s; white-space: nowrap;
         }
-
         .tab-btn:hover { opacity: 0.8; }
-
-        .tab-btn.active {
-            opacity: 1;
-            border-bottom-color: var(--tw-flamingo);
-        }
-
+        .tab-btn.active { opacity: 1; border-bottom-color: var(--tw-flamingo); }
         .tab-btn svg { width: 16px; height: 16px; }
 
-        /* Main content */
+        /* ── Main ── */
         .main {
             background: var(--tw-mist);
             border-radius: 0 0 12px 12px;
             padding: 24px;
         }
-
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        /* Cards */
+        /* ── Cards ── */
         .card {
-            background: var(--tw-talc);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 1px 3px rgba(0, 61, 79, 0.08);
-            border: 1px solid rgba(0, 61, 79, 0.06);
+            background: var(--tw-talc); border-radius: 12px; padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,61,79,0.08);
+            border: 1px solid rgba(0,61,79,0.06); margin-bottom: 16px;
+        }
+        .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+        .card-header h2 { font-size: 16px; color: var(--tw-wave); }
+        .card-header svg { width: 20px; height: 20px; }
+
+        /* ── Search ── */
+        .search-wrap { position: relative; margin-bottom: 20px; max-width: 420px; }
+        .search-wrap svg {
+            position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+            width: 16px; height: 16px; color: var(--tw-wave); opacity: 0.3; pointer-events: none;
+        }
+        .search-input {
+            width: 100%; padding: 10px 12px 10px 36px;
+            font-family: var(--font-body); font-size: 13px;
+            border: 1px solid rgba(0,61,79,0.12); border-radius: 8px;
+            background: var(--tw-talc); color: var(--tw-wave); outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-input:focus { border-color: var(--tw-sapphire); }
+        .search-input::placeholder { color: var(--tw-wave); opacity: 0.3; }
+
+        /* ── Source badges ── */
+        .source-badge {
+            font-size: 10px; padding: 2px 8px; border-radius: 4px;
+            font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .source-badge.gdrive { background: rgba(71,161,173,0.12); color: var(--tw-sapphire); }
+        .source-badge.brand { background: rgba(242,97,122,0.1); color: var(--tw-flamingo); }
+        .source-badge.guide { background: rgba(107,158,120,0.12); color: var(--tw-jade); }
+        .source-badge.api { background: rgba(71,161,173,0.12); color: var(--tw-sapphire); }
+        .source-badge.csv { background: rgba(204,133,10,0.12); color: var(--tw-turmeric); }
+
+        .section-desc { font-size: 13px; color: var(--tw-wave); opacity: 0.55; margin-bottom: 16px; max-width: 600px; }
+
+        /* ── Resource grid ── */
+        .resource-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px;
+        }
+        .resource-card {
+            background: var(--tw-talc); border-radius: 10px; padding: 16px;
+            border: 1px solid rgba(0,61,79,0.06); box-shadow: 0 1px 3px rgba(0,61,79,0.06);
+            cursor: pointer; text-decoration: none; color: var(--tw-wave);
+            display: flex; flex-direction: column; gap: 10px;
+            transition: box-shadow 0.2s, transform 0.15s;
+        }
+        .resource-card:hover { box-shadow: 0 4px 12px rgba(0,61,79,0.1); transform: translateY(-2px); }
+        .resource-icon {
+            width: 36px; height: 36px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .resource-icon svg { width: 18px; height: 18px; }
+        .icon-sapphire { background: rgba(71,161,173,0.12); color: var(--tw-sapphire); }
+        .icon-amethyst { background: rgba(99,79,125,0.12); color: var(--tw-amethyst); }
+        .icon-flamingo { background: rgba(242,97,122,0.1); color: var(--tw-flamingo); }
+        .icon-jade { background: rgba(107,158,120,0.12); color: var(--tw-jade); }
+        .icon-turmeric { background: rgba(204,133,10,0.12); color: var(--tw-turmeric); }
+        .icon-wave { background: rgba(0,61,79,0.08); color: var(--tw-wave); }
+        .resource-title { font-weight: 600; font-size: 13px; }
+        .resource-desc { font-size: 12px; opacity: 0.5; line-height: 1.5; }
+        .tag-row { display: flex; flex-wrap: wrap; gap: 4px; margin-top: auto; }
+        .tag {
+            font-size: 10px; padding: 2px 8px; border-radius: 4px;
+            font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;
+        }
+        .tag-mogrt { background: rgba(71,161,173,0.12); color: var(--tw-sapphire); }
+        .tag-ae { background: rgba(99,79,125,0.12); color: var(--tw-amethyst); }
+        .tag-mov { background: rgba(204,133,10,0.12); color: var(--tw-turmeric); }
+        .tag-audio { background: rgba(242,97,122,0.1); color: var(--tw-flamingo); }
+        .tag-video { background: rgba(107,158,120,0.12); color: var(--tw-jade); }
+        .tag-doc { background: rgba(0,61,79,0.08); color: var(--tw-wave); }
+
+        /* ── Guide grid ── */
+        .guide-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px;
+        }
+        .guide-card {
+            background: var(--tw-talc); border-radius: 10px; padding: 16px;
+            border: 1px solid rgba(0,61,79,0.06); box-shadow: 0 1px 3px rgba(0,61,79,0.06);
+            cursor: pointer; text-decoration: none; color: var(--tw-wave);
+            display: flex; gap: 14px; align-items: flex-start;
+            transition: box-shadow 0.2s, transform 0.15s;
+        }
+        .guide-card:hover { box-shadow: 0 4px 12px rgba(0,61,79,0.1); transform: translateY(-2px); }
+        .guide-body { flex: 1; }
+        .guide-body .resource-title { margin-bottom: 4px; }
+        .guide-body .resource-desc { margin-bottom: 8px; }
+
+        /* ── Callout ── */
+        .callout {
+            background: var(--tw-talc); border-radius: 12px; padding: 16px 20px;
+            border: 1px solid rgba(0,61,79,0.06); border-left: 3px solid var(--tw-flamingo);
+            margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,61,79,0.06);
+        }
+        .callout-title { font-weight: 600; font-size: 13px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+        .callout-title svg { width: 16px; height: 16px; color: var(--tw-flamingo); }
+        .callout p { font-size: 12px; opacity: 0.55; }
+        .callout a { color: var(--tw-sapphire); }
+
+        /* ── Swatches ── */
+        .swatch-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-bottom: 20px;
+        }
+        .swatch {
+            background: var(--tw-talc); border-radius: 10px; overflow: hidden;
+            border: 1px solid rgba(0,61,79,0.06); box-shadow: 0 1px 3px rgba(0,61,79,0.06);
+        }
+        .swatch-block { height: 52px; }
+        .swatch-label { padding: 8px 10px; }
+        .swatch-name { font-weight: 600; font-size: 12px; }
+        .swatch-hex { font-family: var(--font-mono); font-size: 11px; opacity: 0.45; margin-top: 2px; }
+
+        /* ── Typography specimen ── */
+        .type-specimen {
+            background: var(--tw-talc); border-radius: 12px; padding: 20px;
+            border: 1px solid rgba(0,61,79,0.06); box-shadow: 0 1px 3px rgba(0,61,79,0.06); margin-bottom: 16px;
+        }
+        .type-row {
+            display: flex; align-items: baseline; gap: 20px; padding: 12px 0;
+            border-bottom: 1px solid rgba(0,61,79,0.05);
+        }
+        .type-row:last-child { border: none; }
+        .type-label {
+            font-size: 11px; font-weight: 600; color: var(--tw-sapphire);
+            text-transform: uppercase; letter-spacing: 0.5px; min-width: 90px; flex-shrink: 0;
+        }
+        .type-sample { flex: 1; }
+        .type-meta {
+            font-size: 11px; font-family: var(--font-mono); opacity: 0.35;
+            min-width: 100px; text-align: right; flex-shrink: 0;
+        }
+
+        /* ── Folder tree ── */
+        .folder-tree { font-size: 13px; }
+        .tree-item { display: flex; align-items: center; gap: 8px; padding: 5px 0; }
+        .tree-item svg { width: 16px; height: 16px; flex-shrink: 0; }
+        .tree-folder { color: var(--tw-turmeric); }
+        .tree-file { opacity: 0.45; font-size: 12px; }
+        .tree-indent { padding-left: 24px; }
+        .tree-indent-2 { padding-left: 48px; }
+        .tree-indent-3 { padding-left: 72px; }
+        .tree-link { color: var(--tw-sapphire); text-decoration: none; }
+        .tree-link:hover { text-decoration: underline; }
+
+        /* ── Contact cards ── */
+        .contact-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px;
+        }
+        .contact-card {
+            background: var(--tw-talc); border-radius: 10px; padding: 16px;
+            border: 1px solid rgba(0,61,79,0.06); box-shadow: 0 1px 3px rgba(0,61,79,0.06);
+            display: flex; gap: 12px; align-items: center;
+        }
+        .contact-avatar {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: var(--tw-wave); color: var(--tw-talc);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 12px; flex-shrink: 0;
+        }
+        .contact-name { font-weight: 600; font-size: 13px; }
+        .contact-role { font-size: 12px; opacity: 0.5; }
+        .contact-email { font-size: 12px; color: var(--tw-sapphire); text-decoration: none; }
+        .contact-email:hover { text-decoration: underline; }
+
+        /* ═══════════════════════════════════════════ */
+        /* HOMEPAGE STYLES                            */
+        /* ═══════════════════════════════════════════ */
+        .home-welcome { text-align: center; padding: 8px 0 28px; }
+        .home-welcome h2 { font-size: 22px; margin-bottom: 6px; }
+        .home-welcome p { font-size: 14px; opacity: 0.55; max-width: 520px; margin: 0 auto; }
+        .home-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 14px; margin-bottom: 24px;
+        }
+        .home-card {
+            background: var(--tw-talc); border-radius: 12px; padding: 24px 20px;
+            border: 1px solid rgba(0,61,79,0.06); box-shadow: 0 1px 3px rgba(0,61,79,0.06);
+            cursor: pointer; text-align: center;
+            transition: box-shadow 0.2s, transform 0.15s;
+            display: flex; flex-direction: column; align-items: center; gap: 12px;
+        }
+        .home-card:hover { box-shadow: 0 6px 20px rgba(0,61,79,0.12); transform: translateY(-3px); }
+        .home-card-icon {
+            width: 48px; height: 48px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .home-card-icon svg { width: 24px; height: 24px; }
+        .home-card-title { font-weight: 600; font-size: 14px; }
+        .home-card-desc { font-size: 12px; opacity: 0.45; line-height: 1.5; }
+        .home-stats {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px;
+        }
+        .home-stat {
+            background: var(--tw-talc); border-radius: 10px; padding: 16px;
+            border: 1px solid rgba(0,61,79,0.06); box-shadow: 0 1px 3px rgba(0,61,79,0.06);
+            text-align: center;
+        }
+        .home-stat-value {
+            font-family: var(--font-headline); font-weight: 700; font-size: 28px; color: var(--tw-wave);
+        }
+        .home-stat-label { font-size: 12px; opacity: 0.45; margin-top: 2px; }
+
+        /* ═══════════════════════════════════════════ */
+        /* ANALYTICS DASHBOARD STYLES                 */
+        /* ═══════════════════════════════════════════ */
+
+        /* Analytics sub-tabs */
+        .analytics-subtabs {
+            display: flex; gap: 4px; background: rgba(0,61,79,0.04);
+            padding: 4px; border-radius: 8px; margin-bottom: 20px;
+        }
+        .analytics-subtab {
+            padding: 8px 16px; border: none; background: none; cursor: pointer;
+            color: var(--tw-wave); opacity: 0.5; font-family: var(--font-body);
+            font-size: 13px; font-weight: 500; border-radius: 6px;
+            display: flex; align-items: center; gap: 6px; transition: all 0.2s;
+        }
+        .analytics-subtab:hover { opacity: 0.8; }
+        .analytics-subtab.active {
+            opacity: 1; background: var(--tw-talc);
+            box-shadow: 0 1px 3px rgba(0,61,79,0.1);
+        }
+        .analytics-subtab svg { width: 14px; height: 14px; }
+        .analytics-panel { display: none; }
+        .analytics-panel.active { display: block; }
+
+        /* Analytics toolbar */
+        .analytics-toolbar {
+            display: flex; align-items: center; justify-content: space-between;
             margin-bottom: 16px;
         }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 16px;
+        .analytics-toolbar-left {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 12px; opacity: 0.5;
         }
-
-        .card-header h2 {
-            font-size: 16px;
-            color: var(--tw-wave);
+        .analytics-toolbar-left svg { width: 14px; height: 14px; }
+        .refresh-btn {
+            background: none; border: 1px solid rgba(0,61,79,0.15);
+            color: var(--tw-wave); opacity: 0.6; padding: 6px 12px; border-radius: 6px;
+            cursor: pointer; font-size: 12px; font-family: var(--font-body);
+            display: flex; align-items: center; gap: 6px; transition: all 0.2s;
         }
-
-        .card-header svg {
-            width: 20px;
-            height: 20px;
-        }
+        .refresh-btn:hover { opacity: 1; border-color: rgba(0,61,79,0.3); }
+        .refresh-btn.loading svg { animation: spin 1s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         /* Stat grid */
         .stat-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
         }
-
-        @media (max-width: 768px) {
-            .stat-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
         .stat-item label {
-            font-size: 12px;
-            color: var(--tw-wave);
-            opacity: 0.6;
-            display: block;
-            margin-bottom: 4px;
+            display: block; font-size: 12px; opacity: 0.5; margin-bottom: 4px;
         }
-
         .stat-value {
-            font-family: var(--font-headline);
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--tw-wave);
-            line-height: 1.2;
+            font-family: var(--font-headline); font-weight: 700;
+            font-size: 1.5rem; color: var(--tw-wave); line-height: 1.2;
         }
-
         .stat-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 3px;
-            font-size: 11px;
-            font-weight: 600;
-            padding: 2px 8px;
-            border-radius: 100px;
-            margin-top: 4px;
+            display: inline-flex; align-items: center; gap: 4px;
+            font-size: 11px; padding: 2px 8px; border-radius: 4px;
+            font-weight: 600; margin-top: 4px;
         }
-
         .stat-badge svg { width: 12px; height: 12px; }
-
-        .stat-badge.positive {
-            background: rgba(107, 158, 120, 0.12);
-            color: var(--tw-jade);
-        }
-
-        .stat-badge.negative {
-            background: rgba(242, 97, 122, 0.12);
-            color: var(--tw-flamingo);
-        }
-
-        .stat-badge.neutral {
-            background: rgba(0, 61, 79, 0.08);
-            color: var(--tw-wave);
-            opacity: 0.6;
-        }
+        .stat-badge.positive { background: rgba(107,158,120,0.12); color: var(--tw-jade); }
+        .stat-badge.negative { background: rgba(242,97,122,0.1); color: var(--tw-flamingo); }
+        .stat-badge.neutral { background: rgba(0,61,79,0.06); color: var(--tw-wave); opacity: 0.5; }
 
         /* Chart container */
-        .chart-container {
-            height: 280px;
-            position: relative;
+        .chart-container { position: relative; height: 280px; margin-top: 8px; }
+
+        /* Placeholder */
+        .placeholder {
+            padding: 40px 20px; text-align: center;
         }
+        .placeholder svg { width: 40px; height: 40px; color: var(--tw-wave); opacity: 0.15; margin-bottom: 8px; }
+        .placeholder p { font-size: 13px; opacity: 0.35; line-height: 1.6; }
 
         /* Video grid */
         .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 16px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;
         }
-
         .video-card {
-            display: flex;
-            gap: 12px;
-            padding: 12px;
-            background: var(--tw-mist);
-            border-radius: 8px;
-            transition: transform 0.2s;
+            background: var(--tw-talc); border-radius: 10px; overflow: hidden;
+            border: 1px solid rgba(0,61,79,0.06); box-shadow: 0 1px 3px rgba(0,61,79,0.06);
+            transition: box-shadow 0.2s, transform 0.15s; cursor: pointer;
+            text-decoration: none; color: var(--tw-wave);
         }
-
-        .video-card:hover { transform: translateY(-2px); }
-
+        .video-card:hover { box-shadow: 0 4px 12px rgba(0,61,79,0.1); transform: translateY(-2px); }
         .video-thumb {
-            width: 120px;
-            min-width: 120px;
-            height: 68px;
-            border-radius: 6px;
-            object-fit: cover;
-            background: rgba(0,61,79,0.1);
+            width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block;
+            background: var(--tw-mist);
         }
-
-        .video-info { flex: 1; min-width: 0; }
-
+        .video-info { padding: 10px 12px; }
         .video-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--tw-wave);
-            line-height: 1.3;
-            margin-bottom: 6px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            font-weight: 600; font-size: 12px; line-height: 1.4;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
         }
-
-        .video-meta {
-            font-size: 11px;
-            color: var(--tw-wave);
-            opacity: 0.5;
-            display: flex;
-            gap: 12px;
-        }
+        .video-meta { font-size: 11px; opacity: 0.45; margin-top: 4px; }
 
         /* Data table */
         .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
+            width: 100%; border-collapse: collapse; font-size: 12px;
         }
-
         .data-table th {
-            text-align: left;
-            padding: 10px 12px;
-            font-weight: 600;
-            color: var(--tw-wave);
-            border-bottom: 2px solid var(--tw-mist);
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            opacity: 0.6;
+            text-align: left; padding: 10px 12px; font-weight: 600;
+            border-bottom: 2px solid var(--tw-mist); font-size: 11px;
+            text-transform: uppercase; letter-spacing: 0.3px; opacity: 0.6;
         }
-
         .data-table td {
-            padding: 10px 12px;
-            border-bottom: 1px solid var(--tw-mist);
-            color: var(--tw-wave);
+            padding: 8px 12px; border-bottom: 1px solid rgba(0,61,79,0.04);
         }
+        .data-table tr:hover td { background: rgba(0,61,79,0.02); }
+        .data-table .num { text-align: right; font-family: var(--font-mono); font-size: 12px; }
 
-        .data-table tr:last-child td { border-bottom: none; }
+        /* ── Scrollbar ── */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--tw-mist); }
+        ::-webkit-scrollbar-thumb { background: var(--tw-wave); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--tw-sapphire); }
 
-        .data-table tr:hover td { background: rgba(237, 241, 243, 0.5); }
-
-        /* Status indicators */
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 6px;
-        }
-
-        .status-dot.live { background: var(--tw-jade); }
-        .status-dot.manual { background: var(--tw-turmeric); }
-        .status-dot.offline { background: var(--tw-flamingo); }
-
-        /* Section title */
-        .section-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--tw-wave);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* Placeholder state */
-        .placeholder {
-            text-align: center;
-            padding: 48px 24px;
-            color: var(--tw-wave);
-            opacity: 0.4;
-        }
-
-        .placeholder svg {
-            width: 48px;
-            height: 48px;
-            margin-bottom: 12px;
-        }
-
-        .placeholder p {
-            font-size: 14px;
-        }
-
-        /* Two column layout */
-        .two-col {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
+        /* ── Responsive ── */
         @media (max-width: 768px) {
-            .two-col { grid-template-columns: 1fr; }
-        }
-
-        /* Loading skeleton */
-        .skeleton {
-            background: linear-gradient(90deg, var(--tw-mist) 25%, rgba(255,255,255,0.5) 50%, var(--tw-mist) 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-            border-radius: 4px;
-            height: 28px;
-            width: 100px;
-        }
-
-        @keyframes shimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-
-        /* Data source badges */
-        .source-badge {
-            font-size: 10px;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .source-badge.api {
-            background: rgba(71, 161, 173, 0.12);
-            color: var(--tw-sapphire);
-        }
-
-        .source-badge.csv {
-            background: rgba(204, 133, 10, 0.12);
-            color: var(--tw-turmeric);
+            .container { padding: 12px; }
+            .header { padding: 12px 16px; flex-direction: column; gap: 12px; align-items: flex-start; }
+            .main { padding: 16px; }
+            .resource-grid, .guide-grid { grid-template-columns: 1fr; }
+            .home-grid { grid-template-columns: repeat(2, 1fr); }
+            .home-stats { grid-template-columns: repeat(2, 1fr); }
+            .swatch-grid { grid-template-columns: repeat(3, 1fr); }
+            .type-row { flex-direction: column; gap: 4px; }
+            .type-meta { text-align: left; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .stat-grid { grid-template-columns: repeat(2, 1fr); }
+            .video-grid { grid-template-columns: repeat(2, 1fr); }
+            .analytics-subtabs { flex-wrap: wrap; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
+
+        <!-- ══════ HEADER ══════ -->
         <header class="header">
             <div class="header-left">
-                <div class="header-icon">
-                    <i data-lucide="bar-chart-3"></i>
-                </div>
-                <h1>Multimedia Analytics Hub</h1>
+                <div class="header-icon"><i data-lucide="library"></i></div>
+                <h1>Multimedia Brand Hub</h1>
             </div>
             <div class="header-right">
-                <span class="last-updated" id="lastUpdated">Loading...</span>
-                <button class="refresh-btn" id="refreshBtn" onclick="loadData()">
-                    <i data-lucide="refresh-cw" style="width:14px;height:14px;"></i>
-                    Refresh
-                </button>
+                <span class="header-subtitle">Self-service resources &amp; templates</span>
+                <a class="header-link" href="https://brand.thoughtworks.com" target="_blank">
+                    <i data-lucide="external-link" style="width:14px;height:14px;"></i> Brand Hub
+                </a>
             </div>
         </header>
 
-        <!-- Tabs -->
+        <!-- ══════ TABS ══════ -->
         <nav class="tabs">
-            <button class="tab-btn active" data-tab="overview" onclick="switchTab('overview')">
-                <i data-lucide="layout-dashboard"></i> Overview
+            <button class="tab-btn active" data-tab="home" onclick="switchTab('home')">
+                <i data-lucide="home"></i> Home
             </button>
-            <button class="tab-btn" data-tab="youtube" onclick="switchTab('youtube')">
-                <i data-lucide="youtube"></i> YouTube
+            <button class="tab-btn" data-tab="analytics" onclick="switchTab('analytics')">
+                <i data-lucide="bar-chart-3"></i> Analytics
             </button>
-            <button class="tab-btn" data-tab="linkedin" onclick="switchTab('linkedin')">
-                <i data-lucide="linkedin"></i> LinkedIn
+            <button class="tab-btn" data-tab="guides" onclick="switchTab('guides')">
+                <i data-lucide="book-open"></i> Guides
             </button>
-            <button class="tab-btn" data-tab="podcasts" onclick="switchTab('podcasts')">
-                <i data-lucide="mic"></i> Podcasts
+            <button class="tab-btn" data-tab="templates" onclick="switchTab('templates')">
+                <i data-lucide="layout-template"></i> Templates
+            </button>
+            <button class="tab-btn" data-tab="assets" onclick="switchTab('assets')">
+                <i data-lucide="package"></i> Assets
+            </button>
+            <button class="tab-btn" data-tab="brand" onclick="switchTab('brand')">
+                <i data-lucide="palette"></i> Brand Reference
+            </button>
+            <button class="tab-btn" data-tab="structure" onclick="switchTab('structure')">
+                <i data-lucide="folder-tree"></i> Folder Map
+            </button>
+            <button class="tab-btn" data-tab="help" onclick="switchTab('help')">
+                <i data-lucide="life-buoy"></i> Get Help
             </button>
         </nav>
 
-        <!-- Main Content -->
+        <!-- ══════ MAIN ══════ -->
         <main class="main">
 
-            <!-- ==================== OVERVIEW TAB ==================== -->
-            <section id="tab-overview" class="tab-content active">
-                <!-- YouTube Summary -->
+            <!-- Search (hidden on most tabs) -->
+            <div class="search-wrap" id="searchWrap" style="display:none;">
+                <i data-lucide="search"></i>
+                <input type="text" class="search-input" id="globalSearch" placeholder="Search guides, templates, assets...">
+            </div>
+
+            <!-- ═══════════════════════════════════════ -->
+            <!-- HOME TAB                                -->
+            <!-- ═══════════════════════════════════════ -->
+            <section id="tab-home" class="tab-content active">
+                <div class="home-welcome">
+                    <h2>Welcome to the Multimedia Hub</h2>
+                </div>
+                <div class="home-grid">
+                    <div class="home-card" onclick="switchTab('analytics')">
+                        <div class="home-card-icon icon-flamingo"><i data-lucide="bar-chart-3"></i></div>
+                        <div class="home-card-title">Analytics</div>
+                        <div class="home-card-desc">YouTube, LinkedIn, and podcast performance data</div>
+                    </div>
+                    <div class="home-card" onclick="switchTab('guides')">
+                        <div class="home-card-icon icon-jade"><i data-lucide="book-open"></i></div>
+                        <div class="home-card-title">Guides</div>
+                        <div class="home-card-desc">Production guides for video, animation, and podcasts</div>
+                    </div>
+                    <div class="home-card" onclick="switchTab('templates')">
+                        <div class="home-card-icon icon-amethyst"><i data-lucide="layout-template"></i></div>
+                        <div class="home-card-title">Templates</div>
+                        <div class="home-card-desc">MOGRT, After Effects, and pre-render templates</div>
+                    </div>
+                    <div class="home-card" onclick="switchTab('assets')">
+                        <div class="home-card-icon icon-turmeric"><i data-lucide="package"></i></div>
+                        <div class="home-card-title">Assets</div>
+                        <div class="home-card-desc">LUTs, archival B-roll, and brand resources</div>
+                    </div>
+                    <div class="home-card" onclick="switchTab('brand')">
+                        <div class="home-card-icon icon-sapphire"><i data-lucide="palette"></i></div>
+                        <div class="home-card-title">Brand Reference</div>
+                        <div class="home-card-desc">Colors, typography, and podcast branding</div>
+                    </div>
+                    <div class="home-card" onclick="switchTab('help')">
+                        <div class="home-card-icon icon-wave"><i data-lucide="life-buoy"></i></div>
+                        <div class="home-card-title">Get Help</div>
+                        <div class="home-card-desc">Team contacts and project intake</div>
+                    </div>
+                </div>
                 <div class="card">
                     <div class="card-header">
-                        <i data-lucide="youtube" style="color:var(--tw-flamingo)"></i>
-                        <h2>YouTube Summary</h2>
-                        <span class="source-badge api" id="yt-source-badge">API</span>
+                        <i data-lucide="info" style="color:var(--tw-sapphire)"></i>
+                        <h2>Quick Start</h2>
                     </div>
-                    <div class="stat-grid">
-                        <div class="stat-item">
-                            <label>Total Views (28d)</label>
-                            <div class="stat-value" id="ov-yt-views">--</div>
-                            <span class="stat-badge neutral" id="ov-yt-views-badge">--</span>
+                    <div class="resource-grid">
+                        <div class="resource-card" onclick="switchTab('guides')" style="border-left:3px solid var(--tw-jade);">
+                            <div class="resource-icon icon-jade"><i data-lucide="play-circle"></i></div>
+                            <div class="resource-title">Starting a new video project?</div>
+                            <div class="resource-desc">Review the Video Production Guide and grab the latest templates before you start.</div>
                         </div>
-                        <div class="stat-item">
-                            <label>Subscribers</label>
-                            <div class="stat-value" id="ov-yt-subs">--</div>
-                            <span class="stat-badge neutral" id="ov-yt-subs-badge">--</span>
+                        <div class="resource-card" onclick="switchTab('templates')" style="border-left:3px solid var(--tw-amethyst);">
+                            <div class="resource-icon icon-amethyst"><i data-lucide="download"></i></div>
+                            <div class="resource-title">Need lower thirds or intros?</div>
+                            <div class="resource-desc">Browse templates by format (16:9 / vertical) and brand type (Brand / Employer Brand).</div>
                         </div>
-                        <div class="stat-item">
-                            <label>Watch Time (hrs)</label>
-                            <div class="stat-value" id="ov-yt-watch">--</div>
-                            <span class="stat-badge neutral" id="ov-yt-watch-badge">--</span>
-                        </div>
-                        <div class="stat-item">
-                            <label>Engagement Rate</label>
-                            <div class="stat-value" id="ov-yt-engage">--</div>
+                        <div class="resource-card" onclick="switchTab('help')" style="border-left:3px solid var(--tw-flamingo);">
+                            <div class="resource-icon icon-flamingo"><i data-lucide="send"></i></div>
+                            <div class="resource-title">Requesting multimedia work?</div>
+                            <div class="resource-desc">Use the project intake form or create a Jira ticket so we can plan capacity.</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- LinkedIn Summary -->
-                <div class="card">
-                    <div class="card-header">
-                        <i data-lucide="linkedin" style="color:var(--tw-sapphire)"></i>
-                        <h2>LinkedIn Summary</h2>
-                    </div>
-                    <div class="placeholder">
-                        <i data-lucide="link"></i>
-                        <p>LinkedIn data not yet connected.<br>CSV export integration coming soon.</p>
-                    </div>
-                </div>
-
-                <!-- Podcast Summary -->
-                <div class="card">
-                    <div class="card-header">
-                        <i data-lucide="mic" style="color:var(--tw-amethyst)"></i>
-                        <h2>Podcast Summary</h2>
-                    </div>
-                    <div class="placeholder">
-                        <i data-lucide="headphones"></i>
-                        <p>Podcast data not yet connected.<br>Libsyn export integration coming soon.</p>
-                    </div>
-                </div>
-
-                <!-- Combined Trend Chart -->
-                <div class="card">
-                    <div class="card-header">
-                        <i data-lucide="trending-up" style="color:var(--tw-wave)"></i>
-                        <h2>YouTube Views Trend (28 days)</h2>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="overviewChart"></canvas>
-                    </div>
-                </div>
             </section>
 
-            <!-- ==================== YOUTUBE TAB ==================== -->
-            <section id="tab-youtube" class="tab-content">
-                <!-- KPI Cards -->
-                <div class="stat-grid" style="margin-bottom:16px;">
-                    <div class="card" style="margin-bottom:0;">
-                        <label style="font-size:12px;opacity:0.6;">Total Subscribers</label>
-                        <div class="stat-value" id="yt-total-subs">--</div>
+            <!-- ═══════════════════════════════════════ -->
+            <!-- ANALYTICS TAB (FULL DASHBOARD)          -->
+            <!-- ═══════════════════════════════════════ -->
+            <section id="tab-analytics" class="tab-content">
+
+                <!-- Toolbar -->
+                <div class="analytics-toolbar">
+                    <div class="analytics-toolbar-left">
+                        <i data-lucide="clock"></i>
+                        <span id="lastUpdated">Not loaded</span>
                     </div>
-                    <div class="card" style="margin-bottom:0;">
-                        <label style="font-size:12px;opacity:0.6;">Channel Views (Lifetime)</label>
-                        <div class="stat-value" id="yt-channel-views">--</div>
-                    </div>
-                    <div class="card" style="margin-bottom:0;">
-                        <label style="font-size:12px;opacity:0.6;">Total Videos</label>
-                        <div class="stat-value" id="yt-total-videos">--</div>
-                    </div>
-                    <div class="card" style="margin-bottom:0;">
-                        <label style="font-size:12px;opacity:0.6;">Engagement Rate</label>
-                        <div class="stat-value" id="yt-engage-rate">--</div>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <select id="dateRange" style="appearance:none;background:var(--tw-talc);border:1px solid rgba(0,61,79,0.15);color:var(--tw-wave);font-family:var(--font-body);font-size:12px;padding:6px 28px 6px 10px;border-radius:6px;cursor:pointer;outline:none;background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23003D4F%22 stroke-width=%222%22><polyline points=%226 9 12 15 18 9%22/></svg>');background-repeat:no-repeat;background-position:right 8px center;">
+                            <option value="7">Last 7 days</option>
+                            <option value="28" selected>Last 28 days</option>
+                            <option value="90">Last 90 days</option>
+                            <option value="365">Last 12 months</option>
+                        </select>
+                        <button class="refresh-btn" id="refreshBtn" onclick="loadAnalyticsData()">
+                            <i data-lucide="refresh-cw" style="width:14px;height:14px;"></i> Refresh
+                        </button>
                     </div>
                 </div>
 
-                <!-- 28-day metrics from CSV -->
-                <div class="card">
-                    <div class="card-header">
-                        <i data-lucide="calendar" style="color:var(--tw-turmeric)"></i>
-                        <h2>Last 28 Days (from YouTube Studio export)</h2>
-                        <span class="source-badge csv">CSV</span>
-                    </div>
-                    <div class="stat-grid">
-                        <div class="stat-item">
-                            <label>Views</label>
-                            <div class="stat-value" id="yt-csv-views">--</div>
-                            <span class="stat-badge neutral" id="yt-csv-views-badge">--</span>
-                        </div>
-                        <div class="stat-item">
-                            <label>Watch Time (hrs)</label>
-                            <div class="stat-value" id="yt-csv-watch">--</div>
-                        </div>
-                        <div class="stat-item">
-                            <label>Subscribers Gained</label>
-                            <div class="stat-value" id="yt-csv-subs">--</div>
-                        </div>
-                        <div class="stat-item">
-                            <label>Impressions</label>
-                            <div class="stat-value" id="yt-csv-impressions">--</div>
-                            <span class="stat-badge neutral" id="yt-csv-ctr-badge">--</span>
-                        </div>
-                    </div>
+                <!-- Sub-tabs -->
+                <div class="analytics-subtabs">
+                    <button class="analytics-subtab active" data-panel="a-overview" onclick="switchAnalytics('a-overview')">
+                        <i data-lucide="layout-dashboard"></i> Overview
+                    </button>
+                    <button class="analytics-subtab" data-panel="a-youtube" onclick="switchAnalytics('a-youtube')">
+                        <i data-lucide="youtube"></i> YouTube
+                    </button>
+                    <button class="analytics-subtab" data-panel="a-linkedin" onclick="switchAnalytics('a-linkedin')">
+                        <i data-lucide="linkedin"></i> LinkedIn
+                    </button>
+                    <button class="analytics-subtab" data-panel="a-podcasts" onclick="switchAnalytics('a-podcasts')">
+                        <i data-lucide="mic"></i> Podcasts
+                    </button>
                 </div>
 
-                <div class="two-col">
-                    <!-- Views Trend Chart -->
+                <!-- ──── OVERVIEW PANEL ──── -->
+                <div id="a-overview" class="analytics-panel active">
                     <div class="card">
                         <div class="card-header">
-                            <i data-lucide="line-chart" style="color:var(--tw-flamingo)"></i>
+                            <i data-lucide="youtube" style="color:var(--tw-flamingo)"></i>
+                            <h2>YouTube Summary</h2>
+                            <span class="source-badge api" id="yt-source-badge">API</span>
+                        </div>
+                        <div class="stat-grid">
+                            <div class="stat-item">
+                                <label>Total Views (<span class="range-label">28d</span>)</label>
+                                <div class="stat-value" id="ov-yt-views">--</div>
+                                <span class="stat-badge neutral" id="ov-yt-views-badge">--</span>
+                            </div>
+                            <div class="stat-item">
+                                <label>Subscribers</label>
+                                <div class="stat-value" id="ov-yt-subs">--</div>
+                                <span class="stat-badge neutral" id="ov-yt-subs-badge">--</span>
+                            </div>
+                            <div class="stat-item">
+                                <label>Watch Time (hrs)</label>
+                                <div class="stat-value" id="ov-yt-watch">--</div>
+                                <span class="stat-badge neutral" id="ov-yt-watch-badge">--</span>
+                            </div>
+                            <div class="stat-item">
+                                <label>Engagement Rate</label>
+                                <div class="stat-value" id="ov-yt-engage">--</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <i data-lucide="linkedin" style="color:var(--tw-sapphire)"></i>
+                            <h2>LinkedIn Summary</h2>
+                        </div>
+                        <div class="placeholder">
+                            <i data-lucide="link"></i>
+                            <p>LinkedIn data not yet connected.<br>CSV export integration coming soon.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <i data-lucide="mic" style="color:var(--tw-amethyst)"></i>
+                            <h2>Podcast Summary</h2>
+                        </div>
+                        <div class="placeholder">
+                            <i data-lucide="headphones"></i>
+                            <p>Podcast data not yet connected.<br>Libsyn export integration coming soon.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <i data-lucide="trending-up" style="color:var(--tw-wave)"></i>
+                            <h2>YouTube Views Trend (<span id="ov-chart-range">28 days</span>)</h2>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="overviewChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ──── YOUTUBE PANEL ──── -->
+                <div id="a-youtube" class="analytics-panel">
+                    <!-- Channel Stats (API) -->
+                    <div class="card">
+                        <div class="card-header">
+                            <i data-lucide="tv" style="color:var(--tw-wave)"></i>
+                            <h2>Channel Lifetime Stats</h2>
+                            <span class="source-badge api">API</span>
+                        </div>
+                        <div class="stat-grid">
+                            <div class="stat-item">
+                                <label>Subscribers</label>
+                                <div class="stat-value" id="yt-total-subs">--</div>
+                            </div>
+                            <div class="stat-item">
+                                <label>Total Views</label>
+                                <div class="stat-value" id="yt-channel-views">--</div>
+                            </div>
+                            <div class="stat-item">
+                                <label>Video Count</label>
+                                <div class="stat-value" id="yt-total-videos">--</div>
+                            </div>
+                            <div class="stat-item">
+                                <label>Engagement Rate</label>
+                                <div class="stat-value" id="yt-engage-rate">--</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 28-Day Metrics (CSV) -->
+                    <div class="card">
+                        <div class="card-header">
+                            <i data-lucide="calendar" style="color:var(--tw-turmeric)"></i>
+                            <h2>28-Day Performance</h2>
+                            <span class="source-badge csv">CSV</span>
+                        </div>
+                        <div class="stat-grid">
+                            <div class="stat-item">
+                                <label>Views</label>
+                                <div class="stat-value" id="yt-csv-views">--</div>
+                                <span class="stat-badge neutral" id="yt-csv-views-badge">--</span>
+                            </div>
+                            <div class="stat-item">
+                                <label>Watch Time (hrs)</label>
+                                <div class="stat-value" id="yt-csv-watch">--</div>
+                                <span class="stat-badge neutral" id="yt-csv-watch-badge">--</span>
+                            </div>
+                            <div class="stat-item">
+                                <label>Subs Gained</label>
+                                <div class="stat-value" id="yt-csv-subs">--</div>
+                            </div>
+                            <div class="stat-item">
+                                <label>Impressions</label>
+                                <div class="stat-value" id="yt-csv-imp">--</div>
+                                <div style="font-size:11px;opacity:0.45;margin-top:2px;">CTR: <span id="yt-csv-ctr">--</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Charts -->
+                    <div class="card">
+                        <div class="card-header">
+                            <i data-lucide="bar-chart-3" style="color:var(--tw-flamingo)"></i>
                             <h2>Daily Views</h2>
                         </div>
                         <div class="chart-container">
                             <canvas id="ytViewsChart"></canvas>
                         </div>
                     </div>
-
-                    <!-- Impressions Chart -->
                     <div class="card">
                         <div class="card-header">
                             <i data-lucide="eye" style="color:var(--tw-sapphire)"></i>
                             <h2>Daily Impressions</h2>
                         </div>
                         <div class="chart-container">
-                            <canvas id="ytImpressionsChart"></canvas>
+                            <canvas id="ytImpChart"></canvas>
+                        </div>
+                    </div>
+                    <!-- Top Videos -->
+                    <div class="card">
+                        <div class="card-header">
+                            <i data-lucide="trophy" style="color:var(--tw-turmeric)"></i>
+                            <h2>Top Videos</h2>
+                            <span class="source-badge api">API</span>
+                        </div>
+                        <div class="video-grid" id="videoGrid"></div>
+                    </div>
+                    <!-- Video Table -->
+                    <div class="card">
+                        <div class="card-header">
+                            <i data-lucide="table" style="color:var(--tw-wave)"></i>
+                            <h2>All Videos</h2>
+                        </div>
+                        <div style="overflow-x:auto;">
+                            <table class="data-table" id="videoTable">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Title</th>
+                                        <th class="num">Views</th>
+                                        <th class="num">Likes</th>
+                                        <th class="num">Comments</th>
+                                        <th>Published</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="videoTableBody"></tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
 
-                <!-- Top Videos -->
-                <div class="card">
-                    <div class="card-header">
-                        <i data-lucide="play-circle" style="color:var(--tw-flamingo)"></i>
-                        <h2>Top Videos</h2>
-                        <span class="source-badge api">API</span>
-                    </div>
-                    <div class="video-grid" id="videoGrid">
-                        <!-- Populated by JS -->
-                    </div>
-                </div>
-
-                <!-- All Videos Table -->
-                <div class="card">
-                    <div class="card-header">
-                        <i data-lucide="list" style="color:var(--tw-wave)"></i>
-                        <h2>All Videos (Recent 50)</h2>
-                    </div>
-                    <div style="overflow-x:auto;">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Published</th>
-                                    <th>Views</th>
-                                    <th>Likes</th>
-                                    <th>Comments</th>
-                                </tr>
-                            </thead>
-                            <tbody id="videoTable">
-                                <!-- Populated by JS -->
-                            </tbody>
-                        </table>
+                <!-- ──── LINKEDIN PANEL ──── -->
+                <div id="a-linkedin" class="analytics-panel">
+                    <div class="card">
+                        <div class="card-header">
+                            <i data-lucide="linkedin" style="color:var(--tw-sapphire)"></i>
+                            <h2>LinkedIn Analytics</h2>
+                        </div>
+                        <div class="placeholder">
+                            <i data-lucide="link"></i>
+                            <p>LinkedIn data not yet connected.<br>CSV export integration coming soon.</p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Data Sources -->
-                <div class="card">
-                    <div class="card-header">
-                        <i data-lucide="database" style="color:var(--tw-wave)"></i>
-                        <h2>Data Sources</h2>
-                    </div>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Source</th>
-                                <th>Status</th>
-                                <th>Last Updated</th>
-                                <th>Details</th>
-                            </tr>
-                        </thead>
-                        <tbody id="dataSourcesTable">
-                            <!-- Populated by JS -->
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- ==================== LINKEDIN TAB ==================== -->
-            <section id="tab-linkedin" class="tab-content">
-                <div class="card">
-                    <div class="placeholder">
-                        <i data-lucide="linkedin"></i>
-                        <p>LinkedIn analytics integration coming soon.<br>This tab will show company page metrics from CSV exports.</p>
+                <!-- ──── PODCASTS PANEL ──── -->
+                <div id="a-podcasts" class="analytics-panel">
+                    <div class="card">
+                        <div class="card-header">
+                            <i data-lucide="mic" style="color:var(--tw-amethyst)"></i>
+                            <h2>Podcast Analytics</h2>
+                        </div>
+                        <div class="placeholder">
+                            <i data-lucide="headphones"></i>
+                            <p>Podcast data not yet connected.<br>Libsyn export integration coming soon.</p>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- ==================== PODCASTS TAB ==================== -->
-            <section id="tab-podcasts" class="tab-content">
+            <!-- ═══════════════════════════════════════ -->
+            <!-- GUIDES TAB                              -->
+            <!-- ═══════════════════════════════════════ -->
+            <section id="tab-guides" class="tab-content">
+                <div class="callout">
+                    <div class="callout-title"><i data-lucide="info"></i> Before you start</div>
+                    <p>Review the relevant guide below before beginning any video, animation, or podcast project.</p>
+                </div>
                 <div class="card">
-                    <div class="placeholder">
-                        <i data-lucide="mic"></i>
-                        <p>Podcast analytics integration coming soon.<br>This tab will show Libsyn metrics across all podcast properties.</p>
+                    <div class="card-header"><i data-lucide="video" style="color:var(--tw-jade)"></i><h2>Video Production</h2><span class="source-badge guide">Guides</span></div>
+                    <div class="guide-grid">
+                        <a class="guide-card" href="REPLACE_WITH_DRIVE_LINK" target="_blank" data-search="video production filming camera shoot planning"><div class="resource-icon icon-jade"><i data-lucide="clapperboard"></i></div><div class="guide-body"><div class="resource-title">Video Production Guide</div><div class="resource-desc">Shoot planning, camera settings, lighting, audio, and post-production workflows.</div><div class="tag-row"><span class="tag tag-video">Video</span><span class="tag tag-doc">Guide</span></div></div></a>
+                        <a class="guide-card" href="REPLACE_WITH_DRIVE_LINK" target="_blank" data-search="remote recording riverside hybrid interview"><div class="resource-icon icon-jade"><i data-lucide="monitor-play"></i></div><div class="guide-body"><div class="resource-title">Remote Recording Guide</div><div class="resource-desc">Best practices for Riverside Studio, hybrid interviews, and virtual event capture.</div><div class="tag-row"><span class="tag tag-video">Video</span><span class="tag tag-doc">Guide</span></div></div></a>
+                        <a class="guide-card" href="REPLACE_WITH_DRIVE_LINK" target="_blank" data-search="editing post production premiere resolve color grading"><div class="resource-icon icon-jade"><i data-lucide="scissors"></i></div><div class="guide-body"><div class="resource-title">Editing Standards</div><div class="resource-desc">Color grading, titling, lower thirds, and export settings.</div><div class="tag-row"><span class="tag tag-video">Video</span><span class="tag tag-doc">Guide</span></div></div></a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><i data-lucide="wand-2" style="color:var(--tw-amethyst)"></i><h2>Animation &amp; Motion Graphics</h2><span class="source-badge guide">Guides</span></div>
+                    <div class="guide-grid">
+                        <a class="guide-card" href="REPLACE_WITH_DRIVE_LINK" target="_blank" data-search="animation style motion graphics timing easing after effects"><div class="resource-icon icon-amethyst"><i data-lucide="sparkles"></i></div><div class="guide-body"><div class="resource-title">Animation Style Guide</div><div class="resource-desc">Motion principles, timing, easing, color usage, and approved animation styles.</div><div class="tag-row"><span class="tag tag-ae">Animation</span><span class="tag tag-doc">Guide</span></div></div></a>
+                        <a class="guide-card" href="REPLACE_WITH_DRIVE_LINK" target="_blank" data-search="mogrt template how to install premiere pro"><div class="resource-icon icon-amethyst"><i data-lucide="file-text"></i></div><div class="guide-body"><div class="resource-title">How to Use MOGRT Templates</div><div class="resource-desc">Installing and customizing Motion Graphics Templates in Premiere Pro.</div><div class="tag-row"><span class="tag tag-mogrt">MOGRT</span><span class="tag tag-doc">Guide</span></div></div></a>
+                        <a class="guide-card" href="REPLACE_WITH_DRIVE_LINK" target="_blank" data-search="pre-renders quicktime mov overlay drag drop"><div class="resource-icon icon-amethyst"><i data-lucide="play-circle"></i></div><div class="guide-body"><div class="resource-title">Using Pre-Render Assets</div><div class="resource-desc">How to work with .mov pre-renders for editors without After Effects.</div><div class="tag-row"><span class="tag tag-mov">.MOV</span><span class="tag tag-doc">Guide</span></div></div></a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><i data-lucide="mic" style="color:var(--tw-flamingo)"></i><h2>Podcast Production</h2><span class="source-badge guide">Guides</span></div>
+                    <div class="guide-grid">
+                        <a class="guide-card" href="REPLACE_WITH_DRIVE_LINK" target="_blank" data-search="podcast production recording audio libsyn publishing"><div class="resource-icon icon-flamingo"><i data-lucide="mic"></i></div><div class="guide-body"><div class="resource-title">Podcast Production Guide</div><div class="resource-desc">Recording standards, audio processing, episode structure, and publishing workflow.</div><div class="tag-row"><span class="tag tag-audio">Podcast</span><span class="tag tag-doc">Guide</span></div></div></a>
+                        <a class="guide-card" href="REPLACE_WITH_DRIVE_LINK" target="_blank" data-search="guest speaker preparation tips audio setup"><div class="resource-icon icon-flamingo"><i data-lucide="user-check"></i></div><div class="guide-body"><div class="resource-title">Guest Speaker Preparation</div><div class="resource-desc">Share with guests: audio setup, environment tips, and what to expect.</div><div class="tag-row"><span class="tag tag-audio">Podcast</span><span class="tag tag-doc">Guide</span></div></div></a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><i data-lucide="camera" style="color:var(--tw-turmeric)"></i><h2>Photography &amp; Imagery</h2><span class="source-badge guide">Guides</span></div>
+                    <div class="guide-grid">
+                        <a class="guide-card" href="REPLACE_WITH_DRIVE_LINK" target="_blank" data-search="photography image brand stock imagery"><div class="resource-icon icon-turmeric"><i data-lucide="image"></i></div><div class="guide-body"><div class="resource-title">Photography &amp; Image Guidelines</div><div class="resource-desc">Brand photography direction, image treatment, stock selection criteria.</div><div class="tag-row"><span class="tag tag-doc">Brand</span><span class="tag tag-doc">Guide</span></div></div></a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════════════════════════════════ -->
+            <!-- TEMPLATES TAB                           -->
+            <!-- ═══════════════════════════════════════ -->
+            <section id="tab-templates" class="tab-content">
+                <div class="callout">
+                    <div class="callout-title"><i data-lucide="info"></i> Template formats</div>
+                    <p><strong>MOGRT</strong> — Premiere Pro drag-and-drop. <strong>AE</strong> — After Effects project files. <strong>.mov</strong> — QuickTime pre-renders with alpha.</p>
+                </div>
+
+                <!-- Format Picker -->
+                <div style="display:flex;gap:12px;margin-bottom:20px;" id="templatePicker">
+                    <button class="home-card" onclick="pickTemplateFormat('horizontal')" id="btn-horizontal" style="flex:1;margin:0;">
+                        <div class="home-card-icon icon-sapphire"><i data-lucide="monitor"></i></div>
+                        <div class="home-card-title">Horizontal (16:9)</div>
+                        <div class="home-card-desc">YouTube, LinkedIn, presentations, internal comms</div>
+                    </button>
+                    <button class="home-card" onclick="pickTemplateFormat('vertical')" id="btn-vertical" style="flex:1;margin:0;">
+                        <div class="home-card-icon icon-amethyst"><i data-lucide="smartphone"></i></div>
+                        <div class="home-card-title">Vertical (9:16)</div>
+                        <div class="home-card-desc">Reels, Shorts, TikTok, Stories</div>
+                    </button>
+                </div>
+
+                <!-- Back button (hidden by default) -->
+                <button id="templateBack" style="display:none;background:none;border:1px solid rgba(0,61,79,0.15);color:var(--tw-wave);padding:8px 16px;border-radius:6px;cursor:pointer;font-family:var(--font-body);font-size:13px;font-weight:500;margin-bottom:16px;transition:all 0.2s;" onclick="resetTemplatePicker()">
+                    ← Back to format selection
+                </button>
+
+                <!-- Horizontal Templates -->
+                <div id="tpl-horizontal" style="display:none;">
+                    <div class="card">
+                        <div class="card-header"><i data-lucide="monitor" style="color:var(--tw-sapphire)"></i><h2>16:9 Landscape — Brand</h2><span class="source-badge gdrive">Google Drive</span></div>
+                        <div class="resource-grid">
+                            <a class="resource-card" href="REPLACE_WITH_DRIVE_LINK" target="_blank" data-search="16:9 brand lower third name strap title"><div class="resource-icon icon-sapphire"><i data-lucide="subtitles"></i></div><div class="resource-title">Lower Thirds</div><div class="resource-desc">Name straps and title cards in TW brand style.</div><div class="tag-row"><span class="tag tag-mogrt">MOGRT</span><span class="tag tag-ae">AE</span><span class="tag tag-mov">.MOV</span></div></a>
+                            <a class="resource-card" href="REPLACE_WITH_DRIVE_LINK" target="_blank" data-search="16:9 brand intro opener animation"><div class="resource-icon icon-sapphire"><i data-lucide="play"></i></div><div class="resource-title">Intro / Opener</div><div class="resource-desc">Branded intro animations for video content.</div><div class="tag-row"><span class="tag tag-ae">AE</span><span class="tag tag-mov">.MOV</span></div></a>
+                            <a class="resource-card" href="REPLACE_WITH_DRIVE_LINK" target="_blank" data-search="16:9 brand outro end card cta"><div class="resource-icon icon-sapphire"><i data-lucide="square"></i></div><div class="resource-title">Outro / End Card</div><div class="resource-desc">Standard end cards with CTA placement.</div><div class="tag-row"><span class="tag tag-mogrt">MOGRT</span><span class="tag tag-ae">AE</span></div></a>
+                            <a class="resource-card" href="REPLACE_WITH_DRIVE_LINK" target="_blank" data-search="16:9 brand transition wipe"><div class="resource-icon icon-sapphire"><i data-lucide="arrow-right-left"></i></div><div class="resource-title">Transitions</div><div class="resource-desc">Scene transitions and animated wipes.</div><div class="tag-row"><span class="tag tag-mogrt">MOGRT</span><span class="tag tag-mov">.MOV</span></div></a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header"><i data-lucide="monitor" style="color:var(--tw-jade)"></i><h2>16:9 Landscape — Employer Brand</h2><span class="source-badge gdrive">Google Drive</span></div>
+                        <div class="resource-grid">
+                            <a class="resource-card" href="REPLACE_WITH_DRIVE_LINK" target="_blank" data-search="16:9 employer brand EB lower third"><div class="resource-icon icon-jade"><i data-lucide="subtitles"></i></div><div class="resource-title">Lower Thirds — EB</div><div class="resource-desc">Name straps for recruiting and culture content.</div><div class="tag-row"><span class="tag tag-mogrt">MOGRT</span><span class="tag tag-ae">AE</span><span class="tag tag-mov">.MOV</span></div></a>
+                            <a class="resource-card" href="REPLACE_WITH_DRIVE_LINK" target="_blank" data-search="16:9 employer brand EB intro opener"><div class="resource-icon icon-jade"><i data-lucide="play"></i></div><div class="resource-title">Intro / Opener — EB</div><div class="resource-desc">Employer brand intro animations.</div><div class="tag-row"><span class="tag tag-ae">AE</span><span class="tag tag-mov">.MOV</span></div></a>
+                            <a class="resource-card" href="REPLACE_WITH_DRIVE_LINK" target="_blank" data-search="16:9 employer brand EB outro end card"><div class="resource-icon icon-jade"><i data-lucide="square"></i></div><div class="resource-title">Outro / End Card — EB</div><div class="resource-desc">Employer brand end cards.</div><div class="tag-row"><span class="tag tag-mogrt">MOGRT</span><span class="tag tag-ae">AE</span></div></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vertical Templates -->
+                <div id="tpl-vertical" style="display:none;">
+                    <div class="card">
+                        <div class="card-header"><i data-lucide="smartphone" style="color:var(--tw-sapphire)"></i><h2>Vertical (9:16) — Brand</h2><span class="source-badge gdrive">Google Drive</span></div>
+                        <div class="resource-grid">
+                            <a class="resource-card" href="REPLACE_WITH_DRIVE_LINK" target="_blank" data-search="vertical 9:16 brand lower third mobile"><div class="resource-icon icon-sapphire"><i data-lucide="subtitles"></i></div><div class="resource-title">Lower Thirds — Vertical</div><div class="resource-desc">Name straps optimized for mobile viewing.</div><div class="tag-row"><span class="tag tag-mogrt">MOGRT</span><span class="tag tag-ae">AE</span><span class="tag tag-mov">.MOV</span></div></a>
+                            <a class="resource-card" href="REPLACE_WITH_DRIVE_LINK" target="_blank" data-search="vertical 9:16 brand frame overlay"><div class="resource-icon icon-sapphire"><i data-lucide="frame"></i></div><div class="resource-title">Frames &amp; Overlays</div><div class="resource-desc">Branded frames and overlays for vertical content.</div><div class="tag-row"><span class="tag tag-ae">AE</span><span class="tag tag-mov">.MOV</span></div></a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header"><i data-lucide="smartphone" style="color:var(--tw-jade)"></i><h2>Vertical (9:16) — Employer Brand</h2><span class="source-badge gdrive">Google Drive</span></div>
+                        <div class="resource-grid">
+                            <a class="resource-card" href="REPLACE_WITH_DRIVE_LINK" target="_blank" data-search="vertical 9:16 employer brand EB"><div class="resource-icon icon-jade"><i data-lucide="subtitles"></i></div><div class="resource-title">Lower Thirds — Vertical EB</div><div class="resource-desc">Employer brand templates for vertical content.</div><div class="tag-row"><span class="tag tag-mogrt">MOGRT</span><span class="tag tag-ae">AE</span><span class="tag tag-mov">.MOV</span></div></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════════════════════════════════ -->
+            <!-- ASSETS TAB                              -->
+            <!-- ═══════════════════════════════════════ -->
+            <section id="tab-assets" class="tab-content">
+                <div class="callout" style="border-left-color:var(--tw-turmeric);"><div class="callout-title"><i data-lucide="alert-triangle" style="color:var(--tw-turmeric)"></i> Licensing reminder</div><p>Licensed music and stock footage are for Thoughtworks projects only.</p></div>
+                <div class="callout" style="border-left-color:var(--tw-sapphire);"><div class="callout-title"><i data-lucide="music" style="color:var(--tw-sapphire)"></i> Need licensed audio or stock footage?</div><p>We source music and stock footage through <strong>artlist.io</strong> on an as-needed basis. Reach out to the multimedia team and we'll pull what you need.</p></div>
+                <div class="card">
+                    <div class="card-header"><i data-lucide="settings" style="color:var(--tw-turmeric)"></i><h2>Assets</h2><span class="source-badge gdrive">Google Drive</span></div>
+                    <div class="resource-grid">
+                        <a class="resource-card" href="REPLACE_WITH_DRIVE_LINK" target="_blank" data-search="LUT color grading overlay"><div class="resource-icon icon-turmeric"><i data-lucide="sun"></i></div><div class="resource-title">Color Overlays / LUTs</div><div class="resource-desc">Approved color grading LUTs and overlay files.</div><div class="tag-row"><span class="tag tag-video">Video</span><span class="tag tag-doc">Technical</span></div></a>
+                        <a class="resource-card" href="REPLACE_WITH_DRIVE_LINK" target="_blank" data-search="archival b-roll thoughtworks office events"><div class="resource-icon icon-jade"><i data-lucide="archive"></i></div><div class="resource-title">Archival TW B-Roll</div><div class="resource-desc">Historical Thoughtworks footage — offices, events, team moments.</div><div class="tag-row"><span class="tag tag-video">Video</span></div></a>
+                        <a class="resource-card" href="https://brand.thoughtworks.com" target="_blank" data-search="brand hub logo fonts guidelines"><div class="resource-icon icon-wave"><i data-lucide="external-link"></i></div><div class="resource-title">Brand Hub (Official)</div><div class="resource-desc">Logos, fonts, templates, and brand guidelines.</div><div class="tag-row"><span class="tag tag-doc">Brand</span></div></a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════════════════════════════════ -->
+            <!-- BRAND REFERENCE TAB                     -->
+            <!-- ═══════════════════════════════════════ -->
+            <section id="tab-brand" class="tab-content">
+                <div class="card">
+                    <div class="card-header"><i data-lucide="image" style="color:var(--tw-wave)"></i><h2>Logo Use</h2><span class="source-badge brand">Brand</span></div>
+                    <p class="section-desc">The Thoughtworks logo is a custom-drawn flamingo pink oblique with wave blue wordmark. Only use approved, supplied logo artwork files.</p>
+                    <div class="resource-grid" style="margin-bottom:16px;">
+                        <div class="resource-card" style="cursor:default;border-left:3px solid var(--tw-wave);">
+                            <div class="resource-icon icon-wave"><i data-lucide="check-circle"></i></div>
+                            <div class="resource-title">Full Logo (with descriptor)</div>
+                            <div class="resource-desc">Use for all general and marketing communications. Includes "Design. Engineering. AI." descriptor.</div>
+                        </div>
+                        <div class="resource-card" style="cursor:default;border-left:3px solid var(--tw-sapphire);">
+                            <div class="resource-icon icon-sapphire"><i data-lucide="minimize-2"></i></div>
+                            <div class="resource-title">Logo without descriptor</div>
+                            <div class="resource-desc">Available when the descriptor isn't needed. Same color rules apply.</div>
+                        </div>
+                        <div class="resource-card" style="cursor:default;border-left:3px solid var(--tw-amethyst);">
+                            <div class="resource-icon icon-amethyst"><i data-lucide="at-sign"></i></div>
+                            <div class="resource-title">Small /tw logo</div>
+                            <div class="resource-desc">Only for social media avatars and favicons. Use of the small version must be approved by the global head of brand.</div>
+                        </div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+                        <div class="type-specimen" style="margin-bottom:0;">
+                            <div style="font-weight:600;font-size:13px;margin-bottom:10px;">Logo on backgrounds</div>
+                            <div class="type-row" style="padding:8px 0;"><div class="type-label" style="min-width:70px;">Light bg</div><div class="type-sample" style="font-size:13px;">Flamingo + Wave version (on mist, white, or light images)</div></div>
+                            <div class="type-row" style="padding:8px 0;"><div class="type-label" style="min-width:70px;">Dark bg</div><div class="type-sample" style="font-size:13px;">Flamingo + Mist version (on wave blue, black, or dark images)</div></div>
+                            <div class="type-row" style="padding:8px 0;"><div class="type-label" style="min-width:70px;">Color bg</div><div class="type-sample" style="font-size:13px;">White logo on any colored or complex image backgrounds</div></div>
+                            <div class="type-row" style="padding:8px 0;border:none;"><div class="type-label" style="min-width:70px;">No color</div><div class="type-sample" style="font-size:13px;">Black or white logo when color printing is unavailable</div></div>
+                        </div>
+                        <div class="type-specimen" style="margin-bottom:0;">
+                            <div style="font-weight:600;font-size:13px;margin-bottom:10px;">Clear space</div>
+                            <div style="font-size:13px;opacity:0.55;line-height:1.7;">Minimum clear space is measured by the height of the flamingo pink oblique — maintain this distance on all four sides of the logo.</div>
+                        </div>
+                    </div>
+                    <div class="callout" style="border-left-color:var(--tw-flamingo);">
+                        <div class="callout-title"><i data-lucide="alert-triangle" style="color:var(--tw-flamingo)"></i> Never modify the logo</div>
+                        <p>Do not distort, reconfigure, adjust scales, apply gradients, change colors, add graphics, rotate, omit elements, or change text. Do not create custom logos for groups, communities, or initiatives using the TW logo.</p>
+                    </div>
+                    <div class="callout" style="border-left-color:var(--tw-sapphire);">
+                        <div class="callout-title"><i data-lucide="pen-tool" style="color:var(--tw-sapphire)"></i> Writing the company name</div>
+                        <p>Uppercase T, lowercase w: <strong>Thoughtworks</strong>. Abbreviations for internal use: TW, TWers, TWU. Never use: tw, Tw, twers, Twers, /twers, /tw.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><i data-lucide="palette" style="color:var(--tw-flamingo)"></i><h2>Color Palette</h2><span class="source-badge brand">Brand</span></div>
+                    <p class="section-desc">Official Thoughtworks colors. Wave Blue as primary, Flamingo for accents.</p>
+                    <div class="swatch-grid">
+                        <div class="swatch"><div class="swatch-block" style="background:#003D4F;"></div><div class="swatch-label"><div class="swatch-name">Wave Blue</div><div class="swatch-hex">#003D4F</div></div></div>
+                        <div class="swatch"><div class="swatch-block" style="background:#F2617A;"></div><div class="swatch-label"><div class="swatch-name">Flamingo Pink</div><div class="swatch-hex">#F2617A</div></div></div>
+                        <div class="swatch"><div class="swatch-block" style="background:#EDF1F3;"></div><div class="swatch-label"><div class="swatch-name">Mist Gray</div><div class="swatch-hex">#EDF1F3</div></div></div>
+                        <div class="swatch"><div class="swatch-block" style="background:#CC850A;"></div><div class="swatch-label"><div class="swatch-name">Turmeric Yellow</div><div class="swatch-hex">#CC850A</div></div></div>
+                        <div class="swatch"><div class="swatch-block" style="background:#6B9E78;"></div><div class="swatch-label"><div class="swatch-name">Jade Green</div><div class="swatch-hex">#6B9E78</div></div></div>
+                        <div class="swatch"><div class="swatch-block" style="background:#47A1AD;"></div><div class="swatch-label"><div class="swatch-name">Sapphire Blue</div><div class="swatch-hex">#47A1AD</div></div></div>
+                        <div class="swatch"><div class="swatch-block" style="background:#634F7D;"></div><div class="swatch-label"><div class="swatch-name">Amethyst Purple</div><div class="swatch-hex">#634F7D</div></div></div>
+                        <div class="swatch"><div class="swatch-block" style="background:#FFF;border:1px solid #EDF1F3;"></div><div class="swatch-label"><div class="swatch-name">Talc White</div><div class="swatch-hex">#FFFFFF</div></div></div>
+                        <div class="swatch"><div class="swatch-block" style="background:#000;"></div><div class="swatch-label"><div class="swatch-name">Onyx Black</div><div class="swatch-hex">#000000</div></div></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><i data-lucide="type" style="color:var(--tw-sapphire)"></i><h2>Typography</h2><span class="source-badge brand">Brand</span></div>
+                    <div class="type-specimen">
+                        <div class="type-row"><div class="type-label">Display</div><div class="type-sample" style="font-family:'Bitter',serif;font-weight:700;font-size:2rem;">Bitter Bold — Display Heading</div><div class="type-meta">Bitter 700 · 32px+</div></div>
+                        <div class="type-row"><div class="type-label">Headline</div><div class="type-sample" style="font-family:'Bitter',serif;font-weight:700;font-size:1.5rem;">Bitter Bold — Section Heading</div><div class="type-meta">Bitter 700 · 24px</div></div>
+                        <div class="type-row"><div class="type-label">Subhead</div><div class="type-sample" style="font-family:'Inter',sans-serif;font-weight:600;font-size:1.1rem;">Inter SemiBold — Card titles, labels</div><div class="type-meta">Inter 600 · 18px</div></div>
+                        <div class="type-row"><div class="type-label">Body</div><div class="type-sample" style="font-family:'Inter',sans-serif;font-weight:400;font-size:0.95rem;">Inter Regular — The quick brown fox jumps over the lazy dog. Body copy should use this weight for all paragraph text and descriptions.</div><div class="type-meta">Inter 400 · 14–16px</div></div>
+                        <div class="type-row"><div class="type-label">Body Bold</div><div class="type-sample" style="font-family:'Inter',sans-serif;font-weight:700;font-size:0.95rem;">Inter Bold — Use for emphasis within body text</div><div class="type-meta">Inter 700 · 14–16px</div></div>
+                        <div class="type-row"><div class="type-label">Caption</div><div class="type-sample" style="font-family:'Inter',sans-serif;font-weight:400;font-size:0.8rem;opacity:0.6;">Inter Regular — Captions, metadata, timestamps, and secondary information</div><div class="type-meta">Inter 400 · 11–12px</div></div>
+                        <div class="type-row"><div class="type-label">Overline</div><div class="type-sample" style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.7rem;text-transform:uppercase;letter-spacing:1px;">Inter SemiBold — Tags, badges, labels</div><div class="type-meta">Inter 600 · 10–11px uppercase</div></div>
+                    </div>
+                    <div class="callout" style="border-left-color:var(--tw-sapphire);margin-top:12px;">
+                        <div class="callout-title"><i data-lucide="info" style="color:var(--tw-sapphire)"></i> Usage notes</div>
+                        <p><strong>Bitter Bold</strong> is reserved for headlines and display text only — never use it for body copy. <strong>Inter</strong> handles everything else: UI elements, descriptions, captions, and navigation. Minimum body text size is 14px for accessibility.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><i data-lucide="radio" style="color:var(--tw-flamingo)"></i><h2>Podcast Show Branding</h2><span class="source-badge brand">Brand</span></div>
+                    <p class="section-desc">Each podcast property uses a distinct color from the TW palette.</p>
+                    <div class="resource-grid" style="margin-top:12px;">
+                        <div class="resource-card" style="border-left:3px solid var(--tw-sapphire);cursor:default;"><div class="resource-icon icon-sapphire"><i data-lucide="mic"></i></div><div class="resource-title">Thoughtworks Technology Podcast</div><div class="resource-desc">Sapphire Blue — Main technology-focused show</div></div>
+                        <div class="resource-card" style="border-left:3px solid var(--tw-amethyst);cursor:default;"><div class="resource-icon icon-amethyst"><i data-lucide="briefcase"></i></div><div class="resource-title">Pragmatism in Practice</div><div class="resource-desc">Amethyst Purple — Business and strategy</div></div>
+                        <div class="resource-card" style="border-left:3px solid var(--tw-jade);cursor:default;"><div class="resource-icon icon-jade"><i data-lucide="globe"></i></div><div class="resource-title">Regional Podcasts</div><div class="resource-desc">Jade Green — Hablando de Software, etc.</div></div>
+                        <div class="resource-card" style="border-left:3px solid var(--tw-flamingo);cursor:default;"><div class="resource-icon icon-flamingo"><i data-lucide="radio"></i></div><div class="resource-title">General / Other</div><div class="resource-desc">Flamingo Pink — Generic podcast topics</div></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════════════════════════════════ -->
+            <!-- FOLDER MAP TAB                          -->
+            <!-- ═══════════════════════════════════════ -->
+            <section id="tab-structure" class="tab-content">
+                <div class="card">
+                    <div class="card-header"><i data-lucide="hard-drive" style="color:var(--tw-turmeric)"></i><h2>Team Google Drive Structure</h2><span class="source-badge gdrive">Google Drive</span></div>
+                    <p class="section-desc">Click any folder to open it directly in Google Drive.</p>
+                    <div class="folder-tree">
+                        <div class="tree-item"><i data-lucide="hard-drive" class="tree-folder"></i> <strong>Multimedia Team</strong></div>
+                        <div class="tree-indent"><div class="tree-item"><i data-lucide="folder" class="tree-folder"></i> <a class="tree-link" href="REPLACE_WITH_DRIVE_LINK" target="_blank">Presentations</a></div></div>
+                        <div class="tree-indent"><div class="tree-item"><i data-lucide="folder" class="tree-folder"></i> <a class="tree-link" href="REPLACE_WITH_DRIVE_LINK" target="_blank">Active Projects</a></div></div>
+                        <div class="tree-indent"><div class="tree-item"><i data-lucide="folder" class="tree-folder"></i> <a class="tree-link" href="REPLACE_WITH_DRIVE_LINK" target="_blank">Guides</a></div></div>
+                        <div class="tree-indent"><div class="tree-item"><i data-lucide="folder" class="tree-folder"></i> <a class="tree-link" href="REPLACE_WITH_DRIVE_LINK" target="_blank">Templates</a></div>
+                            <div class="tree-indent-2"><div class="tree-item"><i data-lucide="folder" class="tree-folder"></i> <a class="tree-link" href="REPLACE_WITH_DRIVE_LINK" target="_blank">Vertical (9:16)</a></div>
+                                <div class="tree-indent-3"><div class="tree-item"><i data-lucide="folder" class="tree-folder"></i> EB Templates <span class="tree-file">— .mov, MOGRT, AE</span></div></div>
+                                <div class="tree-indent-3"><div class="tree-item"><i data-lucide="folder" class="tree-folder"></i> Brand <span class="tree-file">— .mov, MOGRT, AE</span></div></div>
+                            </div>
+                            <div class="tree-indent-2"><div class="tree-item"><i data-lucide="folder" class="tree-folder"></i> <a class="tree-link" href="REPLACE_WITH_DRIVE_LINK" target="_blank">16:9 (Landscape)</a></div>
+                                <div class="tree-indent-3"><div class="tree-item"><i data-lucide="folder" class="tree-folder"></i> EB Templates <span class="tree-file">— .mov, MOGRT, AE</span></div></div>
+                                <div class="tree-indent-3"><div class="tree-item"><i data-lucide="folder" class="tree-folder"></i> Brand <span class="tree-file">— AE, MOGRT</span></div></div>
+                            </div>
+                        </div>
+                        <div class="tree-indent"><div class="tree-item"><i data-lucide="folder" class="tree-folder"></i> <a class="tree-link" href="REPLACE_WITH_DRIVE_LINK" target="_blank">Assets</a></div>
+                            <div class="tree-indent-2">
+                                <div class="tree-item"><i data-lucide="sun" style="width:14px;height:14px;"></i> <a class="tree-link" href="REPLACE_WITH_DRIVE_LINK" target="_blank">Color Overlay / LUTs</a></div>
+                                <div class="tree-item"><i data-lucide="archive" style="width:14px;height:14px;"></i> <a class="tree-link" href="REPLACE_WITH_DRIVE_LINK" target="_blank">Archival TW B-Roll</a></div>
+                                <div class="tree-item"><i data-lucide="external-link" style="width:14px;height:14px;"></i> <a class="tree-link" href="https://brand.thoughtworks.com" target="_blank">Brand Hub Link</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════════════════════════════════ -->
+            <!-- GET HELP TAB                            -->
+            <!-- ═══════════════════════════════════════ -->
+            <section id="tab-help" class="tab-content">
+                <div class="callout"><div class="callout-title"><i data-lucide="send"></i> Need multimedia work?</div><p>Submit a request through our <a href="REPLACE_WITH_INTAKE_LINK" target="_blank">project intake form</a> or create a <a href="REPLACE_WITH_JIRA_LINK" target="_blank">Jira ticket</a>.</p></div>
+                <div class="card">
+                    <div class="card-header"><i data-lucide="users" style="color:var(--tw-sapphire)"></i><h2>Multimedia Team</h2></div>
+                    <div class="contact-grid">
+                        <div class="contact-card"><div class="contact-avatar">KB</div><div><div class="contact-name">Kevin Barry</div><div class="contact-role">EST (UTC−5)</div><a class="contact-email" href="mailto:kbarry@thoughtworks.com">kbarry@thoughtworks.com</a></div></div>
+                        <div class="contact-card"><div class="contact-avatar">TC</div><div><div class="contact-name">Taliya Cohen</div><div class="contact-role">EST (UTC−5)</div><a class="contact-email" href="mailto:taliya.cohen@thoughtworks.com">taliya.cohen@thoughtworks.com</a></div></div>
+                        <div class="contact-card"><div class="contact-avatar">RC</div><div><div class="contact-name">Ryan Cambage</div><div class="contact-role">AEST (UTC+10)</div><a class="contact-email" href="mailto:ryan.cambage@thoughtworks.com">ryan.cambage@thoughtworks.com</a></div></div>
+                        <div class="contact-card"><div class="contact-avatar">AT</div><div><div class="contact-name">Anish Thomas</div><div class="contact-role">IST (UTC+5:30)</div><a class="contact-email" href="mailto:anishth@thoughtworks.com">anishth@thoughtworks.com</a></div></div>
+                        <div class="contact-card"><div class="contact-avatar">RO</div><div><div class="contact-name">Romulo Oliveira</div><div class="contact-role">BRT (UTC−3)</div><a class="contact-email" href="mailto:romulo.ghissardi@thoughtworks.com">romulo.ghissardi@thoughtworks.com</a></div></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><i data-lucide="building" style="color:var(--tw-amethyst)"></i><h2>Brand Team Contacts</h2></div>
+                    <div class="contact-grid">
+                        <div class="contact-card"><div class="contact-avatar" style="background:var(--tw-amethyst);">JM</div><div><div class="contact-name">Justine Manche</div><div class="contact-role">GMT (UTC+0)</div><a class="contact-email" href="mailto:justine.manche@thoughtworks.com">justine.manche@thoughtworks.com</a></div></div>
+                        <div class="contact-card"><div class="contact-avatar" style="background:var(--tw-amethyst);">AS</div><div><div class="contact-name">Amy Stephens</div><div class="contact-role">GMT (UTC+0)</div><a class="contact-email" href="mailto:astephen@thoughtworks.com">astephen@thoughtworks.com</a></div></div>
+                        <div class="contact-card"><div class="contact-avatar" style="background:var(--tw-amethyst);">PS</div><div><div class="contact-name">Pete Staples</div><div class="contact-role">GMT (UTC+0)</div><a class="contact-email" href="mailto:pstaple@thoughtworks.com">pstaple@thoughtworks.com</a></div></div>
                     </div>
                 </div>
             </section>
@@ -677,376 +1061,392 @@
         </main>
     </div>
 
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- JAVASCRIPT                                      -->
+    <!-- ═══════════════════════════════════════════════ -->
     <script>
         // ============================================
-        // CONFIGURATION
+        // CONFIG — Replace with your Google Sheet ID
         // ============================================
-        const API_URL = 'https://script.google.com/a/macros/thoughtworks.com/s/AKfycbzp9KZ5WlLHHsfBgA9wQ8Quemw1J7BurCmL54Zu39SHrRrJ4Mj_-gZ4OaEcQDUicaYr/exec';
-
-        // Store data globally
-        let dashData = null;
-        let charts = {};
+        var SHEET_ID = 'REPLACE_WITH_SHEET_ID';
 
         // ============================================
-        // TAB SWITCHING
+        // INIT
+        // ============================================
+        lucide.createIcons();
+
+        // Chart.js defaults
+        Chart.defaults.font.family = "'Inter', sans-serif";
+        Chart.defaults.color = '#003D4F';
+
+        var twColors = {
+            wave: '#003D4F', flamingo: '#F2617A', mist: '#EDF1F3',
+            turmeric: '#CC850A', jade: '#6B9E78', sapphire: '#47A1AD', amethyst: '#634F7D'
+        };
+
+        // Dashboard data store
+        var dashData = { metrics: {}, chart: [], videos: [], config: {} };
+
+        // Chart instances
+        var overviewChart = null;
+        var ytViewsChart = null;
+        var ytImpChart = null;
+
+        // ============================================
+        // MAIN TAB SWITCHING
         // ============================================
         function switchTab(tabName) {
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.tab === tabName);
-            });
-            document.querySelectorAll('.tab-content').forEach(section => {
-                section.classList.toggle('active', section.id === 'tab-' + tabName);
-            });
-        }
+            document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+            document.querySelectorAll('.tab-content').forEach(function(p) { p.classList.remove('active'); });
+            document.querySelector('[data-tab="' + tabName + '"]').classList.add('active');
+            document.getElementById('tab-' + tabName).classList.add('active');
 
-        // ============================================
-        // DATA LOADING
-        // ============================================
-        async function loadData() {
-            const btn = document.getElementById('refreshBtn');
-            btn.classList.add('loading');
-            document.getElementById('lastUpdated').textContent = 'Loading...';
+            var searchable = ['guides', 'templates', 'assets'];
+            document.getElementById('searchWrap').style.display = searchable.indexOf(tabName) >= 0 ? '' : 'none';
+            document.getElementById('globalSearch').value = '';
+            clearSearch();
 
-            try {
-                const response = await fetch(API_URL);
-                dashData = await response.json();
-                console.log('Data loaded:', dashData);
-                renderAll();
-            } catch (error) {
-                console.error('Failed to load data:', error);
-                document.getElementById('lastUpdated').textContent = 'Error loading data';
-            } finally {
-                btn.classList.remove('loading');
+            // Load analytics data on first visit
+            if (tabName === 'analytics' && !dashData._loaded && SHEET_ID !== 'REPLACE_WITH_SHEET_ID') {
+                loadAnalyticsData();
             }
         }
 
         // ============================================
-        // RENDER ALL SECTIONS
+        // ANALYTICS SUB-TAB SWITCHING
         // ============================================
-        function renderAll() {
-            if (!dashData) return;
+        function switchAnalytics(panelId) {
+            document.querySelectorAll('.analytics-subtab').forEach(function(b) { b.classList.remove('active'); });
+            document.querySelectorAll('.analytics-panel').forEach(function(p) { p.classList.remove('active'); });
+            document.querySelector('[data-panel="' + panelId + '"]').classList.add('active');
+            document.getElementById(panelId).classList.add('active');
+        }
 
-            renderOverview();
-            renderYouTube();
-            renderCharts();
-            renderDataSources();
-            updateLastUpdated();
-
-            // Re-init Lucide icons for dynamically added elements
+        // ============================================
+        // TEMPLATE FORMAT PICKER
+        // ============================================
+        function pickTemplateFormat(format) {
+            document.getElementById('templatePicker').style.display = 'none';
+            document.getElementById('templateBack').style.display = '';
+            document.getElementById('tpl-' + format).style.display = 'block';
             lucide.createIcons();
         }
 
+        function resetTemplatePicker() {
+            document.getElementById('templatePicker').style.display = 'flex';
+            document.getElementById('templateBack').style.display = 'none';
+            document.getElementById('tpl-horizontal').style.display = 'none';
+            document.getElementById('tpl-vertical').style.display = 'none';
+        }
+
         // ============================================
-        // HELPERS
+        // SEARCH
+        // ============================================
+        document.getElementById('globalSearch').addEventListener('input', function(e) {
+            var query = e.target.value.toLowerCase().trim();
+            if (!query) { clearSearch(); return; }
+            var panel = document.querySelector('.tab-content.active');
+            panel.querySelectorAll('.resource-card, .guide-card').forEach(function(card) {
+                var text = (card.textContent + ' ' + (card.dataset.search || '')).toLowerCase();
+                card.style.display = text.indexOf(query) >= 0 ? '' : 'none';
+            });
+        });
+
+        function clearSearch() {
+            document.querySelectorAll('.resource-card, .guide-card').forEach(function(c) { c.style.display = ''; });
+        }
+
+        // ============================================
+        // GOOGLE SHEETS DATA FETCHING (Visualization API)
+        // ============================================
+        function fetchSheetData(sheetName) {
+            var url = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:json&sheet=' + encodeURIComponent(sheetName);
+            return fetch(url)
+                .then(function(r) { return r.text(); })
+                .then(function(text) {
+                    var json = JSON.parse(text.substring(47, text.length - 2));
+                    return json.table;
+                });
+        }
+
+        function parseKeyValue(table) {
+            var obj = {};
+            if (!table || !table.rows) return obj;
+            table.rows.forEach(function(row) {
+                var key = row.c[0] ? row.c[0].v : null;
+                var val = row.c[1] ? row.c[1].v : null;
+                if (key) obj[key] = val;
+            });
+            return obj;
+        }
+
+        function parseTable(table) {
+            if (!table || !table.rows || !table.cols) return [];
+            var headers = table.cols.map(function(c) { return c.label || c.id; });
+            return table.rows.map(function(row) {
+                var obj = {};
+                headers.forEach(function(h, i) {
+                    obj[h] = row.c[i] ? row.c[i].v : null;
+                });
+                return obj;
+            });
+        }
+
+        // ============================================
+        // LOAD DATA
+        // ============================================
+        document.getElementById('dateRange').addEventListener('change', function() {
+            if (dashData._loaded) loadAnalyticsData();
+        });
+
+        function loadAnalyticsData() {
+            var btn = document.getElementById('refreshBtn');
+            btn.classList.add('loading');
+            document.getElementById('lastUpdated').textContent = 'Loading...';
+            var days = document.getElementById('dateRange').value;
+
+            Promise.all([
+                fetchSheetData('YouTube_Metrics').then(parseKeyValue),
+                fetchSheetData('YouTube_Chart').then(parseTable).catch(function() { return []; }),
+                fetchSheetData('YouTube_Videos').then(parseTable).catch(function() { return []; }),
+                fetchSheetData('Config').then(parseKeyValue).catch(function() { return {}; })
+            ]).then(function(results) {
+                dashData.metrics = results[0];
+                dashData.chart = results[1];
+                dashData.videos = results[2];
+                dashData.config = results[3];
+                dashData._loaded = true;
+
+                // Filter chart data by selected date range
+                var cutoff = new Date();
+                cutoff.setDate(cutoff.getDate() - parseInt(days));
+                dashData.filteredChart = dashData.chart.filter(function(row) {
+                    if (!row.date) return false;
+                    return new Date(row.date) >= cutoff;
+                });
+
+                renderOverview();
+                renderYouTube();
+                lucide.createIcons();
+
+                var updated = dashData.config.lastYouTubeUpdate || dashData.metrics.lastApiUpdate;
+                if (updated) {
+                    var d = new Date(updated);
+                    document.getElementById('lastUpdated').textContent = 'Updated ' + d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+                } else {
+                    document.getElementById('lastUpdated').textContent = 'Data loaded';
+                }
+                btn.classList.remove('loading');
+            }).catch(function(err) {
+                console.error('Data load error:', err);
+                document.getElementById('lastUpdated').textContent = 'Error loading data';
+                btn.classList.remove('loading');
+            });
+        }
+
+        // ============================================
+        // FORMAT HELPERS
         // ============================================
         function fmt(n) {
-            if (n === null || n === undefined || n === '' || isNaN(n)) return '--';
-            const num = Number(n);
-            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
-            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
-            return num.toLocaleString();
+            if (n === null || n === undefined || n === '') return '--';
+            n = Number(n);
+            if (isNaN(n)) return '--';
+            if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+            if (n >= 1000) return (n / 1000).toFixed(1) + 'K';
+            return n.toLocaleString();
         }
 
         function fmtFull(n) {
-            if (n === null || n === undefined || n === '' || isNaN(n)) return '--';
+            if (n === null || n === undefined || n === '') return '--';
             return Number(n).toLocaleString();
         }
 
-        function setBadge(id, value) {
-            const el = document.getElementById(id);
+        function setBadge(id, val) {
+            var el = document.getElementById(id);
             if (!el) return;
-            if (value === null || value === undefined || value === '' || isNaN(value)) {
-                el.textContent = '--';
+            if (val === null || val === undefined || val === '') {
+                el.innerHTML = '--';
                 el.className = 'stat-badge neutral';
                 return;
             }
-            const num = Number(value);
-            const prefix = num >= 0 ? '+' : '';
-            el.innerHTML = `<i data-lucide="${num >= 0 ? 'trending-up' : 'trending-down'}"></i> ${prefix}${num}%`;
-            el.className = 'stat-badge ' + (num >= 0 ? 'positive' : 'negative');
-        }
-
-        function parseDate(d) {
-            if (!d) return null;
-            // Handle epoch timestamps from Google Sheets
-            if (typeof d === 'number' && d > 1000000000) {
-                return new Date(d);
-            }
-            return new Date(d);
+            var num = parseFloat(val);
+            if (isNaN(num)) { el.innerHTML = val; el.className = 'stat-badge neutral'; return; }
+            var prefix = num >= 0 ? '+' : '';
+            var icon = num >= 0 ? 'trending-up' : 'trending-down';
+            var cls = num >= 0 ? 'positive' : 'negative';
+            el.innerHTML = '<i data-lucide="' + icon + '"></i> ' + prefix + num.toFixed(1) + '%';
+            el.className = 'stat-badge ' + cls;
         }
 
         function shortDate(d) {
-            const date = parseDate(d);
-            if (!date || isNaN(date)) return '--';
+            if (!d) return '--';
+            var date = new Date(d);
+            if (isNaN(date)) return '--';
             return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
         }
 
         function fullDate(d) {
-            const date = parseDate(d);
-            if (!date || isNaN(date)) return '--';
+            if (!d) return '--';
+            var date = new Date(d);
+            if (isNaN(date)) return '--';
             return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
         }
 
         // ============================================
-        // OVERVIEW RENDERING
+        // RENDER OVERVIEW
         // ============================================
         function renderOverview() {
-            const m = dashData.metrics || {};
-
-            // YouTube overview stats
-            const views = m.csvTotalViews || m.totalVideoViews || 0;
+            var m = dashData.metrics || {};
+            var views = m.csvTotalViews || m.totalVideoViews || 0;
             document.getElementById('ov-yt-views').textContent = fmt(views);
             document.getElementById('ov-yt-subs').textContent = fmt(m.totalSubscribers);
             document.getElementById('ov-yt-watch').textContent = fmt(m.watchTimeHours);
             document.getElementById('ov-yt-engage').textContent = m.engagementRate ? m.engagementRate + '%' : '--';
-
             setBadge('ov-yt-views-badge', m.viewsChange);
             setBadge('ov-yt-subs-badge', m.subsChange);
             setBadge('ov-yt-watch-badge', m.watchChange);
 
-            // Update source badge
-            const sourceBadge = document.getElementById('yt-source-badge');
-            if (m.hasWatchTime === 1 || m.hasWatchTime === 'true') {
-                sourceBadge.textContent = 'API + CSV';
-                sourceBadge.className = 'source-badge csv';
+            // Source badge
+            var sb = document.getElementById('yt-source-badge');
+            if (m.hasWatchTime === 1 || m.hasWatchTime === true || m.hasWatchTime === 'true') {
+                sb.textContent = 'API + CSV'; sb.className = 'source-badge csv';
+            }
+
+            // Overview chart
+            var days = document.getElementById('dateRange').value;
+            var rangeLabels = { '7': '7 days', '28': '28 days', '90': '90 days', '365': '12 months' };
+            var shortLabels = { '7': '7d', '28': '28d', '90': '90d', '365': '12mo' };
+            document.querySelectorAll('.range-label').forEach(function(el) { el.textContent = shortLabels[days] || days + 'd'; });
+            document.getElementById('ov-chart-range').textContent = rangeLabels[days] || days + ' days';
+            var chart = dashData.filteredChart || dashData.chart || [];
+            if (chart.length > 0) {
+                var labels = chart.map(function(r) { return shortDate(r.date); });
+                var viewsData = chart.map(function(r) { return r.views || 0; });
+                if (overviewChart) overviewChart.destroy();
+                overviewChart = new Chart(document.getElementById('overviewChart'), {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Daily Views',
+                            data: viewsData,
+                            borderColor: twColors.flamingo,
+                            backgroundColor: twColors.flamingo + '20',
+                            tension: 0.4, fill: true, pointRadius: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { grid: { display: false } },
+                            y: { beginAtZero: true, grid: { color: 'rgba(0,61,79,0.06)' } }
+                        }
+                    }
+                });
             }
         }
 
         // ============================================
-        // YOUTUBE TAB RENDERING
+        // RENDER YOUTUBE TAB
         // ============================================
         function renderYouTube() {
-            const m = dashData.metrics || {};
-            const videos = dashData.videos || [];
+            var m = dashData.metrics || {};
+            var videos = dashData.videos || [];
+            var chart = dashData.filteredChart || dashData.chart || [];
 
-            // Channel stats (from API)
+            // Channel stats
             document.getElementById('yt-total-subs').textContent = fmt(m.totalSubscribers);
             document.getElementById('yt-channel-views').textContent = fmt(m.totalChannelViews);
             document.getElementById('yt-total-videos').textContent = fmtFull(m.totalVideos);
             document.getElementById('yt-engage-rate').textContent = m.engagementRate ? m.engagementRate + '%' : '--';
 
-            // CSV metrics
+            // CSV stats
             document.getElementById('yt-csv-views').textContent = fmt(m.csvTotalViews);
             document.getElementById('yt-csv-watch').textContent = fmt(m.watchTimeHours);
             document.getElementById('yt-csv-subs').textContent = fmtFull(m.subscribersGained);
-            document.getElementById('yt-csv-impressions').textContent = fmt(m.csvImpressions);
-
+            document.getElementById('yt-csv-imp').textContent = fmt(m.csvImpressions);
+            document.getElementById('yt-csv-ctr').textContent = m.csvCTR ? m.csvCTR + '%' : '--';
             setBadge('yt-csv-views-badge', m.viewsChange);
+            setBadge('yt-csv-watch-badge', m.watchChange);
 
-            const ctr = m.csvCTR;
-            const ctrBadge = document.getElementById('yt-csv-ctr-badge');
-            if (ctr && ctr > 0) {
-                ctrBadge.textContent = ctr + '% CTR';
-                ctrBadge.className = 'stat-badge neutral';
-            }
+            // Daily views chart
+            if (chart.length > 0) {
+                var labels = chart.map(function(r) { return shortDate(r.date); });
+                var viewsData = chart.map(function(r) { return r.views || 0; });
+                var impData = chart.map(function(r) { return r.impressions || 0; });
 
-            // Top videos grid (top 10)
-            const topVideos = videos.slice(0, 10);
-            const videoGrid = document.getElementById('videoGrid');
-            videoGrid.innerHTML = topVideos.map(v => `
-                <div class="video-card">
-                    <img class="video-thumb" src="${v.thumbnail || ''}" alt="${v.title || ''}" onerror="this.style.display='none'">
-                    <div class="video-info">
-                        <div class="video-title">${v.title || 'Untitled'}</div>
-                        <div class="video-meta">
-                            <span>${fmt(v.views)} views</span>
-                            <span>${fmt(v.likes)} likes</span>
-                            <span>${fmt(v.comments)} comments</span>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-
-            // Videos table (all 50)
-            const videoTable = document.getElementById('videoTable');
-            videoTable.innerHTML = videos.map(v => `
-                <tr>
-                    <td style="max-width:300px;">
-                        <div style="display:flex;align-items:center;gap:8px;">
-                            <img src="${v.thumbnail || ''}" style="width:60px;height:34px;border-radius:4px;object-fit:cover;" onerror="this.style.display='none'">
-                            <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${v.title || 'Untitled'}</span>
-                        </div>
-                    </td>
-                    <td>${fullDate(v.publishedAt)}</td>
-                    <td>${fmtFull(v.views)}</td>
-                    <td>${fmtFull(v.likes)}</td>
-                    <td>${fmtFull(v.comments)}</td>
-                </tr>
-            `).join('');
-        }
-
-        // ============================================
-        // CHARTS
-        // ============================================
-        function renderCharts() {
-            const chartData = dashData.chart || [];
-
-            if (chartData.length === 0) return;
-
-            // Parse dates and sort
-            const sorted = chartData
-                .map(d => ({
-                    ...d,
-                    dateObj: parseDate(d.date)
-                }))
-                .filter(d => d.dateObj && !isNaN(d.dateObj))
-                .sort((a, b) => a.dateObj - b.dateObj);
-
-            const labels = sorted.map(d => shortDate(d.date));
-            const views = sorted.map(d => d.views || 0);
-            const impressions = sorted.map(d => d.impressions || 0);
-
-            // Shared chart options
-            const baseOptions = {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: '#003D4F',
-                        titleFont: { family: 'Inter' },
-                        bodyFont: { family: 'Inter' },
-                        padding: 10,
-                        cornerRadius: 8
-                    }
-                },
-                scales: {
-                    x: {
-                        grid: { display: false },
-                        ticks: {
-                            font: { family: 'Inter', size: 11 },
-                            color: 'rgba(0,61,79,0.4)',
-                            maxTicksLimit: 8
-                        }
+                if (ytViewsChart) ytViewsChart.destroy();
+                ytViewsChart = new Chart(document.getElementById('ytViewsChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Views', data: viewsData,
+                            backgroundColor: twColors.flamingo + '80',
+                            borderColor: twColors.flamingo, borderWidth: 1, borderRadius: 3
+                        }]
                     },
-                    y: {
-                        grid: { color: 'rgba(0,61,79,0.06)' },
-                        ticks: {
-                            font: { family: 'Inter', size: 11 },
-                            color: 'rgba(0,61,79,0.4)',
-                            callback: function(v) { return v >= 1000 ? (v/1000) + 'K' : v; }
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { grid: { display: false } },
+                            y: { beginAtZero: true, grid: { color: 'rgba(0,61,79,0.06)' } }
                         }
                     }
-                }
-            };
+                });
 
-            // Overview chart
-            if (charts.overview) charts.overview.destroy();
-            charts.overview = new Chart(document.getElementById('overviewChart'), {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Views',
-                        data: views,
-                        borderColor: '#F2617A',
-                        backgroundColor: 'rgba(242, 97, 122, 0.08)',
-                        fill: true,
-                        tension: 0.3,
-                        pointRadius: 2,
-                        pointHoverRadius: 5,
-                        borderWidth: 2
-                    }]
-                },
-                options: baseOptions
-            });
-
-            // YouTube views chart
-            if (charts.ytViews) charts.ytViews.destroy();
-            charts.ytViews = new Chart(document.getElementById('ytViewsChart'), {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Views',
-                        data: views,
-                        backgroundColor: 'rgba(242, 97, 122, 0.7)',
-                        borderRadius: 4,
-                        borderSkipped: false
-                    }]
-                },
-                options: baseOptions
-            });
-
-            // YouTube impressions chart
-            if (charts.ytImpressions) charts.ytImpressions.destroy();
-            charts.ytImpressions = new Chart(document.getElementById('ytImpressionsChart'), {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Impressions',
-                        data: impressions,
-                        backgroundColor: 'rgba(71, 161, 173, 0.7)',
-                        borderRadius: 4,
-                        borderSkipped: false
-                    }]
-                },
-                options: baseOptions
-            });
-        }
-
-        // ============================================
-        // DATA SOURCES TABLE
-        // ============================================
-        function renderDataSources() {
-            const m = dashData.metrics || {};
-            const c = dashData.config || {};
-
-            const apiDate = m.lastApiUpdate ? fullDate(m.lastApiUpdate) : '--';
-            const csvStatus = c.youtube_csv_status || 'Not run';
-            const csvDate = c.last_youtube_csv_update ? fullDate(c.last_youtube_csv_update) : '--';
-
-            document.getElementById('dataSourcesTable').innerHTML = `
-                <tr>
-                    <td><span class="status-dot live"></span>YouTube Data API</td>
-                    <td><span class="source-badge api">Automated</span></td>
-                    <td>${apiDate}</td>
-                    <td>Channel stats, video details (top ${m.videosAnalyzed || 50})</td>
-                </tr>
-                <tr>
-                    <td><span class="status-dot manual"></span>YouTube Studio CSV</td>
-                    <td><span class="source-badge csv">Manual</span></td>
-                    <td>${csvDate}</td>
-                    <td>${csvStatus}</td>
-                </tr>
-                <tr>
-                    <td><span class="status-dot offline"></span>LinkedIn</td>
-                    <td><span style="opacity:0.4;">Not connected</span></td>
-                    <td>--</td>
-                    <td>Coming soon</td>
-                </tr>
-                <tr>
-                    <td><span class="status-dot offline"></span>Podcasts (Libsyn)</td>
-                    <td><span style="opacity:0.4;">Not connected</span></td>
-                    <td>--</td>
-                    <td>Coming soon</td>
-                </tr>
-            `;
-        }
-
-        // ============================================
-        // LAST UPDATED
-        // ============================================
-        function updateLastUpdated() {
-            const m = dashData.metrics || {};
-            if (m.lastApiUpdate) {
-                const date = new Date(m.lastApiUpdate);
-                document.getElementById('lastUpdated').textContent =
-                    'Updated ' + date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) +
-                    ' at ' + date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-            } else {
-                document.getElementById('lastUpdated').textContent = 'Data loaded';
+                if (ytImpChart) ytImpChart.destroy();
+                ytImpChart = new Chart(document.getElementById('ytImpChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Impressions', data: impData,
+                            backgroundColor: twColors.sapphire + '80',
+                            borderColor: twColors.sapphire, borderWidth: 1, borderRadius: 3
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { grid: { display: false } },
+                            y: { beginAtZero: true, grid: { color: 'rgba(0,61,79,0.06)' } }
+                        }
+                    }
+                });
             }
-        }
 
-        // ============================================
-        // INIT
-        // ============================================
-        document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
-            loadData();
-        });
+            // Top video grid (first 10)
+            var grid = document.getElementById('videoGrid');
+            var topVideos = videos.slice(0, 10).sort(function(a, b) { return (b.views || 0) - (a.views || 0); });
+            grid.innerHTML = topVideos.map(function(v) {
+                var thumb = v.thumbnail || '';
+                var url = v.videoId ? 'https://youtube.com/watch?v=' + v.videoId : '#';
+                return '<a class="video-card" href="' + url + '" target="_blank">' +
+                    (thumb ? '<img class="video-thumb" src="' + thumb + '" alt="" loading="lazy">' : '<div class="video-thumb"></div>') +
+                    '<div class="video-info">' +
+                    '<div class="video-title">' + (v.title || 'Untitled') + '</div>' +
+                    '<div class="video-meta">' + fmt(v.views) + ' views · ' + shortDate(v.publishedAt) + '</div>' +
+                    '</div></a>';
+            }).join('');
+
+            // Full video table
+            var tbody = document.getElementById('videoTableBody');
+            var sorted = videos.slice().sort(function(a, b) { return (b.views || 0) - (a.views || 0); });
+            tbody.innerHTML = sorted.map(function(v, i) {
+                return '<tr>' +
+                    '<td>' + (i + 1) + '</td>' +
+                    '<td style="max-width:300px;"><div style="font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + (v.title || '') + '</div></td>' +
+                    '<td class="num">' + fmtFull(v.views) + '</td>' +
+                    '<td class="num">' + fmtFull(v.likes) + '</td>' +
+                    '<td class="num">' + fmtFull(v.comments) + '</td>' +
+                    '<td>' + fullDate(v.publishedAt) + '</td>' +
+                    '</tr>';
+            }).join('');
+        }
     </script>
 </body>
 </html>
