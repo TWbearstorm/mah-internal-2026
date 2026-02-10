@@ -68,6 +68,7 @@
             border-bottom: 1px solid var(--tw-mist);
             display: flex; padding: 0; overflow-x: auto;
             scrollbar-width: none; -ms-overflow-style: none;
+            -webkit-user-select: none; user-select: none;
         }
         .tabs::-webkit-scrollbar { display: none; }
         .tab-btn {
@@ -455,14 +456,14 @@
             <button class="tab-btn active" data-tab="home" onclick="switchTab('home')">
                 <i data-lucide="home"></i> Home
             </button>
+            <button class="tab-btn" data-tab="analytics" onclick="switchTab('analytics')">
+                <i data-lucide="bar-chart-3"></i> Analytics
+            </button>
             <button class="tab-btn" data-tab="guides" onclick="switchTab('guides')">
                 <i data-lucide="book-open"></i> Guides
             </button>
             <button class="tab-btn" data-tab="help" onclick="switchTab('help')">
                 <i data-lucide="life-buoy"></i> Get Help
-            </button>
-            <button class="tab-btn" data-tab="analytics" onclick="switchTab('analytics')">
-                <i data-lucide="bar-chart-3"></i> Analytics
             </button>
             <button class="tab-btn" data-tab="templates" onclick="switchTab('templates')">
                 <i data-lucide="layout-template"></i> Templates
@@ -1076,6 +1077,32 @@
         // INIT
         // ============================================
         lucide.createIcons();
+
+        // Drag-to-scroll on tab bar
+        (function() {
+            var tabs = document.querySelector('.tabs');
+            var isDown = false, startX, scrollLeft, dragged = false;
+            tabs.addEventListener('mousedown', function(e) {
+                isDown = true; dragged = false;
+                tabs.style.cursor = 'grabbing';
+                startX = e.pageX - tabs.offsetLeft;
+                scrollLeft = tabs.scrollLeft;
+            });
+            tabs.addEventListener('mouseleave', function() { isDown = false; tabs.style.cursor = 'grab'; });
+            tabs.addEventListener('mouseup', function() { isDown = false; tabs.style.cursor = 'grab'; });
+            tabs.addEventListener('mousemove', function(e) {
+                if (!isDown) return;
+                var x = e.pageX - tabs.offsetLeft;
+                if (Math.abs(x - startX) > 5) dragged = true;
+                if (!dragged) return;
+                e.preventDefault();
+                tabs.scrollLeft = scrollLeft - (x - startX);
+            });
+            tabs.addEventListener('click', function(e) {
+                if (dragged) { e.stopPropagation(); e.preventDefault(); }
+            }, true);
+            tabs.style.cursor = 'grab';
+        })();
 
         // Chart.js defaults
         Chart.defaults.font.family = "'Inter', sans-serif";
